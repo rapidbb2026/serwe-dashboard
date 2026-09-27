@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>SERWE Field Monitor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+<style>
+:root{
+  --bg:#F2F5F3; --card:#FFFFFF; --ink:#14231E; --muted:#5A6B65; --line:#DCE4E0;
+  --accent:#0B6B53; --accent-soft:#E0EFE9; --second:#C27C12; --second-soft:#F8EBD4;
+  --bad:#B3261E; --bad-soft:#FBE4E2; --grid:#E6ECE9;
+  --sans:"Source Sans 3",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0E1714; --card:#15211D; --ink:#E1EBE7; --muted:#95A7A0; --line:#26352F;
+    --accent:#4FC3A1; --accent-soft:#16342B; --second:#E5A847; --second-soft:#3A2C15;
+    --bad:#F28B82; --bad-soft:#3B1D1B; --grid:#22302B;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0E1714; --card:#15211D; --ink:#E1EBE7; --muted:#95A7A0; --line:#26352F;
+  --accent:#4FC3A1; --accent-soft:#16342B; --second:#E5A847; --second-soft:#3A2C15;
+  --bad:#F28B82; --bad-soft:#3B1D1B; --grid:#22302B;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.5;padding-inline:16px;padding-block:24px 48px}
+.wrap{max-width:1180px;margin:0 auto;display:grid;gap:16px}
+header{display:flex;flex-wrap:wrap;gap:8px 20px;align-items:flex-end;justify-content:space-between}
+h1{margin:0;font-size:clamp(1.5rem,3.4vw,2rem);font-weight:700;letter-spacing:-.01em;text-wrap:balance}
+.sub{margin:2px 0 0;color:var(--muted)}
+.stamp{font-family:var(--mono);font-size:.8rem;color:var(--muted);text-align:right}
+.stamp b{color:var(--ink);font-weight:500}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px 14px}
+.kpi .lab{font-size:.78rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600}
+.kpi .val{font-family:var(--mono);font-size:1.9rem;font-weight:500;font-variant-numeric:tabular-nums;line-height:1.2}
+.kpi .note{font-size:.8rem;color:var(--muted)}
+.kpi.main{background:var(--accent);border-color:var(--accent);color:#fff}
+.kpi.main .lab,.kpi.main .note{color:#ffffffd0}
+:root[data-theme="dark"] .kpi.main{color:#0E1714}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,460px),1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:14px 16px;min-width:0}
+.card h2{margin:0;font-size:1rem;font-weight:700}
+.card .hint{margin:2px 0 8px;color:var(--muted);font-size:.85rem}
+.chart{width:100%;height:280px}
+.tbl{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:.9rem}
+th{text-align:left;font-weight:600;color:var(--muted);font-size:.78rem;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--line);padding:6px 8px 6px 0}
+td{border-bottom:1px solid var(--line);padding:7px 8px 7px 0;vertical-align:top}
+td.num{font-family:var(--mono);font-variant-numeric:tabular-nums;text-align:right}
+th.num{text-align:right}
+.pill{display:inline-block;font-size:.75rem;font-weight:600;padding:1px 8px;border-radius:10px;white-space:nowrap}
+.pill.ok{background:var(--accent-soft);color:var(--accent)}
+.pill.warn{background:var(--second-soft);color:var(--second)}
+.pill.bad{background:var(--bad-soft);color:var(--bad)}
+.bar{height:8px;background:var(--grid);border-radius:4px;overflow:hidden;min-width:60px}
+.bar i{display:block;height:100%;background:var(--accent)}
+.empty{color:var(--muted);font-size:.9rem;padding:8px 0}
+.err{background:var(--bad-soft);color:var(--bad);padding:10px 14px;border-radius:8px}
+footer{color:var(--muted);font-size:.8rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>SERWE Survey · Field Monitor</h1>
+      <p class="sub">Bangladesh Bank refinancing scheme for women entrepreneurs, 2026 fieldwork</p>
+    </div>
+    <div class="stamp">Data last changed<br><b id="updated">–</b><br>Checks Dropbox every 15 min</div>
+  </header>
+
+  <div id="error" class="err" hidden></div>
+
+  <section class="kpis" aria-label="Key numbers">
+    <div class="kpi main"><div class="lab">Interviews completed</div><div class="val" id="k-int">–</div><div class="note">consent given, fully saved</div></div>
+    <div class="kpi"><div class="lab">Today</div><div class="val" id="k-today">–</div><div class="note">by interview date</div></div>
+    <div class="kpi"><div class="lab">Last 7 days</div><div class="val" id="k-7">–</div><div class="note">&nbsp;</div></div>
+    <div class="kpi"><div class="lab">Beneficiary / Non</div><div class="val" id="k-grp">–</div><div class="note">survey group (D0)</div></div>
+    <div class="kpi"><div class="lab">Refused</div><div class="val" id="k-ref">–</div><div class="note">did not consent</div></div>
+    <div class="kpi"><div class="lab">Partly saved</div><div class="val" id="k-part">–</div><div class="note">not finished yet</div></div>
+  </section>
+
+  <section class="card">
+    <h2>Interviews per day</h2>
+    <p class="hint">Counted by the interview date the enumerator entered.</p>
+    <div class="chart" id="c-time"></div>
+  </section>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>By division</h2>
+      <p class="hint">Split by survey group.</p>
+      <div class="chart" id="c-div"></div>
+    </section>
+    <section class="card">
+      <h2>By district</h2>
+      <p class="hint">Districts with at least one interview.</p>
+      <div class="chart" id="c-dist"></div>
+    </section>
+  </div>
+
+  <div class="grid2">
+    <section class="card">
+      <h2>Enumerators</h2>
+      <p class="hint">Completed interviews and the latest interview date.</p>
+      <div class="tbl"><table id="t-enum"><thead><tr><th>Enumerator</th><th class="num">Total</th><th class="num">Today</th><th>Last interview</th></tr></thead><tbody></tbody></table></div>
+    </section>
+    <section class="card">
+      <h2>Urban / rural</h2>
+      <p class="hint">Area type recorded in fieldwork information.</p>
+      <div class="chart" id="c-area" style="height:200px"></div>
+      <h2 style="margin-top:12px">Tablets</h2>
+      <p class="hint">When each tablet last synced to Dropbox.</p>
+      <div class="tbl"><table id="t-tab"><thead><tr><th>Tablet</th><th>Last sync</th><th>Status</th></tr></thead><tbody></tbody></table></div>
+    </section>
+  </div>
+
+  <section class="card">
+    <h2>Data checks</h2>
+    <p class="hint">Cases to look at. Only the respondent ID is shown here, never names or answers.</p>
+    <div class="tbl"><table id="t-iss"><thead><tr><th>Problem</th><th>Respondent ID</th><th>Enumerator</th></tr></thead><tbody></tbody></table></div>
+  </section>
+
+  <footer>Source: CSEntry sync files in Dropbox (CSPro/DataSync/BD_BANK_SURVEY_2026_DICT). Deleted cases are not counted. The page shows counts only.</footer>
+</div>
+
+<script>
+(function(){
+  var css=function(v){return getComputedStyle(document.documentElement).getPropertyValue(v).trim();};
+  var $=function(id){return document.getElementById(id);};
+  var charts=[], DATA=null;
+  function esc(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function base(){
+    return {textStyle:{fontFamily:'Source Sans 3, system-ui, sans-serif',color:css('--ink')},
+      grid:{left:8,right:16,top:28,bottom:8,containLabel:true},
+      tooltip:{trigger:'axis',backgroundColor:css('--card'),borderColor:css('--line'),textStyle:{color:css('--ink')}}};
+  }
+  function axis(extra){return Object.assign({axisLine:{lineStyle:{color:css('--line')}},axisLabel:{color:css('--muted')},splitLine:{lineStyle:{color:css('--grid')}},axisTick:{show:false}},extra||{});}
+  function mk(id){var el=$(id); var c=echarts.init(el,null,{renderer:'svg'}); charts.push(c); return c;}
+
+  function draw(d){
+    charts.forEach(function(c){c.dispose();}); charts=[];
+    var t=d.totals;
+    $('updated').textContent=d.updated;
+    $('k-int').textContent=t.interviews; $('k-today').textContent=t.today; $('k-7').textContent=t.last7;
+    $('k-ref').textContent=t.refused; $('k-part').textContent=t.partial;
+    $('k-grp').textContent=(d.group['Beneficiary']||0)+' / '+(d.group['Non Beneficiary']||0);
+
+    var days=Object.keys(d.timeline), vals=days.map(function(k){return d.timeline[k];});
+    var o=base(); o.xAxis=axis({type:'category',data:days.map(function(s){var p=s.split('-');return p[2]+'/'+p[1];}),splitLine:{show:false}});
+    o.yAxis=axis({type:'value',minInterval:1});
+    o.series=[{type:'bar',data:vals,itemStyle:{color:css('--accent'),borderRadius:[3,3,0,0]},barMaxWidth:28,
+      label:{show:true,position:'top',color:css('--muted'),fontSize:11,formatter:function(p){return p.value||'';}}}];
+    mk('c-time').setOption(o);
+
+    var divs=Object.keys(d.division).reverse();
+    var g=function(name){return divs.map(function(dv){return (d.division_group[dv]||{})[name]||0;});};
+    o=base(); o.legend={top:0,right:0,textStyle:{color:css('--muted')},itemWidth:12,itemHeight:10};
+    o.grid.top=30; o.tooltip.axisPointer={type:'shadow'};
+    o.yAxis=axis({type:'category',data:divs,splitLine:{show:false}}); o.xAxis=axis({type:'value',minInterval:1});
+    o.series=[{name:'Beneficiary',type:'bar',stack:'g',data:g('Beneficiary'),itemStyle:{color:css('--accent')},barMaxWidth:22},
+              {name:'Non Beneficiary',type:'bar',stack:'g',data:g('Non Beneficiary'),itemStyle:{color:css('--second')},barMaxWidth:22}];
+    var other=divs.map(function(dv){var s=0,m=d.division_group[dv]||{};for(var k in m){if(k!=='Beneficiary'&&k!=='Non Beneficiary')s+=m[k];}return s;});
+    if(other.some(function(v){return v>0;})) o.series.push({name:'Group missing',type:'bar',stack:'g',data:other,itemStyle:{color:css('--muted')}});
+    mk('c-div').setOption(o);
+
+    var dist=Object.keys(d.district).slice(0,15).reverse();
+    var dEl=$('c-dist'); dEl.style.height=Math.max(200,dist.length*24+50)+'px';
+    o=base(); o.tooltip.axisPointer={type:'shadow'};
+    o.yAxis=axis({type:'category',data:dist,splitLine:{show:false}}); o.xAxis=axis({type:'value',minInterval:1});
+    o.series=[{type:'bar',data:dist.map(function(k){return d.district[k];}),itemStyle:{color:css('--accent')},barMaxWidth:16,
+      label:{show:true,position:'right',color:css('--muted'),fontSize:11}}];
+    mk('c-dist').setOption(o);
+
+    var areas=Object.keys(d.area);
+    o=base(); o.tooltip={trigger:'item',backgroundColor:css('--card'),borderColor:css('--line'),textStyle:{color:css('--ink')}};
+    o.legend={bottom:0,textStyle:{color:css('--muted')},itemWidth:12,itemHeight:10};
+    o.series=[{type:'pie',radius:['48%','72%'],center:['50%','44%'],avoidLabelOverlap:true,
+      label:{color:css('--ink'),formatter:'{b}: {c}'},
+      data:areas.map(function(a,i){return {name:a,value:d.area[a],itemStyle:{color:i===0?css('--accent'):css('--second')}};})}];
+    mk('c-area').setOption(o);
+
+    var today=d.updated.slice(0,10), max=0, er=d.enumerators;
+    for(var k in er) max=Math.max(max,er[k].interviews);
+    var rows=Object.keys(er).map(function(n){var e=er[n];
+      return '<tr><td>'+esc(n)+'</td><td class="num">'+e.interviews+'</td><td class="num">'+(e.today||'')+'</td><td>'+(e.last?esc(e.last):'–')+'</td></tr>';});
+    document.querySelector('#t-enum tbody').innerHTML=rows.join('')||'<tr><td colspan="4" class="empty">No interviews yet.</td></tr>';
+
+    var now=new Date();
+    document.querySelector('#t-tab tbody').innerHTML=(d.tablet_syncs||[]).map(function(s){
+      var when=new Date(s.last_sync.replace(' ','T')+':00+06:00'), hrs=(now-when)/36e5;
+      var pill=hrs<24?'<span class="pill ok">Synced today</span>':hrs<72?'<span class="pill warn">'+Math.floor(hrs/24)+' days ago</span>':'<span class="pill bad">'+Math.floor(hrs/24)+' days ago</span>';
+      return '<tr><td style="font-family:var(--mono)">…'+esc(s.tablet)+'</td><td>'+esc(s.last_sync)+'</td><td>'+pill+'</td></tr>';
+    }).join('')||'<tr><td colspan="3" class="empty">No syncs yet.</td></tr>';
+
+    document.querySelector('#t-iss tbody').innerHTML=(d.issues||[]).map(function(i){
+      return '<tr><td><span class="pill bad">'+esc(i.issue)+'</span></td><td style="font-family:var(--mono)">'+esc(i.respondent_id)+'</td><td>'+esc(i.enumerator)+'</td></tr>';
+    }).join('')||'<tr><td colspan="3"><span class="pill ok">No problems found</span></td></tr>';
+  }
+
+  function load(){
+    fetch('data/summary.json?t='+Date.now()).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
+      .then(function(d){DATA=d; $('error').hidden=true; draw(d);})
+      .catch(function(){ $('error').textContent='Could not load the data file. If this is a new site, run the GitHub Action once (Actions → Update dashboard data → Run workflow).'; $('error').hidden=false; });
+  }
+  window.addEventListener('resize',function(){charts.forEach(function(c){c.resize();});});
+  try{ matchMedia('(prefers-color-scheme: dark)').addEventListener('change',function(){ if(DATA) draw(DATA); }); }catch(e){}
+  new MutationObserver(function(){ if(DATA) draw(DATA); }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+  load(); setInterval(load,5*60*1000);
+})();
+</script>
+</body>
+</html>
