@@ -193,9 +193,22 @@ def main():
         tok = dbx_token()
         dict_files = dbx_list(tok, DICT_DIR)
         dcf = dbx_download(tok, next(f for f in dict_files if f["name"].lower().endswith(".dcf"))["path_lower"]).decode("utf-8")
-        for f in dbx_list(tok, DATA_DIR):
+        listing = dbx_list(tok, DATA_DIR)
+        print(f"Found {len(listing)} sync files in Dropbox. Downloading...", flush=True)
+        from concurrent.futures import ThreadPoolExecutor
+        def fetch(f):
             when = dt.datetime.fromisoformat(f["server_modified"].replace("Z", "+00:00")).astimezone(BD).strftime("%Y-%m-%d %H:%M")
-            files.append((when, f["name"].split("$")[0], dbx_download(tok, f["path_lower"])))
+            for attempt in range(3):
+                try:
+                    return (when, f["name"].split("$")[0], dbx_download(tok, f["path_lower"]))
+                except Exception as e:
+                    if attempt == 2:
+                        raise
+        with ThreadPoolExecutor(max_workers=8) as pool:
+            for i, res in enumerate(pool.map(fetch, listing), 1):
+                files.append(res)
+                if i % 25 == 0 or i == len(listing):
+                    print(f"  downloaded {i}/{len(listing)}", flush=True)
     good = []
     for when, dev, blob in files:
         try:
