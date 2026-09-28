@@ -1,5 +1,5 @@
 {
- "updated": "2026-09-28 09:02",
+ "updated": "2026-09-28 11:51",
  "totals": {
   "interviews": 10,
   "refused": 0,
@@ -19,6 +19,24 @@
   "2026-09-26": 0,
   "2026-09-27": 0,
   "2026-09-28": 0
+ },
+ "timeline_group": {
+  "2026-09-19": {
+   "Beneficiary": 1
+  },
+  "2026-09-21": {
+   "Beneficiary": 1
+  },
+  "2026-09-23": {
+   "Beneficiary": 3
+  },
+  "2026-09-24": {
+   "Non Beneficiary": 1
+  },
+  "2026-09-25": {
+   "Non Beneficiary": 1,
+   "Beneficiary": 3
+  }
  },
  "division": {
   "Dhaka": 5,
@@ -57,6 +75,16 @@
   "Rural": 5,
   "Urban": 5
  },
+ "area_group": {
+  "Rural": {
+   "Beneficiary": 4,
+   "Non Beneficiary": 1
+  },
+  "Urban": {
+   "Beneficiary": 4,
+   "Non Beneficiary": 1
+  }
+ },
  "group": {
   "Beneficiary": 8,
   "Non Beneficiary": 2
@@ -94,6 +122,1028 @@
   }
  },
  "issues": [],
+ "stats": {
+  "A2": {
+   "n": 10,
+   "mean": 42.9,
+   "median": 40.0,
+   "sd": 8.49,
+   "min": 32,
+   "max": 60,
+   "q1": 38.0,
+   "q3": 48.0,
+   "iqr": 10.0,
+   "mode": [
+    38
+   ],
+   "mode_count": 3,
+   "skew": 0.79,
+   "kurtosis": 0.24,
+   "jb": 0.81,
+   "jb_p": 0.6674,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": 23.0,
+   "fence_high": 63.0,
+   "whisker_low": 32,
+   "whisker_high": 60,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     32.0,
+     37.6,
+     43.2,
+     48.8,
+     54.4,
+     60.0
+    ],
+    "counts": [
+     2,
+     4,
+     2,
+     1,
+     1
+    ],
+    "normal": [
+     1.67,
+     2.48,
+     2.42,
+     1.56,
+     0.66
+    ]
+   },
+   "label": "Age of respondent",
+   "unit": "years",
+   "group": "Respondent",
+   "question": "A2",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 42.12,
+     "median": 40.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 46.0,
+     "median": 46.0
+    }
+   }
+  },
+  "A5": {
+   "n": 10,
+   "mean": 4.2,
+   "median": 4.0,
+   "sd": 1.14,
+   "min": 2,
+   "max": 6,
+   "q1": 4.0,
+   "q3": 5.0,
+   "iqr": 1.0,
+   "mode": [
+    4
+   ],
+   "mode_count": 4,
+   "skew": -0.48,
+   "kurtosis": 0.55,
+   "jb": 0.29,
+   "jb_p": 0.8634,
+   "shape": "symmetric",
+   "normal": "Close to normal",
+   "fence_low": 2.5,
+   "fence_high": 6.5,
+   "whisker_low": 3,
+   "whisker_high": 6,
+   "outliers": [
+    {
+     "id": "1110802",
+     "value": 2,
+     "extreme": false
+    }
+   ],
+   "hist": {
+    "edges": [
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5
+    ],
+    "counts": [
+     1,
+     1,
+     4,
+     3,
+     1
+    ],
+    "normal": [
+     0.58,
+     2.02,
+     3.35,
+     2.7,
+     1.05
+    ]
+   },
+   "label": "Household size",
+   "unit": "people",
+   "group": "Respondent",
+   "question": "A5",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 4.38,
+     "median": 4.5
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 3.5,
+     "median": 3.5
+    }
+   }
+  },
+  "BAGE": {
+   "n": 10,
+   "mean": 7.1,
+   "median": 6.0,
+   "sd": 4.01,
+   "min": 2,
+   "max": 17,
+   "q1": 5.0,
+   "q3": 8.0,
+   "iqr": 3.0,
+   "mode": [
+    5
+   ],
+   "mode_count": 3,
+   "skew": 1.75,
+   "kurtosis": 4.38,
+   "jb": 5.2,
+   "jb_p": 0.0742,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": 0.5,
+   "fence_high": 12.5,
+   "whisker_low": 2,
+   "whisker_high": 9,
+   "outliers": [
+    {
+     "id": "1110801",
+     "value": 17,
+     "extreme": false
+    }
+   ],
+   "hist": {
+    "edges": [
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5,
+     7.5,
+     8.5,
+     9.5,
+     10.5,
+     11.5,
+     12.5,
+     13.5,
+     14.5,
+     15.5,
+     16.5,
+     17.5
+    ],
+    "counts": [
+     1,
+     0,
+     0,
+     3,
+     2,
+     0,
+     2,
+     1,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     0,
+     1
+    ],
+    "normal": [
+     0.44,
+     0.59,
+     0.74,
+     0.87,
+     0.96,
+     0.99,
+     0.97,
+     0.89,
+     0.76,
+     0.62,
+     0.47,
+     0.34,
+     0.23,
+     0.14,
+     0.09,
+     0.05
+    ]
+   },
+   "label": "Business age",
+   "unit": "years",
+   "group": "Business",
+   "question": "B2",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 8.0,
+     "median": 7.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 3.5,
+     "median": 3.5
+    }
+   }
+  },
+  "F3": {
+   "n": 10,
+   "mean": 1234600.0,
+   "median": 125000.0,
+   "sd": 2329757.84,
+   "min": 20000,
+   "max": 5800000,
+   "q1": 84000.0,
+   "q3": 287500.0,
+   "iqr": 203500.0,
+   "mode": [],
+   "mode_count": 0,
+   "skew": 1.78,
+   "kurtosis": 1.42,
+   "jb": 3.77,
+   "jb_p": 0.1518,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": -221250.0,
+   "fence_high": 592750.0,
+   "whisker_low": 20000,
+   "whisker_high": 300000,
+   "outliers": [
+    {
+     "id": "1110801",
+     "value": 5500000,
+     "extreme": true
+    },
+    {
+     "id": "1110802",
+     "value": 5800000,
+     "extreme": true
+    }
+   ],
+   "hist": {
+    "edges": [
+     20000.0,
+     1176000.0,
+     2332000.0,
+     3488000.0,
+     4644000.0,
+     5800000.0
+    ],
+    "counts": [
+     8,
+     0,
+     0,
+     0,
+     2
+    ],
+    "normal": [
+     1.89,
+     1.91,
+     1.52,
+     0.95,
+     0.47
+    ]
+   },
+   "label": "Monthly sales now",
+   "unit": "Tk",
+   "group": "Business",
+   "question": "F3",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 1534500.0,
+     "median": 190000.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 35000.0,
+     "median": 35000.0
+    }
+   }
+  },
+  "F5": {
+   "n": 10,
+   "mean": 54500.0,
+   "median": 40000.0,
+   "sd": 42908.82,
+   "min": 8000,
+   "max": 120000,
+   "q1": 22750.0,
+   "q3": 87500.0,
+   "iqr": 64750.0,
+   "mode": [
+    50000,
+    120000
+   ],
+   "mode_count": 2,
+   "skew": 0.77,
+   "kurtosis": -1.16,
+   "jb": 1.31,
+   "jb_p": 0.5199,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": -74375.0,
+   "fence_high": 184625.0,
+   "whisker_low": 8000,
+   "whisker_high": 120000,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     8000.0,
+     30400.0,
+     52800.0,
+     75200.0,
+     97600.0,
+     120000.0
+    ],
+    "counts": [
+     5,
+     2,
+     0,
+     0,
+     3
+    ],
+    "normal": [
+     1.48,
+     1.97,
+     2.01,
+     1.57,
+     0.94
+    ]
+   },
+   "label": "Monthly profit now",
+   "unit": "Tk",
+   "group": "Business",
+   "question": "F5",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 64625.0,
+     "median": 50000.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 14000.0,
+     "median": 14000.0
+    }
+   }
+  },
+  "F7": {
+   "n": 10,
+   "mean": 1270500.0,
+   "median": 650000.0,
+   "sd": 2083904.52,
+   "min": 45000,
+   "max": 7000000,
+   "q1": 225000.0,
+   "q3": 1000000.0,
+   "iqr": 775000.0,
+   "mode": [
+    1000000
+   ],
+   "mode_count": 2,
+   "skew": 2.79,
+   "kurtosis": 8.21,
+   "jb": 16.25,
+   "jb_p": 0.0003,
+   "shape": "right-skewed",
+   "normal": "Not normal",
+   "fence_low": -937500.0,
+   "fence_high": 2162500.0,
+   "whisker_low": 45000,
+   "whisker_high": 1800000,
+   "outliers": [
+    {
+     "id": "1110801",
+     "value": 7000000,
+     "extreme": true
+    }
+   ],
+   "hist": {
+    "edges": [
+     45000.0,
+     1436000.0,
+     2827000.0,
+     4218000.0,
+     5609000.0,
+     7000000.0
+    ],
+    "counts": [
+     8,
+     1,
+     0,
+     0,
+     1
+    ],
+    "normal": [
+     2.53,
+     2.41,
+     1.49,
+     0.6,
+     0.16
+    ]
+   },
+   "label": "Business assets now",
+   "unit": "Tk",
+   "group": "Business",
+   "question": "F7",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 1455625.0,
+     "median": 650000.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 530000.0,
+     "median": 530000.0
+    }
+   }
+  },
+  "F9": {
+   "n": 10,
+   "mean": 579800.0,
+   "median": 300000.0,
+   "sd": 788461.48,
+   "min": 0,
+   "max": 2600000,
+   "q1": 85000.0,
+   "q3": 700000.0,
+   "iqr": 615000.0,
+   "mode": [
+    700000
+   ],
+   "mode_count": 2,
+   "skew": 2.17,
+   "kurtosis": 5.28,
+   "jb": 8.06,
+   "jb_p": 0.0178,
+   "shape": "right-skewed",
+   "normal": "Not normal",
+   "fence_low": -837500.0,
+   "fence_high": 1622500.0,
+   "whisker_low": 0,
+   "whisker_high": 1000000,
+   "outliers": [
+    {
+     "id": "1110802",
+     "value": 2600000,
+     "extreme": true
+    }
+   ],
+   "hist": {
+    "edges": [
+     0.0,
+     520000.0,
+     1040000.0,
+     1560000.0,
+     2080000.0,
+     2600000.0
+    ],
+    "counts": [
+     6,
+     3,
+     0,
+     0,
+     1
+    ],
+    "normal": [
+     2.39,
+     2.51,
+     1.73,
+     0.78,
+     0.23
+    ]
+   },
+   "label": "Stock and raw materials now",
+   "unit": "Tk",
+   "group": "Business",
+   "question": "F9",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 699750.0,
+     "median": 550000.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 100000.0,
+     "median": 100000.0
+    }
+   }
+  },
+  "E3": {
+   "n": 8,
+   "mean": 850000.0,
+   "median": 750000.0,
+   "sd": 495695.76,
+   "min": 400000,
+   "max": 1800000,
+   "q1": 475000.0,
+   "q3": 1050000.0,
+   "iqr": 575000.0,
+   "mode": [
+    400000,
+    500000,
+    1000000
+   ],
+   "mode_count": 2,
+   "skew": 1.0,
+   "kurtosis": 0.45,
+   "jb": 0.92,
+   "jb_p": 0.6301,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": -387500.0,
+   "fence_high": 1912500.0,
+   "whisker_low": 400000,
+   "whisker_high": 1800000,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     400000.0,
+     680000.0,
+     960000.0,
+     1240000.0,
+     1520000.0,
+     1800000.0
+    ],
+    "counts": [
+     4,
+     0,
+     3,
+     0,
+     1
+    ],
+    "normal": [
+     1.47,
+     1.78,
+     1.57,
+     1.02,
+     0.48
+    ]
+   },
+   "label": "Loan received",
+   "unit": "Tk",
+   "group": "Loan",
+   "question": "E3",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 850000.0,
+     "median": 750000.0
+    }
+   }
+  },
+  "E8B": {
+   "n": 8,
+   "mean": 5.0,
+   "median": 5.0,
+   "sd": 0.0,
+   "min": 5,
+   "max": 5,
+   "q1": 5.0,
+   "q3": 5.0,
+   "iqr": 0.0,
+   "mode": [
+    5
+   ],
+   "mode_count": 8,
+   "shape": "all the same value",
+   "normal": "Too few answers to judge",
+   "fence_low": 5.0,
+   "fence_high": 5.0,
+   "whisker_low": 5,
+   "whisker_high": 5,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     4.5,
+     5.5
+    ],
+    "counts": [
+     8
+    ],
+    "normal": [
+     8
+    ]
+   },
+   "label": "Annual interest rate",
+   "unit": "%",
+   "group": "Loan",
+   "question": "E8B",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 5.0,
+     "median": 5.0
+    }
+   }
+  },
+  "G2": {
+   "n": 10,
+   "mean": 5.3,
+   "median": 3.0,
+   "sd": 5.19,
+   "min": 0,
+   "max": 15,
+   "q1": 2.0,
+   "q3": 8.75,
+   "iqr": 6.75,
+   "mode": [
+    2
+   ],
+   "mode_count": 3,
+   "skew": 0.97,
+   "kurtosis": -0.46,
+   "jb": 1.4,
+   "jb_p": 0.4972,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": -8.12,
+   "fence_high": 18.88,
+   "whisker_low": 0,
+   "whisker_high": 15,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     -0.5,
+     0.5,
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5,
+     6.5,
+     7.5,
+     8.5,
+     9.5,
+     10.5,
+     11.5,
+     12.5,
+     13.5,
+     14.5,
+     15.5
+    ],
+    "counts": [
+     1,
+     1,
+     3,
+     0,
+     1,
+     1,
+     0,
+     0,
+     0,
+     0,
+     1,
+     0,
+     1,
+     0,
+     0,
+     1
+    ],
+    "normal": [
+     0.46,
+     0.55,
+     0.63,
+     0.7,
+     0.74,
+     0.77,
+     0.76,
+     0.73,
+     0.67,
+     0.6,
+     0.51,
+     0.42,
+     0.33,
+     0.26,
+     0.19,
+     0.13
+    ]
+   },
+   "label": "Regular paid workers now",
+   "unit": "workers",
+   "group": "Workers",
+   "question": "G2",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 6.12,
+     "median": 4.5
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 2.0,
+     "median": 2.0
+    }
+   }
+  },
+  "G4": {
+   "n": 10,
+   "mean": 3.1,
+   "median": 0.0,
+   "sd": 6.12,
+   "min": 0,
+   "max": 18,
+   "q1": 0.0,
+   "q3": 2.25,
+   "iqr": 2.25,
+   "mode": [
+    0
+   ],
+   "mode_count": 7,
+   "skew": 2.08,
+   "kurtosis": 3.79,
+   "jb": 6.19,
+   "jb_p": 0.0453,
+   "shape": "right-skewed",
+   "normal": "Not normal",
+   "fence_low": -3.38,
+   "fence_high": 5.62,
+   "whisker_low": 0,
+   "whisker_high": 3,
+   "outliers": [
+    {
+     "id": "1110802",
+     "value": 10,
+     "extreme": true
+    },
+    {
+     "id": "1110801",
+     "value": 18,
+     "extreme": true
+    }
+   ],
+   "hist": {
+    "edges": [
+     0.0,
+     3.6,
+     7.2,
+     10.8,
+     14.4,
+     18.0
+    ],
+    "counts": [
+     8,
+     0,
+     1,
+     0,
+     1
+    ],
+    "normal": [
+     2.26,
+     2.16,
+     1.47,
+     0.72,
+     0.25
+    ]
+   },
+   "label": "Part-time paid workers now",
+   "unit": "workers",
+   "group": "Workers",
+   "question": "G4",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 3.88,
+     "median": 0.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 0.0,
+     "median": 0.0
+    }
+   }
+  },
+  "G8": {
+   "n": 10,
+   "mean": 1.9,
+   "median": 2.0,
+   "sd": 1.91,
+   "min": 0,
+   "max": 5,
+   "q1": 0.0,
+   "q3": 3.5,
+   "iqr": 3.5,
+   "mode": [
+    0
+   ],
+   "mode_count": 4,
+   "skew": 0.41,
+   "kurtosis": -1.34,
+   "jb": 0.91,
+   "jb_p": 0.633,
+   "shape": "symmetric",
+   "normal": "Close to normal",
+   "fence_low": -5.25,
+   "fence_high": 8.75,
+   "whisker_low": 0,
+   "whisker_high": 5,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     -0.5,
+     0.5,
+     1.5,
+     2.5,
+     3.5,
+     4.5,
+     5.5
+    ],
+    "counts": [
+     4,
+     0,
+     3,
+     0,
+     2,
+     1
+    ],
+    "normal": [
+     1.27,
+     1.85,
+     2.06,
+     1.75,
+     1.14,
+     0.57
+    ]
+   },
+   "label": "Women among paid workers now",
+   "unit": "workers",
+   "group": "Workers",
+   "question": "G8",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 1.88,
+     "median": 1.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 2.0,
+     "median": 2.0
+    }
+   }
+  },
+  "G10": {
+   "n": 10,
+   "mean": 105500.0,
+   "median": 85000.0,
+   "sd": 62113.25,
+   "min": 35000,
+   "max": 220000,
+   "q1": 60000.0,
+   "q3": 145000.0,
+   "iqr": 85000.0,
+   "mode": [
+    60000
+   ],
+   "mode_count": 2,
+   "skew": 0.73,
+   "kurtosis": -0.65,
+   "jb": 0.98,
+   "jb_p": 0.6114,
+   "shape": "right-skewed",
+   "normal": "Close to normal",
+   "fence_low": -67500.0,
+   "fence_high": 272500.0,
+   "whisker_low": 35000,
+   "whisker_high": 220000,
+   "outliers": [],
+   "hist": {
+    "edges": [
+     35000.0,
+     72000.0,
+     109000.0,
+     146000.0,
+     183000.0,
+     220000.0
+    ],
+    "counts": [
+     5,
+     1,
+     1,
+     2,
+     1
+    ],
+    "normal": [
+     1.67,
+     2.28,
+     2.2,
+     1.51,
+     0.73
+    ]
+   },
+   "label": "Household monthly income now",
+   "unit": "Tk",
+   "group": "Household",
+   "question": "G10",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 121250.0,
+     "median": 115000.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 42500.0,
+     "median": 42500.0
+    }
+   }
+  },
+  "G12": {
+   "n": 10,
+   "mean": 60700.0,
+   "median": 50000.0,
+   "sd": 41957.78,
+   "min": 20000,
+   "max": 170000,
+   "q1": 40500.0,
+   "q3": 67500.0,
+   "iqr": 27000.0,
+   "mode": [
+    50000
+   ],
+   "mode_count": 2,
+   "skew": 2.25,
+   "kurtosis": 5.99,
+   "jb": 9.36,
+   "jb_p": 0.0093,
+   "shape": "right-skewed",
+   "normal": "Not normal",
+   "fence_low": 0.0,
+   "fence_high": 108000.0,
+   "whisker_low": 20000,
+   "whisker_high": 75000,
+   "outliers": [
+    {
+     "id": "100301",
+     "value": 170000,
+     "extreme": true
+    }
+   ],
+   "hist": {
+    "edges": [
+     20000.0,
+     50000.0,
+     80000.0,
+     110000.0,
+     140000.0,
+     170000.0
+    ],
+    "counts": [
+     4,
+     5,
+     0,
+     0,
+     1
+    ],
+    "normal": [
+     2.33,
+     2.78,
+     2.03,
+     0.91,
+     0.25
+    ]
+   },
+   "label": "Household monthly spending now",
+   "unit": "Tk",
+   "group": "Household",
+   "question": "G12",
+   "by_group": {
+    "Beneficiary": {
+     "n": 8,
+     "mean": 69625.0,
+     "median": 55000.0
+    },
+    "Non Beneficiary": {
+     "n": 2,
+     "mean": 25000.0,
+     "median": 25000.0
+    }
+   }
+  }
+ },
  "tablet_syncs": [
   {
    "tablet": "9c8545",
