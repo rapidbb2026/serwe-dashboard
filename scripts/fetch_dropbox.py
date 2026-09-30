@@ -74,16 +74,38 @@ def get(case, record, item):
     rec = case.get(LEVEL, {}).get(record) or [{}]
     return (rec[0].get(item) or {}).get("code")
 
+def _clock(c):
+    return {x.get("deviceId"): x.get("revision", 0) for x in c.get("clock", [])}
+
+def _covers(a, b):
+    """True if clock a has seen everything clock b has (a is the same or newer)."""
+    return all(a.get(d, 0) >= r for d, r in b.items())
+
+CONFLICTS = []
+
 def newest(files):
-    """files: list of (sync_time_iso, device_id, blob). Returns newest version of every case by uuid."""
-    best = {}
+    """files: list of (sync_time, device_id, blob).
+    Returns the latest version of every case, resolved like CSPro sync does:
+    a version replaces another only if its clock covers the other's clock."""
+    versions = defaultdict(list)            # uuid -> [(when, case)]
     for when, device, blob in sorted(files, key=lambda f: f[0]):
         for c in cases_from_zip(blob):
-            score = sum(x.get("revision", 0) for x in c.get("clock", []))
-            old = best.get(c["uuid"])
-            if old is None or score >= old[0]:
-                best[c["uuid"]] = (score, c)
-    return [c for _, c in best.values()]
+            versions[c["uuid"]].append((when, c))
+    out = []
+    for uid, vs in versions.items():
+        tops = []
+        for when, c in vs:
+            ck = _clock(c)
+            if any(_covers(_clock(t), ck) for _, t in tops):
+                continue                    # already have this or newer
+            tops = [(w, t) for w, t in tops if not _covers(ck, _clock(t))]
+            tops.append((when, c))
+        if len(tops) > 1:                   # edited on two tablets separately
+            tops.sort(key=lambda x: x[0])
+            CONFLICTS.append((str(tops[-1][1].get("key", "")).strip(),
+                              [("deleted" if t.get("deleted") else "kept") for _, t in tops]))
+        out.append(tops[-1][1])
+    return out
 
 
 # ---------------- descriptive statistics ----------------
@@ -361,6 +383,26 @@ def main():
     else:
         with open(OUT, "w", encoding="utf-8") as f:
             json.dump(summary, f, ensure_ascii=False, indent=1)
+    with open(os.path.join(os.path.dirname(OUT), "status.json"), "w", encoding="utf-8") as f:
+        json.dump({"checked": dt.datetime.now(BD).strftime("%Y-%m-%d %H:%M"), "sync_files": len(good)}, f)
+    # ---- check list for comparing with CSPro (IDs only) ----
+    live = [c for c in cases if not c.get("deleted")]
+    keys = Counter(str(c.get("key", "")).strip() for c in live)
+    print("")
+    print("=== CHECK LIST ===")
+    print(f"Cases in sync files (all versions merged): {len(cases)}")
+    print(f"  deleted: {sum(1 for c in cases if c.get('deleted'))}")
+    print(f"  not deleted: {len(live)}  (partly saved: {sum(1 for c in live if c.get('partialSave'))})")
+    dup = sorted(k for k, n in keys.items() if n > 1)
+    print(f"Respondent IDs used by more than one case: {', '.join(dup) if dup else 'none'}")
+    print(f"Cases edited on two tablets separately: {len(CONFLICTS)}")
+    for k, states in CONFLICTS:
+        print(f"  {k}: versions {', '.join(states)} (using the last synced one)")
+    print("Respondent IDs counted on the dashboard:")
+    ids = sorted(k for k in keys)
+    for i in range(0, len(ids), 10):
+        print("  " + "  ".join(ids[i:i + 10]))
+    print("==================")
     t = summary["totals"]
     print(f"Read {len(good)} sync files, {len(cases)} cases.")
     print(f"Interviews: {t['interviews']}  Refused: {t['refused']}  Partial: {t['partial']}  Data issues: {len(summary['issues'])}")
