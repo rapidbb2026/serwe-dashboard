@@ -1,18 +1,18 @@
 {
- "updated": "2026-10-02 00:47",
+ "updated": "2026-10-02 01:03",
  "totals": {
-  "interviews": 260,
+  "interviews": 265,
   "refused": 0,
   "partial": 0,
   "today": 0,
-  "last7": 260,
+  "last7": 265,
   "tablets": 16
  },
  "timeline": {
   "2026-09-28": 55,
   "2026-09-29": 80,
   "2026-09-30": 67,
-  "2026-10-01": 58,
+  "2026-10-01": 63,
   "2026-10-02": 0
  },
  "timeline_group": {
@@ -29,32 +29,32 @@
    "Non Beneficiary": 25
   },
   "2026-10-01": {
-   "Beneficiary": 36,
-   "Non Beneficiary": 22
+   "Beneficiary": 39,
+   "Non Beneficiary": 24
   }
  },
  "division": {
-  "Dhaka": 260
+  "Dhaka": 265
  },
  "division_group": {
   "Dhaka": {
-   "Non Beneficiary": 101,
-   "Beneficiary": 159
+   "Non Beneficiary": 103,
+   "Beneficiary": 162
   }
  },
  "district": {
-  "Dhaka": 240,
+  "Dhaka": 245,
   "Unknown code 14": 18,
   "Gazipur": 2
  },
  "area": {
-  "Urban": 238,
+  "Urban": 243,
   "Rural": 22
  },
  "area_group": {
   "Urban": {
-   "Non Beneficiary": 92,
-   "Beneficiary": 146
+   "Non Beneficiary": 94,
+   "Beneficiary": 149
   },
   "Rural": {
    "Beneficiary": 13,
@@ -62,12 +62,17 @@
   }
  },
  "group": {
-  "Non Beneficiary": 101,
-  "Beneficiary": 159
+  "Non Beneficiary": 103,
+  "Beneficiary": 162
  },
  "enumerators": {
   "Md. Mohiuddin Patowary - 13": {
    "interviews": 22,
+   "last": "2026-10-01",
+   "today": 0
+  },
+  "Md. Salahuddin Pappu - 11": {
+   "interviews": 19,
    "last": "2026-10-01",
    "today": 0
   },
@@ -131,11 +136,6 @@
    "last": "2026-10-01",
    "today": 0
   },
-  "Md. Salahuddin Pappu - 11": {
-   "interviews": 14,
-   "last": "2026-09-30",
-   "today": 0
-  },
   "Md. Rabiul Karim - 12": {
    "interviews": 12,
    "last": "2026-09-30",
@@ -171,10 +171,10 @@
  ],
  "stats": {
   "A2": {
-   "n": 260,
-   "mean": 40.07,
+   "n": 265,
+   "mean": 40.03,
    "median": 39.0,
-   "sd": 8.29,
+   "sd": 8.25,
    "min": 23,
    "max": 68,
    "q1": 35.0,
@@ -184,10 +184,10 @@
     35
    ],
    "mode_count": 27,
-   "skew": 0.44,
-   "kurtosis": 0.03,
-   "jb": 8.41,
-   "jb_p": 0.0149,
+   "skew": 0.45,
+   "kurtosis": 0.06,
+   "jb": 9.01,
+   "jb_p": 0.011,
    "shape": "symmetric",
    "normal": "Not normal",
    "fence_low": 18.5,
@@ -223,26 +223,26 @@
     "counts": [
      12,
      27,
-     62,
-     50,
+     64,
+     52,
      42,
-     29,
+     30,
      25,
      8,
      3,
      2
     ],
     "normal": [
-     11.7,
-     26.11,
-     43.71,
-     54.91,
-     51.76,
-     36.6,
-     19.42,
-     7.73,
-     2.31,
-     0.52
+     11.89,
+     26.7,
+     44.84,
+     56.31,
+     52.89,
+     37.16,
+     19.53,
+     7.67,
+     2.25,
+     0.5
     ]
    },
    "label": "Age of respondent",
@@ -251,22 +251,22 @@
    "question": "A2",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 37.72,
+     "n": 103,
+     "mean": 37.82,
      "median": 36.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 41.57,
+     "n": 162,
+     "mean": 41.44,
      "median": 40.0
     }
    }
   },
   "A5": {
-   "n": 260,
+   "n": 265,
    "mean": 4.38,
    "median": 4.0,
-   "sd": 1.44,
+   "sd": 1.43,
    "min": 2,
    "max": 12,
    "q1": 4.0,
@@ -275,10 +275,10 @@
    "mode": [
     4
    ],
-   "mode_count": 107,
+   "mode_count": 109,
    "skew": 1.87,
-   "kurtosis": 6.98,
-   "jb": 654.14,
+   "kurtosis": 7.08,
+   "jb": 683.23,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -425,9 +425,9 @@
     ],
     "counts": [
      13,
-     43,
-     107,
-     59,
+     44,
+     109,
+     61,
      27,
      2,
      3,
@@ -437,15 +437,15 @@
      2
     ],
     "normal": [
-     18.98,
-     45.28,
-     68.09,
-     64.56,
-     38.6,
-     14.54,
-     3.45,
-     0.51,
-     0.05,
+     19.21,
+     46.29,
+     69.87,
+     66.09,
+     39.18,
+     14.55,
+     3.38,
+     0.49,
+     0.04,
      0.0,
      0.0
     ]
@@ -456,42 +456,47 @@
    "question": "A5",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 4.33,
+     "n": 103,
+     "mean": 4.31,
      "median": 4.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 4.42,
+     "n": 162,
+     "mean": 4.43,
      "median": 4.0
     }
    }
   },
   "BAGE": {
-   "n": 260,
-   "mean": 11.35,
+   "n": 265,
+   "mean": 11.31,
    "median": 10.0,
-   "sd": 7.13,
+   "sd": 7.09,
    "min": 1,
    "max": 48,
    "q1": 6.0,
-   "q3": 15.25,
-   "iqr": 9.25,
+   "q3": 15.0,
+   "iqr": 9.0,
    "mode": [
     6
    ],
    "mode_count": 26,
    "skew": 1.46,
-   "kurtosis": 3.68,
-   "jb": 230.44,
+   "kurtosis": 3.73,
+   "jb": 239.47,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -7.88,
-   "fence_high": 29.12,
+   "fence_low": -7.5,
+   "fence_high": 28.5,
    "whisker_low": 1,
-   "whisker_high": 29,
+   "whisker_high": 28,
    "outliers": [
+    {
+     "id": "2611011",
+     "value": 29,
+     "extreme": false
+    },
     {
      "id": "2617015",
      "value": 31,
@@ -523,9 +528,9 @@
      48.0
     ],
     "counts": [
-     50,
-     90,
-     55,
+     51,
+     92,
+     57,
      32,
      16,
      14,
@@ -535,15 +540,15 @@
      2
     ],
     "normal": [
-     36.57,
-     60.58,
-     65.96,
-     47.21,
-     22.21,
-     6.86,
-     1.39,
-     0.19,
-     0.02,
+     37.49,
+     62.15,
+     67.46,
+     47.94,
+     22.3,
+     6.79,
+     1.35,
+     0.18,
+     0.01,
      0.0
     ]
    },
@@ -553,39 +558,39 @@
    "question": "B2",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 9.0,
+     "n": 103,
+     "mean": 8.92,
      "median": 6.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 12.85,
+     "n": 162,
+     "mean": 12.83,
      "median": 11.0
     }
    }
   },
   "F3": {
-   "n": 260,
-   "mean": 3853942.31,
+   "n": 265,
+   "mean": 3816320.75,
    "median": 1500000.0,
-   "sd": 6639823.53,
+   "sd": 6585705.48,
    "min": 0,
    "max": 60000000,
-   "q1": 675000.0,
+   "q1": 600000.0,
    "q3": 5000000.0,
-   "iqr": 4325000.0,
+   "iqr": 4400000.0,
    "mode": [
     800000
    ],
    "mode_count": 14,
-   "skew": 4.7,
-   "kurtosis": 29.17,
-   "jb": 9802.69,
+   "skew": 4.75,
+   "kurtosis": 29.71,
+   "jb": 10351.91,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -5812500.0,
-   "fence_high": 11487500.0,
+   "fence_low": -6000000.0,
+   "fence_high": 11600000.0,
    "whisker_low": 0,
    "whisker_high": 11000000,
    "outliers": [
@@ -680,7 +685,7 @@
      60000000.0
     ],
     "counts": [
-     207,
+     212,
      38,
      6,
      2,
@@ -692,11 +697,11 @@
      1
     ],
     "normal": [
-     89.94,
-     68.47,
-     24.28,
-     3.99,
-     0.3,
+     92.42,
+     69.72,
+     24.21,
+     3.85,
+     0.28,
      0.01,
      0.0,
      0.0,
@@ -710,22 +715,22 @@
    "question": "F3",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 3163267.33,
+     "n": 103,
+     "mean": 3123689.32,
      "median": 1000000.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 4292672.96,
+     "n": 162,
+     "mean": 4256697.53,
      "median": 2200000.0
     }
    }
   },
   "F5": {
-   "n": 260,
-   "mean": 656325.0,
+   "n": 265,
+   "mean": 651318.87,
    "median": 250000.0,
-   "sd": 1833390.98,
+   "sd": 1816510.44,
    "min": 0,
    "max": 20000000,
    "q1": 100000.0,
@@ -735,9 +740,9 @@
     150000
    ],
    "mode_count": 18,
-   "skew": 8.0,
-   "kurtosis": 75.13,
-   "jb": 61539.92,
+   "skew": 8.07,
+   "kurtosis": 76.6,
+   "jb": 65186.56,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -882,7 +887,7 @@
      20000000.0
     ],
     "counts": [
-     244,
+     249,
      7,
      6,
      1,
@@ -894,10 +899,10 @@
      1
     ],
     "normal": [
-     106.08,
-     51.41,
-     8.4,
-     0.45,
+     108.95,
+     52.01,
+     8.22,
+     0.42,
      0.01,
      0.0,
      0.0,
@@ -912,42 +917,77 @@
    "question": "F5",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 467004.95,
+     "n": 103,
+     "mean": 465461.17,
      "median": 200000.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 776584.91,
-     "median": 260000.0
+     "n": 162,
+     "mean": 769487.65,
+     "median": 266000.0
     }
    }
   },
   "F7": {
-   "n": 260,
-   "mean": 4129269.23,
+   "n": 265,
+   "mean": 4081547.17,
    "median": 1000000.0,
-   "sd": 8707796.93,
+   "sd": 8632199.66,
    "min": 0,
    "max": 75000000,
    "q1": 300000.0,
-   "q3": 4500000.0,
-   "iqr": 4200000.0,
+   "q3": 4000000.0,
+   "iqr": 3700000.0,
    "mode": [
-    200000
+    1500000
    ],
-   "mode_count": 13,
-   "skew": 5.01,
-   "kurtosis": 32.36,
-   "jb": 11971.71,
+   "mode_count": 14,
+   "skew": 5.06,
+   "kurtosis": 33.02,
+   "jb": 12691.73,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -6000000.0,
-   "fence_high": 10800000.0,
+   "fence_low": -5250000.0,
+   "fence_high": 9550000.0,
    "whisker_low": 0,
-   "whisker_high": 10000000,
+   "whisker_high": 9500000,
    "outliers": [
+    {
+     "id": "2602001",
+     "value": 10000000,
+     "extreme": false
+    },
+    {
+     "id": "2613013",
+     "value": 10000000,
+     "extreme": false
+    },
+    {
+     "id": "2607006",
+     "value": 10000000,
+     "extreme": false
+    },
+    {
+     "id": "2612008",
+     "value": 10000000,
+     "extreme": false
+    },
+    {
+     "id": "2611012",
+     "value": 10000000,
+     "extreme": false
+    },
+    {
+     "id": "2610017",
+     "value": 10000000,
+     "extreme": false
+    },
+    {
+     "id": "2607017",
+     "value": 10000000,
+     "extreme": false
+    },
     {
      "id": "2606002",
      "value": 12000000,
@@ -1099,7 +1139,7 @@
      75000000.0
     ],
     "counts": [
-     218,
+     223,
      26,
      9,
      2,
@@ -1111,12 +1151,12 @@
      2
     ],
     "normal": [
-     86.57,
-     63.28,
-     23.01,
-     4.15,
-     0.37,
-     0.02,
+     88.98,
+     64.42,
+     22.93,
+     4.0,
+     0.34,
+     0.01,
      0.0,
      0.0,
      0.0,
@@ -1129,22 +1169,22 @@
    "question": "F7",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 4098267.33,
-     "median": 600000.0
+     "n": 103,
+     "mean": 4057524.27,
+     "median": 650000.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 4148962.26,
+     "n": 162,
+     "mean": 4096820.99,
      "median": 1300000.0
     }
    }
   },
   "F9": {
-   "n": 260,
-   "mean": 8386138.46,
-   "median": 3700000.0,
-   "sd": 13417316.64,
+   "n": 265,
+   "mean": 8551683.02,
+   "median": 3800000.0,
+   "sd": 13616699.42,
    "min": 0,
    "max": 90000000,
    "q1": 1200000.0,
@@ -1154,9 +1194,9 @@
     1500000
    ],
    "mode_count": 17,
-   "skew": 3.16,
-   "kurtosis": 11.76,
-   "jb": 1863.19,
+   "skew": 3.05,
+   "kurtosis": 10.85,
+   "jb": 1653.7,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -1216,6 +1256,11 @@
      "extreme": false
     },
     {
+     "id": "2611019",
+     "value": 30000000,
+     "extreme": false
+    },
+    {
      "id": "2610004",
      "value": 35000000,
      "extreme": false
@@ -1261,6 +1306,11 @@
      "extreme": true
     },
     {
+     "id": "2611017",
+     "value": 50000000,
+     "extreme": true
+    },
+    {
      "id": "2614007",
      "value": 60000000,
      "extreme": true
@@ -1301,25 +1351,25 @@
      90000000.0
     ],
     "counts": [
-     192,
+     195,
      33,
      16,
-     7,
+     8,
      1,
-     6,
+     7,
      2,
      1,
      1,
      1
     ],
     "normal": [
-     65.59,
-     63.68,
-     40.08,
-     16.35,
-     4.32,
-     0.74,
-     0.08,
+     65.76,
+     64.39,
+     41.38,
+     17.44,
+     4.82,
+     0.87,
+     0.1,
      0.01,
      0.0,
      0.0
@@ -1331,42 +1381,57 @@
    "question": "F9",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 6262287.13,
+     "n": 103,
+     "mean": 6437776.7,
      "median": 3000000.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 9735251.57,
+     "n": 162,
+     "mean": 9895709.88,
      "median": 4500000.0
     }
    }
   },
   "E3": {
-   "n": 159,
-   "mean": 2083018.87,
+   "n": 162,
+   "mean": 2066049.38,
    "median": 1500000.0,
-   "sd": 1528545.17,
+   "sd": 1519640.1,
    "min": 200000,
    "max": 5000000,
-   "q1": 850000.0,
+   "q1": 900000.0,
    "q3": 2500000.0,
-   "iqr": 1650000.0,
+   "iqr": 1600000.0,
    "mode": [
     800000
    ],
    "mode_count": 19,
-   "skew": 0.99,
-   "kurtosis": -0.45,
-   "jb": 26.94,
+   "skew": 1.02,
+   "kurtosis": -0.39,
+   "jb": 28.56,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -1625000.0,
-   "fence_high": 4975000.0,
+   "fence_low": -1500000.0,
+   "fence_high": 4900000.0,
    "whisker_low": 200000,
-   "whisker_high": 4950000,
+   "whisker_high": 4900000,
    "outliers": [
+    {
+     "id": "2607007",
+     "value": 4950000,
+     "extreme": false
+    },
+    {
+     "id": "2615013",
+     "value": 4950000,
+     "extreme": false
+    },
+    {
+     "id": "2611014",
+     "value": 4950000,
+     "extreme": false
+    },
     {
      "id": "2608003",
      "value": 5000000,
@@ -1473,8 +1538,8 @@
     ],
     "counts": [
      21,
-     43,
-     27,
+     45,
+     28,
      20,
      10,
      4,
@@ -1483,15 +1548,15 @@
      28
     ],
     "normal": [
-     12.66,
-     17.18,
-     20.66,
-     22.02,
-     20.81,
-     17.43,
-     12.94,
-     8.52,
-     4.97
+     13.04,
+     17.69,
+     21.23,
+     22.57,
+     21.23,
+     17.68,
+     13.03,
+     8.5,
+     4.91
     ]
    },
    "label": "Loan received",
@@ -1500,14 +1565,14 @@
    "question": "E3",
    "by_group": {
     "Beneficiary": {
-     "n": 159,
-     "mean": 2083018.87,
+     "n": 162,
+     "mean": 2066049.38,
      "median": 1500000.0
     }
    }
   },
   "E8B": {
-   "n": 159,
+   "n": 162,
    "mean": 5.0,
    "median": 5.0,
    "sd": 0.0,
@@ -1519,7 +1584,7 @@
    "mode": [
     5
    ],
-   "mode_count": 159,
+   "mode_count": 162,
    "shape": "all the same value",
    "normal": "Too few answers to judge",
    "fence_low": 5.0,
@@ -1533,10 +1598,10 @@
      5.5
     ],
     "counts": [
-     159
+     162
     ],
     "normal": [
-     159
+     162
     ]
    },
    "label": "Annual interest rate",
@@ -1545,37 +1610,52 @@
    "question": "E8B",
    "by_group": {
     "Beneficiary": {
-     "n": 159,
+     "n": 162,
      "mean": 5.0,
      "median": 5.0
     }
    }
   },
   "G2": {
-   "n": 260,
-   "mean": 14.01,
+   "n": 265,
+   "mean": 13.82,
    "median": 6.0,
-   "sd": 39.74,
+   "sd": 39.38,
    "min": 0,
    "max": 600,
    "q1": 2.0,
-   "q3": 16.0,
-   "iqr": 14.0,
+   "q3": 15.0,
+   "iqr": 13.0,
    "mode": [
     0
    ],
    "mode_count": 31,
-   "skew": 12.62,
-   "kurtosis": 184.07,
-   "jb": 359886.64,
+   "skew": 12.73,
+   "kurtosis": 187.39,
+   "jb": 380281.63,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -19.0,
-   "fence_high": 37.0,
+   "fence_low": -17.5,
+   "fence_high": 34.5,
    "whisker_low": 0,
-   "whisker_high": 35,
+   "whisker_high": 34,
    "outliers": [
+    {
+     "id": "2614004",
+     "value": 35,
+     "extreme": false
+    },
+    {
+     "id": "2615010",
+     "value": 35,
+     "extreme": false
+    },
+    {
+     "id": "2606013",
+     "value": 35,
+     "extreme": false
+    },
     {
      "id": "2612003",
      "value": 40,
@@ -1599,17 +1679,17 @@
     {
      "id": "2606001",
      "value": 55,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2612010",
      "value": 55,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2614008",
      "value": 56,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2604012",
@@ -1667,7 +1747,7 @@
      600.0
     ],
     "counts": [
-     252,
+     257,
      7,
      0,
      0,
@@ -1679,9 +1759,9 @@
      1
     ],
     "normal": [
-     133.7,
-     31.14,
-     0.99,
+     136.92,
+     31.0,
+     0.93,
      0.0,
      0.0,
      0.0,
@@ -1697,22 +1777,22 @@
    "question": "G2",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 9.07,
+     "n": 103,
+     "mean": 8.98,
      "median": 4.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 17.15,
+     "n": 162,
+     "mean": 16.9,
      "median": 8.0
     }
    }
   },
   "G4": {
-   "n": 260,
-   "mean": 5.29,
+   "n": 265,
+   "mean": 5.24,
    "median": 0.0,
-   "sd": 25.79,
+   "sd": 25.54,
    "min": 0,
    "max": 350,
    "q1": 0.0,
@@ -1721,10 +1801,10 @@
    "mode": [
     0
    ],
-   "mode_count": 138,
-   "skew": 11.11,
-   "kurtosis": 136.39,
-   "jb": 199111.1,
+   "mode_count": 139,
+   "skew": 11.21,
+   "kurtosis": 139.01,
+   "jb": 210857.34,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -1859,7 +1939,7 @@
      350.0
     ],
     "counts": [
-     256,
+     261,
      1,
      1,
      0,
@@ -1871,9 +1951,9 @@
      1
     ],
     "normal": [
-     118.73,
-     30.83,
-     1.56,
+     121.71,
+     30.84,
+     1.48,
      0.01,
      0.0,
      0.0,
@@ -1889,22 +1969,22 @@
    "question": "G4",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 6.0,
+     "n": 103,
+     "mean": 5.89,
      "median": 0.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 4.84,
+     "n": 162,
+     "mean": 4.83,
      "median": 1.0
     }
    }
   },
   "G8": {
-   "n": 260,
-   "mean": 5.64,
+   "n": 265,
+   "mean": 5.57,
    "median": 0.0,
-   "sd": 36.46,
+   "sd": 36.12,
    "min": 0,
    "max": 580,
    "q1": 0.0,
@@ -1913,10 +1993,10 @@
    "mode": [
     0
    ],
-   "mode_count": 131,
-   "skew": 15.23,
-   "kurtosis": 240.23,
-   "jb": 611308.91,
+   "mode_count": 133,
+   "skew": 15.38,
+   "kurtosis": 244.81,
+   "jb": 647336.1,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -2051,7 +2131,7 @@
      580.0
     ],
     "counts": [
-     258,
+     263,
      1,
      0,
      0,
@@ -2063,9 +2143,9 @@
      1
     ],
     "normal": [
-     126.34,
-     19.31,
-     0.32,
+     129.3,
+     19.13,
+     0.3,
      0.0,
      0.0,
      0.0,
@@ -2081,57 +2161,42 @@
    "question": "G8",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
+     "n": 103,
      "mean": 2.63,
      "median": 1.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 7.55,
+     "n": 162,
+     "mean": 7.43,
      "median": 0.0
     }
    }
   },
   "G10": {
-   "n": 260,
-   "mean": 745948.08,
+   "n": 265,
+   "mean": 744326.42,
    "median": 400000.0,
-   "sd": 1442759.81,
+   "sd": 1429387.46,
    "min": 40000,
    "max": 15000000,
    "q1": 200000.0,
-   "q3": 637500.0,
-   "iqr": 437500.0,
+   "q3": 700000.0,
+   "iqr": 500000.0,
    "mode": [
     400000
    ],
    "mode_count": 22,
-   "skew": 6.0,
-   "kurtosis": 46.11,
-   "jb": 23683.48,
+   "skew": 6.06,
+   "kurtosis": 47.02,
+   "jb": 25081.7,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -456250.0,
-   "fence_high": 1293750.0,
+   "fence_low": -550000.0,
+   "fence_high": 1450000.0,
    "whisker_low": 40000,
-   "whisker_high": 1275000,
+   "whisker_high": 1400000,
    "outliers": [
-    {
-     "id": "2607001",
-     "value": 1300000,
-     "extreme": false
-    },
-    {
-     "id": "2604014",
-     "value": 1350000,
-     "extreme": false
-    },
-    {
-     "id": "2609007",
-     "value": 1400000,
-     "extreme": false
-    },
     {
      "id": "2617002",
      "value": 1500000,
@@ -2175,27 +2240,27 @@
     {
      "id": "2608003",
      "value": 2000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2607006",
      "value": 2000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2617013",
      "value": 2000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2607017",
      "value": 2000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2614008",
      "value": 2200000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2607005",
@@ -2288,7 +2353,7 @@
      15000000.0
     ],
     "counts": [
-     238,
+     243,
      13,
      3,
      2,
@@ -2300,10 +2365,10 @@
      1
     ],
     "normal": [
-     102.88,
-     61.22,
-     13.56,
-     1.11,
+     105.75,
+     62.3,
+     13.43,
+     1.05,
      0.03,
      0.0,
      0.0,
@@ -2318,22 +2383,22 @@
    "question": "G10",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 641232.67,
+     "n": 103,
+     "mean": 641402.91,
      "median": 350000.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 812465.41,
+     "n": 162,
+     "mean": 809765.43,
      "median": 400000.0
     }
    }
   },
   "G12": {
-   "n": 260,
-   "mean": 202850.0,
+   "n": 265,
+   "mean": 203758.49,
    "median": 100000.0,
-   "sd": 949139.28,
+   "sd": 940903.77,
    "min": 15000,
    "max": 15000000,
    "q1": 60000.0,
@@ -2343,9 +2408,9 @@
     150000
    ],
    "mode_count": 33,
-   "skew": 14.84,
-   "kurtosis": 230.61,
-   "jb": 563631.91,
+   "skew": 14.94,
+   "kurtosis": 234.16,
+   "jb": 592532.41,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -2435,6 +2500,11 @@
      "extreme": true
     },
     {
+     "id": "2611018",
+     "value": 800000,
+     "extreme": true
+    },
+    {
      "id": "2617011",
      "value": 900000,
      "extreme": true
@@ -2475,7 +2545,7 @@
      15000000.0
     ],
     "counts": [
-     257,
+     262,
      2,
      0,
      0,
@@ -2487,9 +2557,9 @@
      1
     ],
     "normal": [
-     128.64,
-     21.35,
-     0.4,
+     131.85,
+     21.34,
+     0.38,
      0.0,
      0.0,
      0.0,
@@ -2505,19 +2575,23 @@
    "question": "G12",
    "by_group": {
     "Non Beneficiary": {
-     "n": 101,
-     "mean": 143425.74,
+     "n": 103,
+     "mean": 143262.14,
      "median": 80000.0
     },
     "Beneficiary": {
-     "n": 159,
-     "mean": 240597.48,
-     "median": 120000.0
+     "n": 162,
+     "mean": 242222.22,
+     "median": 110000.0
     }
    }
   }
  },
  "tablet_syncs": [
+  {
+   "tablet": "9e276a",
+   "last_sync": "2026-10-02 00:57"
+  },
   {
    "tablet": "5a5959",
    "last_sync": "2026-10-02 00:36"
@@ -2569,10 +2643,6 @@
   {
    "tablet": "4fdc4a",
    "last_sync": "2026-10-01 17:57"
-  },
-  {
-   "tablet": "9e276a",
-   "last_sync": "2026-10-01 08:55"
   },
   {
    "tablet": "965f92",
