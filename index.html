@@ -15,7 +15,7 @@
   color-scheme:dark;
   --bg:#0A1120; --bg2:#0E1830; --card:#111B31; --card2:#15213B; --line:#22304D;
   --ink:#E7EDF7; --muted:#8C9AB4; --faint:#5D6B86;
-  --ben:#38BDF8; --non:#FBBF24; --ok:#34D399; --warn:#FBBF24; --bad:#F87171;
+  --ben:#6CCFCF; --non:#8FC46A; --ok:#34D399; --warn:#FBBF24; --bad:#F87171;
   --accent:#38BDF8;
   --display:"Sora","Segoe UI",system-ui,sans-serif;
   --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -135,6 +135,8 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 #t-all tbody tr{cursor:pointer}
 #t-all tbody tr:hover td{background:var(--bg2)}
 #t-all tbody tr.on td{background:#18284A}
+.trend-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-bottom:6px}
+.trend-head h2{margin:0}
 footer{color:var(--faint);font-size:.8rem}
 @media (max-width:820px){.maprow{grid-template-columns:1fr}#c-map{height:380px}}
 </style>
@@ -162,7 +164,7 @@ footer{color:var(--faint);font-size:.8rem}
       <h1>SERWE Survey · Field Monitor</h1>
     </div>
     <div class="tools">
-      <div class="stamp">Updated<br><b id="updated">–</b></div>
+      <div class="stamp">Checked <b id="checked">–</b><br>New data <b id="updated">–</b></div>
       <div class="seg" role="group" aria-label="Chart style"><button type="button" id="b3d" aria-pressed="true">3D</button><button type="button" id="b2d" aria-pressed="false">2D</button></div>
       <button class="out" id="logout" type="button">Sign out</button>
     </div>
@@ -185,6 +187,14 @@ footer{color:var(--faint);font-size:.8rem}
       <div class="chart" id="c-map"></div>
       <ul class="rank" id="rank"></ul>
     </div>
+  </section>
+
+  <section class="card">
+    <div class="trend-head"><h2>Survey progress</h2>
+      <div class="seg" role="group" aria-label="Period"><button type="button" class="per" data-p="day" aria-pressed="true">Daily</button><button type="button" class="per" data-p="week" aria-pressed="false">Weekly</button><button type="button" class="per" data-p="month" aria-pressed="false">Monthly</button></div>
+    </div>
+    <div class="legend"><span><i style="background:#E7EDF7"></i>Total</span><span><i style="background:var(--ben)"></i>Beneficiary</span><span><i style="background:var(--non)"></i>Non Beneficiary</span></div>
+    <div class="chart" id="c-trend"></div>
   </section>
 
   <section class="card">
@@ -218,7 +228,7 @@ footer{color:var(--faint);font-size:.8rem}
       <div class="st"><div class="lab">Mode</div><div class="val" id="s-mode">–</div></div>
       <div class="st"><div class="lab">Std. deviation</div><div class="val" id="s-sd">–</div></div>
       <div class="st"><div class="lab">Range</div><div class="val" id="s-rng">–</div></div>
-      <div class="st"><div class="lab">Distribution</div><div class="val" id="s-pill" style="font-size:1.05rem;white-space:nowrap">–</div></div>
+      <div class="st"><div class="lab">Distribution</div><div class="val" id="s-pill" style="font-size:1rem;line-height:1.35">–</div></div>
       <div class="st"><div class="lab">Outliers</div><div class="val" id="s-oc">–</div></div>
     </div>
     <div class="grid2 inner">
@@ -365,7 +375,7 @@ window.startDashboard=function(){
     Bogura:'Rajshahi',Bogra:'Rajshahi',Joypurhat:'Rajshahi',Naogaon:'Rajshahi',Natore:'Rajshahi',Chapainawabganj:'Rajshahi','Chapai Nawabganj':'Rajshahi',Nawabganj:'Rajshahi',Pabna:'Rajshahi',Rajshahi:'Rajshahi',Sirajganj:'Rajshahi',
     Dinajpur:'Rangpur',Gaibandha:'Rangpur',Kurigram:'Rangpur',Lalmonirhat:'Rangpur',Nilphamari:'Rangpur',Panchagarh:'Rangpur',Rangpur:'Rangpur',Thakurgaon:'Rangpur',
     Habiganj:'Sylhet',Moulvibazar:'Sylhet',Maulvibazar:'Sylhet',Sunamganj:'Sylhet',Sylhet:'Sylhet'};
-  var BEN='#38BDF8', NON='#FBBF24', INK='#E7EDF7', MUTED='#8C9AB4', LINE='#22304D';
+  var BEN='#6CCFCF', NON='#8FC46A', INK='#E7EDF7', MUTED='#8C9AB4', LINE='#22304D';
   var has3D = (function(){ try{ var c=document.createElement('canvas'); return !!(c.getContext('webgl')||c.getContext('experimental-webgl')); }catch(e){ return false; } })();
   var mode3D = has3D; var charts=[], DATA=null;
   echarts.registerMap('BD', BD_DIV);
@@ -454,7 +464,7 @@ window.startDashboard=function(){
     }
 
     var dist=Object.keys(d.district).slice(0,15);
-    var dcol=function(n){ return '#38BDF8'; };
+    var dcol=function(n){ return '#6CCFCF'; };
     var chS=mk('c-dist');
     if(!dist.length){ chS.setOption({title:{text:'No interviews yet',left:'center',top:'middle',textStyle:{color:MUTED,fontSize:14,fontWeight:400}}}); }
     else if(mode3D){ bar3D(chS,dist,['Interviews'],dist.map(function(n,i){return [i,0,d.district[n],dcol(n)];}),{boxWidth:Math.max(140,dist.length*22),boxDepth:20,alpha:20,beta:16,distance:170,interval:0}); }
@@ -476,6 +486,7 @@ window.startDashboard=function(){
     }
 
     drawStatsList(d);
+    drawTrend(d);
     var er=d.enumerators;
     $('t-enum').tBodies[0].innerHTML=Object.keys(er).map(function(n){var e=er[n];
       return '<tr><td>'+esc(n)+'</td><td class="num">'+e.interviews+'</td><td class="num">'+(e.today||'')+'</td><td>'+(e.last?esc(e.last):'–')+'</td></tr>';}).join('')||'<tr><td colspan="4" class="empty">No interviews yet.</td></tr>';
@@ -526,8 +537,8 @@ window.startDashboard=function(){
     ch.setOption({tooltip:Object.assign({trigger:'axis',axisPointer:{type:'shadow'},valueFormatter:function(v){return (+v).toFixed(v%1?1:0);}},TT),grid:{left:8,right:12,top:14,bottom:8,containLabel:true},
       xAxis:axis2D({type:'category',data:labs,splitLine:{show:false},axisLabel:{color:MUTED,fontSize:10,interval:0,rotate:labs.length>7?35:0}}),
       yAxis:axis2D({type:'value',minInterval:1,name:'answers',nameTextStyle:{color:MUTED,fontSize:10}}),
-      series:[{name:'Answers',type:'bar',barCategoryGap:'6%',data:h.counts,itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#38BDF8'},{offset:1,color:'#1E40AF'}]),borderRadius:[3,3,0,0]}},
-              {name:'Normal curve',type:'line',smooth:true,symbol:'none',data:h.normal,lineStyle:{color:'#F472B6',width:2.5,type:'dashed'},z:5}]});
+      series:[{name:'Answers',type:'bar',barCategoryGap:'6%',data:h.counts,itemStyle:{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'#7FD6D6'},{offset:1,color:'#3F8E93'}]),borderRadius:[3,3,0,0]}},
+              {name:'Normal curve',type:'line',smooth:true,symbol:'none',data:h.normal,lineStyle:{color:'#A6D184',width:2.5,type:'dashed'},z:5}]});
 
     var cb=echarts.init($('c-box')); statCharts.push(cb);
     var ol=s.outliers||[];
@@ -539,15 +550,42 @@ window.startDashboard=function(){
       yAxis:{type:'category',data:[''],axisLine:{show:false},axisTick:{show:false}},
       xAxis:axis2D({type:'value',scale:true,axisLabel:{color:MUTED,formatter:short}}),
       series:[{name:'box',type:'boxplot',data:[[s.whisker_low,s.q1,s.median,s.q3,s.whisker_high]],boxWidth:[28,44],
-                itemStyle:{color:'rgba(56,189,248,.25)',borderColor:'#38BDF8',borderWidth:1.5},emphasis:{itemStyle:{borderColor:'#fff'}}},
-              {name:'mean',type:'scatter',data:[[s.mean,0]],symbol:'diamond',symbolSize:12,itemStyle:{color:'#FBBF24'},z:6},
-              {name:'outliers',type:'scatter',data:ol.map(function(o){return [o.value,0];}),symbolSize:function(v,p){return ol[p.dataIndex].extreme?11:8;},itemStyle:{color:'#F87171',borderColor:'#0A1120',borderWidth:1},z:7}]});
+                itemStyle:{color:'rgba(108,207,207,.2)',borderColor:'#6CCFCF',borderWidth:1.5},emphasis:{itemStyle:{borderColor:'#fff'}}},
+              {name:'mean',type:'scatter',data:[[s.mean,0]],symbol:'diamond',symbolSize:12,itemStyle:{color:'#E6D08E'},z:6},
+              {name:'outliers',type:'scatter',data:ol.map(function(o){return [o.value,0];}),symbolSize:function(v,p){return ol[p.dataIndex].extreme?11:8;},itemStyle:{color:'#E59A8C',borderColor:'#0A1120',borderWidth:1},z:7}]});
     $('s-olist').innerHTML=ol.map(function(o){ return '<span class="'+(o.extreme?'x':'')+'" title="'+esc(tk(o.value,u))+'">'+esc(o.id)+'</span>'; }).join('');
     var bg=s.by_group||{};
     $('t-grp').tBodies[0].innerHTML=['Beneficiary','Non Beneficiary'].filter(function(g){return bg[g];}).map(function(g){ var x=bg[g];
-      return '<tr><td><span class="pill" style="background:'+(g==='Beneficiary'?'rgba(56,189,248,.15)':'rgba(251,191,36,.15)')+';color:'+(g==='Beneficiary'?BEN:NON)+'">'+g+'</span></td><td class="num">'+x.n+'</td><td class="num">'+tk(x.mean,u)+'</td><td class="num">'+tk(x.median,u)+'</td></tr>'; }).join('')||'<tr><td colspan="4" class="empty">No group data.</td></tr>';
+      return '<tr><td><span class="pill" style="background:'+(g==='Beneficiary'?'rgba(108,207,207,.15)':'rgba(143,196,106,.15)')+';color:'+(g==='Beneficiary'?BEN:NON)+'">'+g+'</span></td><td class="num">'+x.n+'</td><td class="num">'+tk(x.mean,u)+'</td><td class="num">'+tk(x.median,u)+'</td></tr>'; }).join('')||'<tr><td colspan="4" class="empty">No group data.</td></tr>';
   }
   $('svar').addEventListener('change',function(){ curVar=this.value; if(DATA) drawStat(DATA); });
+
+  /* ---------- progress line chart ---------- */
+  var period='day', trendChart=null;
+  function weekStart(d){ var x=new Date(d+'T00:00:00Z'); var back=(x.getUTCDay()+1)%7; x.setUTCDate(x.getUTCDate()-back); return x.toISOString().slice(0,10); } /* weeks start Saturday */
+  function drawTrend(d){
+    if(trendChart){ trendChart.dispose(); }
+    trendChart=echarts.init($('c-trend'));
+    var tg=d.timeline_group||{}, days=Object.keys(d.timeline||{}).sort(), buckets={}, order=[];
+    days.forEach(function(day){
+      var k=period==='day'?day:period==='week'?weekStart(day):day.slice(0,7);
+      if(!buckets[k]){ buckets[k]={b:0,n:0,t:0}; order.push(k); }
+      var g=tg[day]||{}; buckets[k].b+=g['Beneficiary']||0; buckets[k].n+=g['Non Beneficiary']||0; buckets[k].t+=(d.timeline[day]||0);
+    });
+    var M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    var labels=order.map(function(k){ if(period==='month'){ return M[+k.slice(5,7)-1]+' '+k.slice(0,4); } var s=fmtDay(k); return period==='week'?'Week of '+s:s; });
+    var line=function(name,key,color,w,area){ return {name:name,type:'line',smooth:false,symbol:'circle',symbolSize:order.length<=3?12:(order.length>40?0:6),showSymbol:order.length<=40,
+      data:order.map(function(k){return buckets[k][key];}),lineStyle:{color:color,width:w},itemStyle:{color:color},
+      areaStyle:area?{color:new echarts.graphic.LinearGradient(0,0,0,1,[{offset:0,color:'rgba(231,237,247,.16)'},{offset:1,color:'rgba(231,237,247,0)'}])}:undefined,
+      label:{show:period!=='day'&&key==='t',position:'top',color:INK,fontSize:11}}; };
+    trendChart.setOption({tooltip:Object.assign({trigger:'axis'},TT),grid:{left:8,right:16,top:22,bottom:8,containLabel:true},
+      xAxis:axis2D({type:'category',boundaryGap:order.length===1,data:labels,splitLine:{show:false}}),
+      yAxis:axis2D({type:'value',minInterval:1}),
+      series:[line('Total','t','#E7EDF7',2.5,true),line('Beneficiary','b',BEN,2,false),line('Non Beneficiary','n',NON,2,false)]});
+  }
+  [].forEach.call(document.querySelectorAll('.per'),function(b){ b.addEventListener('click',function(){
+    period=b.getAttribute('data-p'); [].forEach.call(document.querySelectorAll('.per'),function(x){ x.setAttribute('aria-pressed',x===b); });
+    if(DATA) drawTrend(DATA); }); });
   function setMode(is3d){
     mode3D=is3d&&has3D; $('b3d').setAttribute('aria-pressed',mode3D); $('b2d').setAttribute('aria-pressed',!mode3D);
     try{ localStorage.setItem('serwe-mode',mode3D?'3d':'2d'); }catch(e){}
@@ -560,12 +598,16 @@ window.startDashboard=function(){
   $('b3d').setAttribute('aria-pressed',mode3D); $('b2d').setAttribute('aria-pressed',!mode3D);
 
   var lastUpdated=null;
+  function loadStatus(){
+    fetch('data/status.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(s){ if(s&&s.checked) $('checked').textContent=s.checked.slice(11)+(s.checked.slice(0,10)!==new Date(Date.now()+6*36e5).toISOString().slice(0,10)?' ('+s.checked.slice(5,10)+')':''); }).catch(function(){});
+  }
   function load(){
+    loadStatus();
     fetch('data/summary.json?t='+Date.now()).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
       .then(function(d){ $('error').hidden=true; if(d.updated!==lastUpdated){ lastUpdated=d.updated; DATA=d; draw(d); } })
       .catch(function(){ $('error').textContent='Could not load the data file. If this is a new site, run the GitHub Action once (Actions → Update dashboard data → Run workflow).'; $('error').hidden=false; });
   }
-  var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ charts.forEach(function(c){c.resize();}); statCharts.forEach(function(c){c.resize();}); },150); });
+  var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ charts.forEach(function(c){c.resize();}); statCharts.forEach(function(c){c.resize();}); if(trendChart) trendChart.resize(); },150); });
   load(); setInterval(load,5*60*1000);
 };
 </script>
