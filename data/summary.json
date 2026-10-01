@@ -1,18 +1,18 @@
 {
- "updated": "2026-10-01 22:52",
+ "updated": "2026-10-01 23:38",
  "totals": {
-  "interviews": 236,
+  "interviews": 240,
   "refused": 0,
   "partial": 0,
-  "today": 34,
-  "last7": 236,
+  "today": 38,
+  "last7": 240,
   "tablets": 16
  },
  "timeline": {
   "2026-09-28": 55,
   "2026-09-29": 80,
   "2026-09-30": 67,
-  "2026-10-01": 34
+  "2026-10-01": 38
  },
  "timeline_group": {
   "2026-09-28": {
@@ -28,32 +28,32 @@
    "Non Beneficiary": 25
   },
   "2026-10-01": {
-   "Beneficiary": 21,
-   "Non Beneficiary": 13
+   "Beneficiary": 24,
+   "Non Beneficiary": 14
   }
  },
  "division": {
-  "Dhaka": 236
+  "Dhaka": 240
  },
  "division_group": {
   "Dhaka": {
-   "Non Beneficiary": 92,
-   "Beneficiary": 144
+   "Non Beneficiary": 93,
+   "Beneficiary": 147
   }
  },
  "district": {
-  "Dhaka": 216,
+  "Dhaka": 220,
   "Unknown code 14": 18,
   "Gazipur": 2
  },
  "area": {
-  "Urban": 216,
+  "Urban": 220,
   "Rural": 20
  },
  "area_group": {
   "Urban": {
-   "Non Beneficiary": 85,
-   "Beneficiary": 131
+   "Non Beneficiary": 86,
+   "Beneficiary": 134
   },
   "Rural": {
    "Beneficiary": 13,
@@ -61,8 +61,8 @@
   }
  },
  "group": {
-  "Non Beneficiary": 92,
-  "Beneficiary": 144
+  "Non Beneficiary": 93,
+  "Beneficiary": 147
  },
  "enumerators": {
   "Md. Mohiuddin Patowary - 13": {
@@ -100,6 +100,11 @@
    "last": "2026-10-01",
    "today": 4
   },
+  "Md. Ariful Islam - 10": {
+   "interviews": 16,
+   "last": "2026-10-01",
+   "today": 4
+  },
   "Md. Nurul Huda - 14": {
    "interviews": 15,
    "last": "2026-10-01",
@@ -125,11 +130,6 @@
    "last": "2026-09-30",
    "today": 0
   },
-  "Md. Ariful Islam - 10": {
-   "interviews": 12,
-   "last": "2026-09-30",
-   "today": 0
-  },
   "Md. Rabiul Karim - 12": {
    "interviews": 12,
    "last": "2026-09-30",
@@ -149,27 +149,27 @@
  "issues": [],
  "stats": {
   "A2": {
-   "n": 236,
-   "mean": 39.89,
+   "n": 240,
+   "mean": 39.93,
    "median": 39.0,
-   "sd": 8.33,
+   "sd": 8.29,
    "min": 23,
    "max": 68,
-   "q1": 34.0,
-   "q3": 45.0,
-   "iqr": 11.0,
+   "q1": 34.75,
+   "q3": 45.25,
+   "iqr": 10.5,
    "mode": [
     35
    ],
-   "mode_count": 25,
-   "skew": 0.5,
+   "mode_count": 26,
+   "skew": 0.49,
    "kurtosis": 0.14,
-   "jb": 9.81,
-   "jb_p": 0.0074,
+   "jb": 9.55,
+   "jb_p": 0.0085,
    "shape": "symmetric",
    "normal": "Not normal",
-   "fence_low": 17.5,
-   "fence_high": 61.5,
+   "fence_low": 19.0,
+   "fence_high": 61.0,
    "whisker_low": 23,
    "whisker_high": 60,
    "outliers": [
@@ -200,24 +200,24 @@
     "counts": [
      11,
      36,
-     57,
-     46,
-     40,
-     30,
+     58,
+     47,
+     41,
+     31,
      10,
      4,
      2
     ],
     "normal": [
      13.09,
-     30.05,
-     48.65,
-     55.53,
-     44.68,
-     25.34,
-     10.13,
-     2.85,
-     0.57
+     30.37,
+     49.52,
+     56.74,
+     45.69,
+     25.85,
+     10.28,
+     2.87,
+     0.56
     ]
    },
    "label": "Age of respondent",
@@ -226,22 +226,22 @@
    "question": "A2",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 37.3,
+     "n": 93,
+     "mean": 37.42,
      "median": 35.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 41.54,
+     "n": 147,
+     "mean": 41.52,
      "median": 40.0
     }
    }
   },
   "A5": {
-   "n": 236,
+   "n": 240,
    "mean": 4.42,
    "median": 4.0,
-   "sd": 1.47,
+   "sd": 1.46,
    "min": 2,
    "max": 12,
    "q1": 4.0,
@@ -250,10 +250,10 @@
    "mode": [
     4
    ],
-   "mode_count": 98,
+   "mode_count": 99,
    "skew": 1.89,
-   "kurtosis": 6.97,
-   "jb": 593.29,
+   "kurtosis": 7.04,
+   "jb": 613.69,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -390,9 +390,9 @@
     ],
     "counts": [
      12,
-     36,
-     98,
-     54,
+     37,
+     99,
+     56,
      26,
      1,
      3,
@@ -402,14 +402,14 @@
      2
     ],
     "normal": [
-     17.05,
-     40.12,
-     60.44,
-     58.31,
-     36.03,
-     14.25,
-     3.61,
-     0.58,
+     17.24,
+     40.9,
+     61.8,
+     59.53,
+     36.54,
+     14.29,
+     3.56,
+     0.56,
      0.06,
      0.0,
      0.0
@@ -421,22 +421,22 @@
    "question": "A5",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 4.37,
+     "n": 93,
+     "mean": 4.35,
      "median": 4.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 4.45,
+     "n": 147,
+     "mean": 4.46,
      "median": 4.0
     }
    }
   },
   "BAGE": {
-   "n": 236,
-   "mean": 11.26,
+   "n": 240,
+   "mean": 11.31,
    "median": 10.0,
-   "sd": 7.13,
+   "sd": 7.12,
    "min": 1,
    "max": 48,
    "q1": 6.0,
@@ -446,9 +446,9 @@
     6
    ],
    "mode_count": 25,
-   "skew": 1.53,
-   "kurtosis": 4.15,
-   "jb": 252.08,
+   "skew": 1.51,
+   "kurtosis": 4.07,
+   "jb": 247.63,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -493,23 +493,23 @@
     ],
     "counts": [
      71,
-     73,
-     47,
+     74,
+     49,
      25,
-     15,
+     16,
      3,
      0,
      0,
      2
     ],
     "normal": [
-     38.89,
-     63.79,
-     62.67,
-     36.86,
-     12.97,
-     2.73,
-     0.34,
+     39.28,
+     64.83,
+     63.97,
+     37.73,
+     13.3,
+     2.8,
+     0.35,
      0.03,
      0.0
     ]
@@ -520,22 +520,22 @@
    "question": "B2",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 8.86,
+     "n": 93,
+     "mean": 9.01,
      "median": 6.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 12.8,
+     "n": 147,
+     "mean": 12.76,
      "median": 11.0
     }
    }
   },
   "F3": {
-   "n": 236,
-   "mean": 3763877.12,
+   "n": 240,
+   "mean": 3811145.83,
    "median": 1500000.0,
-   "sd": 6643387.54,
+   "sd": 6616572.53,
    "min": 0,
    "max": 60000000,
    "q1": 700000.0,
@@ -545,16 +545,16 @@
     800000
    ],
    "mode_count": 14,
-   "skew": 4.94,
-   "kurtosis": 31.66,
-   "jb": 10378.56,
+   "skew": 4.9,
+   "kurtosis": 31.48,
+   "jb": 10441.35,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
    "fence_low": -5750000.0,
    "fence_high": 11450000.0,
    "whisker_low": 0,
-   "whisker_high": 10000000,
+   "whisker_high": 11000000,
    "outliers": [
     {
      "id": "2609001",
@@ -636,8 +636,8 @@
      60000000.0
     ],
     "counts": [
-     203,
-     23,
+     204,
+     26,
      2,
      5,
      0,
@@ -647,10 +647,10 @@
      1
     ],
     "normal": [
-     90.49,
-     60.46,
-     15.96,
-     1.65,
+     92.32,
+     61.91,
+     16.28,
+     1.66,
      0.07,
      0.0,
      0.0,
@@ -664,22 +664,22 @@
    "question": "F3",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 2868369.57,
+     "n": 93,
+     "mean": 2955806.45,
      "median": 1000000.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 4336006.94,
+     "n": 147,
+     "mean": 4352278.91,
      "median": 2200000.0
     }
    }
   },
   "F5": {
-   "n": 236,
-   "mean": 654849.58,
+   "n": 240,
+   "mean": 653810.42,
    "median": 250000.0,
-   "sd": 1898626.85,
+   "sd": 1883300.53,
    "min": 0,
    "max": 20000000,
    "q1": 107500.0,
@@ -689,9 +689,9 @@
     150000
    ],
    "mode_count": 18,
-   "skew": 7.89,
-   "kurtosis": 71.95,
-   "jb": 51170.08,
+   "skew": 7.95,
+   "kurtosis": 73.11,
+   "jb": 53725.1,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -700,6 +700,11 @@
    "whisker_low": 0,
    "whisker_high": 1000000,
    "outliers": [
+    {
+     "id": "2610017",
+     "value": 1100000,
+     "extreme": false
+    },
     {
      "id": "2612006",
      "value": 1150000,
@@ -825,7 +830,7 @@
      20000000.0
     ],
     "counts": [
-     223,
+     227,
      7,
      4,
      0,
@@ -836,10 +841,10 @@
      1
     ],
     "normal": [
-     101.57,
-     42.85,
-     5.24,
-     0.18,
+     103.99,
+     43.3,
+     5.13,
+     0.17,
      0.0,
      0.0,
      0.0,
@@ -853,69 +858,44 @@
    "question": "F5",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 429646.74,
+     "n": 93,
+     "mean": 436854.84,
      "median": 200000.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 798729.17,
+     "n": 147,
+     "mean": 791068.03,
      "median": 250000.0
     }
    }
   },
   "F7": {
-   "n": 236,
-   "mean": 3975550.85,
-   "median": 1000000.0,
-   "sd": 8439011.66,
+   "n": 240,
+   "mean": 4117625.0,
+   "median": 1050000.0,
+   "sd": 8506654.1,
    "min": 0,
    "max": 75000000,
    "q1": 300000.0,
-   "q3": 4125000.0,
-   "iqr": 3825000.0,
+   "q3": 4500000.0,
+   "iqr": 4200000.0,
    "mode": [
     200000,
     300000,
     400000
    ],
    "mode_count": 11,
-   "skew": 5.37,
-   "kurtosis": 37.7,
-   "jb": 14492.2,
+   "skew": 5.17,
+   "kurtosis": 35.55,
+   "jb": 13162.18,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -5437500.0,
-   "fence_high": 9862500.0,
+   "fence_low": -6000000.0,
+   "fence_high": 10800000.0,
    "whisker_low": 0,
-   "whisker_high": 9500000,
+   "whisker_high": 10000000,
    "outliers": [
-    {
-     "id": "2602001",
-     "value": 10000000,
-     "extreme": false
-    },
-    {
-     "id": "2613013",
-     "value": 10000000,
-     "extreme": false
-    },
-    {
-     "id": "2607006",
-     "value": 10000000,
-     "extreme": false
-    },
-    {
-     "id": "2612008",
-     "value": 10000000,
-     "extreme": false
-    },
-    {
-     "id": "2611012",
-     "value": 10000000,
-     "extreme": false
-    },
     {
      "id": "2606002",
      "value": 12000000,
@@ -953,6 +933,11 @@
     },
     {
      "id": "2612010",
+     "value": 13000000,
+     "extreme": false
+    },
+    {
+     "id": "2610018",
      "value": 13000000,
      "extreme": false
     },
@@ -1017,6 +1002,11 @@
      "extreme": true
     },
     {
+     "id": "2610016",
+     "value": 25000000,
+     "extreme": true
+    },
+    {
      "id": "2613006",
      "value": 30000000,
      "extreme": true
@@ -1051,10 +1041,10 @@
      75000000.0
     ],
     "counts": [
-     202,
-     22,
+     203,
+     24,
      7,
-     2,
+     3,
      1,
      0,
      0,
@@ -1062,11 +1052,11 @@
      2
     ],
     "normal": [
-     89.31,
-     55.81,
-     14.15,
-     1.44,
-     0.06,
+     90.17,
+     57.6,
+     15.13,
+     1.62,
+     0.07,
      0.0,
      0.0,
      0.0,
@@ -1079,72 +1069,42 @@
    "question": "F7",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 3679293.48,
+     "n": 93,
+     "mean": 3747258.06,
      "median": 600000.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 4164826.39,
-     "median": 1350000.0
+     "n": 147,
+     "mean": 4351938.78,
+     "median": 1400000.0
     }
    }
   },
   "F9": {
-   "n": 236,
-   "mean": 8166296.61,
+   "n": 240,
+   "mean": 8340608.33,
    "median": 3500000.0,
-   "sd": 13412836.61,
+   "sd": 13726469.68,
    "min": 0,
    "max": 90000000,
    "q1": 1200000.0,
-   "q3": 8250000.0,
-   "iqr": 7050000.0,
+   "q3": 9250000.0,
+   "iqr": 8050000.0,
    "mode": [
     1500000
    ],
-   "mode_count": 16,
-   "skew": 3.27,
-   "kurtosis": 12.53,
-   "jb": 1888.81,
+   "mode_count": 17,
+   "skew": 3.19,
+   "kurtosis": 11.62,
+   "jb": 1690.56,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -9375000.0,
-   "fence_high": 18825000.0,
+   "fence_low": -10875000.0,
+   "fence_high": 21325000.0,
    "whisker_low": 0,
-   "whisker_high": 18000000,
+   "whisker_high": 20000000,
    "outliers": [
-    {
-     "id": "2616006",
-     "value": 20000000,
-     "extreme": false
-    },
-    {
-     "id": "2607006",
-     "value": 20000000,
-     "extreme": false
-    },
-    {
-     "id": "2608004",
-     "value": 20000000,
-     "extreme": false
-    },
-    {
-     "id": "2610009",
-     "value": 20000000,
-     "extreme": false
-    },
-    {
-     "id": "2607008",
-     "value": 20000000,
-     "extreme": false
-    },
-    {
-     "id": "2617015",
-     "value": 20000000,
-     "extreme": false
-    },
     {
      "id": "2610001",
      "value": 25000000,
@@ -1168,22 +1128,22 @@
     {
      "id": "2615010",
      "value": 30000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2617009",
      "value": 30000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2609007",
      "value": 30000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2611010",
      "value": 30000000,
-     "extreme": true
+     "extreme": false
     },
     {
      "id": "2610004",
@@ -1236,6 +1196,11 @@
      "extreme": true
     },
     {
+     "id": "2610017",
+     "value": 60000000,
+     "extreme": true
+    },
+    {
      "id": "2611012",
      "value": 70000000,
      "extreme": true
@@ -1265,24 +1230,24 @@
      90000000.0
     ],
     "counts": [
-     178,
-     31,
+     180,
+     32,
      10,
      6,
      1,
      6,
-     1,
+     2,
      1,
      2
     ],
     "normal": [
-     66.8,
-     60.61,
-     32.34,
-     10.14,
-     1.87,
-     0.2,
-     0.01,
+     66.33,
+     60.97,
+     33.73,
+     11.22,
+     2.24,
+     0.27,
+     0.02,
      0.0,
      0.0
     ]
@@ -1293,57 +1258,42 @@
    "question": "F9",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 5601532.61,
+     "n": 93,
+     "mean": 6186462.37,
      "median": 3000000.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 9804895.83,
-     "median": 4250000.0
+     "n": 147,
+     "mean": 9703435.37,
+     "median": 4000000.0
     }
    }
   },
   "E3": {
-   "n": 144,
-   "mean": 2052777.78,
+   "n": 147,
+   "mean": 2059183.67,
    "median": 1500000.0,
-   "sd": 1510415.79,
+   "sd": 1517771.67,
    "min": 200000,
    "max": 5000000,
-   "q1": 875000.0,
+   "q1": 850000.0,
    "q3": 2500000.0,
-   "iqr": 1625000.0,
+   "iqr": 1650000.0,
    "mode": [
     800000
    ],
-   "mode_count": 17,
-   "skew": 1.04,
-   "kurtosis": -0.32,
-   "jb": 26.02,
+   "mode_count": 18,
+   "skew": 1.03,
+   "kurtosis": -0.35,
+   "jb": 26.33,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -1562500.0,
-   "fence_high": 4937500.0,
+   "fence_low": -1625000.0,
+   "fence_high": 4975000.0,
    "whisker_low": 200000,
-   "whisker_high": 4900000,
+   "whisker_high": 4950000,
    "outliers": [
-    {
-     "id": "2607007",
-     "value": 4950000,
-     "extreme": false
-    },
-    {
-     "id": "2615013",
-     "value": 4950000,
-     "extreme": false
-    },
-    {
-     "id": "2611014",
-     "value": 4950000,
-     "extreme": false
-    },
     {
      "id": "2608003",
      "value": 5000000,
@@ -1440,25 +1390,25 @@
     ],
     "counts": [
      19,
-     39,
-     26,
+     40,
+     27,
      17,
      10,
      4,
      2,
      3,
-     24
+     25
     ],
     "normal": [
-     11.69,
-     15.87,
-     19.03,
-     20.18,
-     18.91,
-     15.67,
-     11.47,
-     7.42,
-     4.25
+     11.89,
+     16.11,
+     19.32,
+     20.5,
+     19.25,
+     16.0,
+     11.77,
+     7.66,
+     4.41
     ]
    },
    "label": "Loan received",
@@ -1467,14 +1417,14 @@
    "question": "E3",
    "by_group": {
     "Beneficiary": {
-     "n": 144,
-     "mean": 2052777.78,
+     "n": 147,
+     "mean": 2059183.67,
      "median": 1500000.0
     }
    }
   },
   "E8B": {
-   "n": 144,
+   "n": 147,
    "mean": 5.0,
    "median": 5.0,
    "sd": 0.0,
@@ -1486,7 +1436,7 @@
    "mode": [
     5
    ],
-   "mode_count": 144,
+   "mode_count": 147,
    "shape": "all the same value",
    "normal": "Too few answers to judge",
    "fence_low": 5.0,
@@ -1500,10 +1450,10 @@
      5.5
     ],
     "counts": [
-     144
+     147
     ],
     "normal": [
-     144
+     147
     ]
    },
    "label": "Annual interest rate",
@@ -1512,17 +1462,17 @@
    "question": "E8B",
    "by_group": {
     "Beneficiary": {
-     "n": 144,
+     "n": 147,
      "mean": 5.0,
      "median": 5.0
     }
    }
   },
   "G2": {
-   "n": 236,
-   "mean": 13.52,
+   "n": 240,
+   "mean": 13.69,
    "median": 6.0,
-   "sd": 41.09,
+   "sd": 40.77,
    "min": 0,
    "max": 600,
    "q1": 2.0,
@@ -1532,9 +1482,9 @@
     0
    ],
    "mode_count": 28,
-   "skew": 12.59,
-   "kurtosis": 178.33,
-   "jb": 305734.77,
+   "skew": 12.66,
+   "kurtosis": 180.63,
+   "jb": 319126.73,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -1633,7 +1583,7 @@
      600.0
     ],
     "counts": [
-     232,
+     236,
      3,
      0,
      0,
@@ -1644,9 +1594,9 @@
      1
     ],
     "normal": [
-     125.32,
-     22.7,
-     0.42,
+     128.3,
+     22.86,
+     0.4,
      0.0,
      0.0,
      0.0,
@@ -1661,22 +1611,22 @@
    "question": "G2",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 7.61,
+     "n": 93,
+     "mean": 7.85,
      "median": 4.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 17.3,
+     "n": 147,
+     "mean": 17.39,
      "median": 8.0
     }
    }
   },
   "G4": {
-   "n": 236,
-   "mean": 5.7,
+   "n": 240,
+   "mean": 5.69,
    "median": 0.0,
-   "sd": 27.02,
+   "sd": 26.8,
    "min": 0,
    "max": 350,
    "q1": 0.0,
@@ -1685,10 +1635,10 @@
    "mode": [
     0
    ],
-   "mode_count": 121,
-   "skew": 10.59,
-   "kurtosis": 123.96,
-   "jb": 149102.88,
+   "mode_count": 122,
+   "skew": 10.68,
+   "kurtosis": 126.01,
+   "jb": 156716.65,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -1822,7 +1772,7 @@
      350.0
     ],
     "counts": [
-     232,
+     236,
      1,
      1,
      0,
@@ -1833,9 +1783,9 @@
      1
     ],
     "normal": [
-     111.82,
+     114.32,
      24.99,
-     0.9,
+     0.85,
      0.0,
      0.0,
      0.0,
@@ -1850,22 +1800,22 @@
    "question": "G4",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 6.49,
+     "n": 93,
+     "mean": 6.47,
      "median": 0.0
     },
     "Beneficiary": {
-     "n": 144,
+     "n": 147,
      "mean": 5.19,
      "median": 2.0
     }
    }
   },
   "G8": {
-   "n": 236,
-   "mean": 5.79,
+   "n": 240,
+   "mean": 5.77,
    "median": 0.0,
-   "sd": 38.22,
+   "sd": 37.9,
    "min": 0,
    "max": 580,
    "q1": 0.0,
@@ -1874,10 +1824,10 @@
    "mode": [
     0
    ],
-   "mode_count": 119,
-   "skew": 14.58,
-   "kurtosis": 219.38,
-   "jb": 461689.88,
+   "mode_count": 121,
+   "skew": 14.69,
+   "kurtosis": 223.0,
+   "jb": 485327.57,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -1996,7 +1946,7 @@
      580.0
     ],
     "counts": [
-     234,
+     238,
      1,
      0,
      0,
@@ -2007,9 +1957,9 @@
      1
     ],
     "normal": [
-     117.48,
-     14.59,
-     0.15,
+     119.92,
+     14.45,
+     0.14,
      0.0,
      0.0,
      0.0,
@@ -2024,22 +1974,22 @@
    "question": "G8",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 2.3,
-     "median": 0.5
+     "n": 93,
+     "mean": 2.28,
+     "median": 0.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 8.02,
+     "n": 147,
+     "mean": 7.97,
      "median": 0.0
     }
    }
   },
   "G10": {
-   "n": 236,
-   "mean": 717209.75,
-   "median": 350000.0,
-   "sd": 1379553.84,
+   "n": 240,
+   "mean": 713672.92,
+   "median": 355000.0,
+   "sd": 1368900.08,
    "min": 40000,
    "max": 15000000,
    "q1": 200000.0,
@@ -2049,9 +1999,9 @@
     400000
    ],
    "mode_count": 21,
-   "skew": 6.34,
-   "kurtosis": 53.6,
-   "jb": 28610.53,
+   "skew": 6.39,
+   "kurtosis": 54.45,
+   "jb": 30019.46,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -2220,7 +2170,7 @@
      15000000.0
     ],
     "counts": [
-     217,
+     221,
      11,
      3,
      2,
@@ -2231,10 +2181,10 @@
      1
     ],
     "normal": [
-     106.35,
-     49.59,
-     6.28,
-     0.21,
+     108.86,
+     50.09,
+     6.14,
+     0.19,
      0.0,
      0.0,
      0.0,
@@ -2248,22 +2198,22 @@
    "question": "G10",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 553255.43,
+     "n": 93,
+     "mean": 558059.14,
      "median": 350000.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 821958.33,
-     "median": 380000.0
+     "n": 147,
+     "mean": 812122.45,
+     "median": 400000.0
     }
    }
   },
   "G12": {
-   "n": 236,
-   "mean": 212343.22,
+   "n": 240,
+   "mean": 211137.5,
    "median": 100000.0,
-   "sd": 995662.51,
+   "sd": 987403.06,
    "min": 15000,
    "max": 15000000,
    "q1": 60000.0,
@@ -2273,9 +2223,9 @@
     150000
    ],
    "mode_count": 28,
-   "skew": 14.15,
-   "kurtosis": 209.57,
-   "jb": 421531.23,
+   "skew": 14.27,
+   "kurtosis": 213.07,
+   "jb": 443309.72,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -2404,7 +2354,7 @@
      15000000.0
     ],
     "counts": [
-     233,
+     237,
      2,
      0,
      0,
@@ -2415,9 +2365,9 @@
      1
     ],
     "normal": [
-     119.96,
-     16.38,
-     0.19,
+     122.47,
+     16.24,
+     0.18,
      0.0,
      0.0,
      0.0,
@@ -2432,19 +2382,23 @@
    "question": "G12",
    "by_group": {
     "Non Beneficiary": {
-     "n": 92,
-     "mean": 147804.35,
+     "n": 93,
+     "mean": 146860.22,
      "median": 80000.0
     },
     "Beneficiary": {
-     "n": 144,
-     "mean": 253576.39,
+     "n": 147,
+     "mean": 251802.72,
      "median": 120000.0
     }
    }
   }
  },
  "tablet_syncs": [
+  {
+   "tablet": "1eb656",
+   "last_sync": "2026-10-01 23:37"
+  },
   {
    "tablet": "0b1439",
    "last_sync": "2026-10-01 22:45"
@@ -2488,10 +2442,6 @@
   {
    "tablet": "965f92",
    "last_sync": "2026-10-01 00:18"
-  },
-  {
-   "tablet": "1eb656",
-   "last_sync": "2026-09-30 23:11"
   },
   {
    "tablet": "5a5959",
