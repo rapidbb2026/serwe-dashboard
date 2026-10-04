@@ -248,7 +248,7 @@ footer{color:var(--faint);font-size:.8rem}
   </section>
   <section class="card" id="answers">
     <div class="stat-head">
-      <h2>Answers by question</h2>
+      <h2>Response Breakdown</h2>
       <div class="sel"><label for="qvar">Question</label><select id="qvar"></select></div>
     </div>
     <h3 class="qtext" id="q-text"></h3>
@@ -605,7 +605,7 @@ window.startDashboard=function(){
     period=b.getAttribute('data-p'); [].forEach.call(document.querySelectorAll('.per'),function(x){ x.setAttribute('aria-pressed',x===b); });
     if(DATA) drawTrend(DATA); }); });
 
-  /* ---------- answers by question (choice questions) ---------- */
+  /* ---------- Response Breakdown (choice questions) ---------- */
   var ansChart=null, curQ=null;
   function wrapLabel(s,w){ var words=String(s).split(' '), lines=[''], i; for(i=0;i<words.length;i++){ if((lines[lines.length-1]+' '+words[i]).trim().length>w && lines[lines.length-1]){ lines.push(words[i]); } else { lines[lines.length-1]=(lines[lines.length-1]+' '+words[i]).trim(); } } if(lines.length>3){ lines=lines.slice(0,3); lines[2]=lines[2].replace(/.{1}$/,'…'); } return lines.join('\n'); }
   function drawAnswersList(d){
