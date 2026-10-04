@@ -59,9 +59,13 @@ def load_labels(dcf):
         for v in (items[name].get("valueSets") or [{}])[0].get("values", []):
             labs = v["labels"]
             text = next((l["text"] for l in labs if l.get("language", "EN") == "EN"), labs[0]["text"])
-            out[str(v["pairs"][0]["value"]).strip()] = text.strip()
+            k = str(v["pairs"][0]["value"]).strip()
+            # the same code used for two labels: show both so nothing is mislabelled
+            out[k] = out[k] + " / " + text.strip() if k in out and out[k] != text.strip() else text.strip()
         return out
-    return {n: vs(n) for n in ("DIVISION", "DISTRICT", "AREA_TYPE", "ENUMERATOR_NAME", "AGREE", "D0")}
+    out = {n: vs(n) for n in ("DIVISION", "DISTRICT", "AREA_TYPE", "ENUMERATOR_NAME", "AGREE", "D0")}
+    out["_dcf"] = d
+    return out
 
 # ---------------- reading cases ----------------
 def cases_from_zip(blob):
@@ -111,20 +115,46 @@ def newest(files):
 # ---------------- descriptive statistics ----------------
 # (key, label, unit, group, record, item, transform)
 STAT_VARS = [
-    ("A2",  "Age of respondent",               "years",  "Respondent", "MODULE_A", "A2",  None),
-    ("A5",  "Household size",                  "people", "Respondent", "MODULE_A", "A5",  None),
-    ("BAGE","Business age",                    "years",  "Business",   "MODULE_B", "B2",  "age"),
-    ("F3",  "Monthly sales now",               "Tk",     "Business",   "MODULE_F", "F3",  None),
-    ("F5",  "Monthly profit now",              "Tk",     "Business",   "MODULE_F", "F5",  None),
-    ("F7",  "Business assets now",             "Tk",     "Business",   "MODULE_F", "F7",  None),
-    ("F9",  "Stock and raw materials now",     "Tk",     "Business",   "MODULE_F", "F9",  None),
-    ("E3",  "Loan received",                   "Tk",     "Loan",       "MODULE_E", "E3",  None),
-    ("E8B", "Annual interest rate",            "%",      "Loan",       "MODULE_E", "E8B", None),
-    ("G2",  "Regular paid workers now",        "workers","Workers",    "MODULE_G", "G2",  None),
-    ("G4",  "Part-time paid workers now",      "workers","Workers",    "MODULE_G", "G4",  None),
-    ("G8",  "Women among paid workers now",    "workers","Workers",    "MODULE_G", "G8",  None),
-    ("G10", "Household monthly income now",    "Tk",     "Household",  "MODULE_G", "G10", None),
-    ("G12", "Household monthly spending now",  "Tk",     "Household",  "MODULE_G", "G12", None),
+    # --- A: respondent ---
+    ("A2",  "Age of respondent",                   "years",   "A · Respondent", "MODULE_A", "A2",  None),
+    ("A5",  "Household size",                      "people",  "A · Respondent", "MODULE_A", "A5",  None),
+    # --- B: enterprise ---
+    ("BAGE","Business age",                        "years",   "B · Enterprise", "MODULE_B", "B2",  "age"),
+    ("B5",  "Share of business owned",             "%",       "B · Enterprise", "MODULE_B", "B5",  None),
+    # --- D and E: loan ---
+    ("D4A", "Year of application",                 "year",    "D-E · Loan",     "MODULE_D", "D4A", "year"),
+    ("E3",  "Loan received",                       "Tk",      "D-E · Loan",     "MODULE_E", "E3",  None),
+    ("E6",  "Loan applied for",                    "Tk",      "D-E · Loan",     "MODULE_E", "E6",  None),
+    ("E4A", "Year loan received",                  "year",    "D-E · Loan",     "MODULE_E", "E4A", "year"),
+    ("E5A", "Year loan fully repaid",              "year",    "D-E · Loan",     "MODULE_E", "E5A", "year"),
+    ("E8B", "Annual interest rate",                "%",       "D-E · Loan",     "MODULE_E", "E8B", None),
+    # --- F: business, before and now ---
+    ("F2",  "Monthly sales before",                "Tk",      "F · Business",   "MODULE_F", "F2",  None),
+    ("F3",  "Monthly sales now",                   "Tk",      "F · Business",   "MODULE_F", "F3",  None),
+    ("F4",  "Monthly profit before",               "Tk",      "F · Business",   "MODULE_F", "F4",  None),
+    ("F5",  "Monthly profit now",                  "Tk",      "F · Business",   "MODULE_F", "F5",  None),
+    ("F6",  "Business assets before",              "Tk",      "F · Business",   "MODULE_F", "F6",  None),
+    ("F7",  "Business assets now",                 "Tk",      "F · Business",   "MODULE_F", "F7",  None),
+    ("F8",  "Stock and raw materials before",      "Tk",      "F · Business",   "MODULE_F", "F8",  None),
+    ("F9",  "Stock and raw materials now",         "Tk",      "F · Business",   "MODULE_F", "F9",  None),
+    ("F10", "Products or services before",         "items",   "F · Business",   "MODULE_F", "F10", None),
+    ("F11", "Products or services now",            "items",   "F · Business",   "MODULE_F", "F11", None),
+    ("F12", "Business locations before",           "places",  "F · Business",   "MODULE_F", "F12", None),
+    ("F13", "Business locations now",              "places",  "F · Business",   "MODULE_F", "F13", None),
+    ("F16", "Spent on land or business space",     "Tk",      "F · Business",   "MODULE_F", "F16", None),
+    # --- G: workers and household, before and now ---
+    ("G1",  "Regular paid workers before",         "workers", "G · Workers and household", "MODULE_G", "G1",  None),
+    ("G2",  "Regular paid workers now",            "workers", "G · Workers and household", "MODULE_G", "G2",  None),
+    ("G3",  "Part-time paid workers before",       "workers", "G · Workers and household", "MODULE_G", "G3",  None),
+    ("G4",  "Part-time paid workers now",          "workers", "G · Workers and household", "MODULE_G", "G4",  None),
+    ("G5",  "Unpaid family workers before",        "workers", "G · Workers and household", "MODULE_G", "G5",  None),
+    ("G6",  "Unpaid family workers now",           "workers", "G · Workers and household", "MODULE_G", "G6",  None),
+    ("G7",  "Women among paid workers before",     "workers", "G · Workers and household", "MODULE_G", "G7",  None),
+    ("G8",  "Women among paid workers now",        "workers", "G · Workers and household", "MODULE_G", "G8",  None),
+    ("G9",  "Household monthly income before",     "Tk",      "G · Workers and household", "MODULE_G", "G9",  None),
+    ("G10", "Household monthly income now",        "Tk",      "G · Workers and household", "MODULE_G", "G10", None),
+    ("G11", "Household monthly spending before",   "Tk",      "G · Workers and household", "MODULE_G", "G11", None),
+    ("G12", "Household monthly spending now",      "Tk",      "G · Workers and household", "MODULE_G", "G12", None),
 ]
 
 def _q(xs, p):
@@ -216,6 +246,8 @@ def stats_block(cases, grp_of, year):
             if tf == "age":
                 if not (1900 < v <= year): continue
                 v = year - v
+            if tf == "year" and not (1900 < v <= year + 1):
+                continue                      # skip impossible years
             rid = str(c.get("key", "")).strip()
             pairs.append((rid, v)); by_g[grp_of(c)].append(v)
         d = describe(pairs)
@@ -224,9 +256,82 @@ def stats_block(cases, grp_of, year):
         res[key] = d
     return res
 
+
+# ---------------- questions answered by choosing options ----------------
+CAT_SKIP_RECORDS = {"FIELD_INFO"}                 # already shown elsewhere on the dashboard
+CAT_SKIP_ITEMS = {"D4B", "E4B", "E5B"}            # month pickers
+
+def _en(labels):
+    return next((l["text"] for l in labels if l.get("language", "EN") == "EN"), labels[0]["text"] if labels else "").strip()
+
+def categorical_block(dcf, cases, grp_of):
+    """Counts per answer option for every question that has a value set.
+    Numeric items are single choice; text items hold one character per ticked option."""
+    res = {}
+    for rec in dcf["levels"][0]["records"]:
+        if rec["name"] in CAT_SKIP_RECORDS:
+            continue
+        module = _en(rec.get("labels", [])).replace("Module ", "").replace(":", " ·", 1)
+        if rec["name"] == "CONSENT":
+            module = "Consent"
+        module = module.split(",")[0]
+        if len(module) > 46:
+            module = module[:44].rstrip() + "…"
+        for it in rec["items"]:
+            vals = (it.get("valueSets") or [{}])[0].get("values", [])
+            name = it["name"]
+            if not vals or name in CAT_SKIP_ITEMS or name.endswith("_OTHER"):
+                continue
+            multi = it.get("contentType") == "alpha"
+            order, lab = [], {}
+            for v in vals:
+                k = str(v["pairs"][0]["value"]).strip()
+                t = _en(v["labels"])
+                if k in lab:
+                    if t not in lab[k]: lab[k] += " / " + t
+                else:
+                    lab[k] = t; order.append(k)
+            cnt = {k: Counter() for k in order}
+            n = 0; by_n = Counter()
+            for c in cases:
+                raw = get(c, rec["name"], name)
+                if raw is None:
+                    continue
+                txt = str(raw).strip()
+                if isinstance(raw, float) and raw.is_integer():
+                    txt = str(int(raw))
+                if not txt:
+                    continue
+                picked = [ch for ch in txt.upper()] if multi else [txt]
+                if multi and not all(ch in lab for ch in picked):
+                    continue                           # not a real answer (for example a placeholder)
+                g = grp_of(c); n += 1; by_n[g] += 1
+                for k in dict.fromkeys(picked):
+                    if k not in cnt:
+                        cnt[k] = Counter(); lab[k] = f"Unknown code {k}"; order.append(k)
+                    cnt[k][g] += 1
+            q = _en(it.get("labels", []))
+            if q.upper().startswith(name.upper() + "."):
+                q = q[len(name) + 1:].strip()
+            res[name] = {"question": name, "label": q, "group": module, "multi": multi, "n": n,
+                         "n_ben": by_n.get("Beneficiary", 0), "n_non": by_n.get("Non Beneficiary", 0),
+                         "options": [{"label": lab[k], "count": sum(cnt[k].values()),
+                                      "ben": cnt[k].get("Beneficiary", 0), "non": cnt[k].get("Non Beneficiary", 0)} for k in order]}
+    return res
+
+# District codes from the first version of the app (1-64, alphabetical).
+# Used only for codes the current dictionary does not have.
+OLD_DISTRICT = {"1": "Bagerhat", "2": "Bandarban", "3": "Barguna", "4": "Barishal", "5": "Bhola", "6": "Bogura", "7": "Brahmanbaria", "8": "Chandpur", "9": "Chapai Nawabganj", "10": "Chattogram", "11": "Chuadanga", "12": "Cox's Bazar", "13": "Cumilla", "14": "Dhaka", "15": "Dinajpur", "16": "Faridpur", "17": "Feni", "18": "Gaibandha", "19": "Gazipur", "20": "Gopalganj", "21": "Habiganj", "22": "Jamalpur", "23": "Jashore", "24": "Jhalokathi", "25": "Jhenaidah", "26": "Joypurhat", "27": "Khagrachhari", "28": "Khulna", "29": "Kishoreganj", "30": "Kurigram", "31": "Kushtia", "32": "Lakshmipur", "33": "Lalmonirhat", "34": "Madaripur", "35": "Magura", "36": "Manikganj", "37": "Meherpur", "38": "Moulvibazar", "39": "Munshiganj", "40": "Mymensingh", "41": "Naogaon", "42": "Narail", "43": "Narayanganj", "44": "Narsingdi", "45": "Natore", "46": "Netrokona", "47": "Nilphamari", "48": "Noakhali", "49": "Pabna", "50": "Panchagarh", "51": "Patuakhali", "52": "Pirojpur", "53": "Rajbari", "54": "Rajshahi", "55": "Rangamati", "56": "Rangpur", "57": "Satkhira", "58": "Shariatpur", "59": "Sherpur", "60": "Sirajganj", "61": "Sunamganj", "62": "Sylhet", "63": "Tangail", "64": "Thakurgaon"}
+
 # ---------------- summary ----------------
 def summarize(cases, labels, syncs):
-    L = lambda f, code: labels[f].get(str(code).strip(), f"Unknown code {code}") if code is not None else "Missing"
+    def _dist_fix(code):
+        k = str(code).strip()
+        if code is not None and k not in labels["DISTRICT"] and k in OLD_DISTRICT:
+            return OLD_DISTRICT[k]
+        return None
+    L0 = lambda f, code: labels[f].get(str(code).strip(), f"Unknown code {code}") if code is not None else "Missing"
+    L = lambda f, code: (_dist_fix(code) or L0(f, code)) if f == "DISTRICT" else L0(f, code)
     live = [c for c in cases if not c.get("deleted")]
     partial = [c for c in live if c.get("partialSave")]
     done = [c for c in live if not c.get("partialSave")]
@@ -290,6 +395,8 @@ def summarize(cases, labels, syncs):
     for c in interviewed:
         if str(get(c, "FIELD_INFO", "ENUMERATOR_NAME")) not in labels["ENUMERATOR_NAME"]:
             flag("Enumerator code not in list", c)
+        if _dist_fix(get(c, "FIELD_INFO", "DISTRICT")):
+            flag("District entered with the old code list (app not updated)", c)
         if get(c, "MODULE_D", "D0") is None:
             flag("Survey group (D0) missing", c)
         dd = day(c)
@@ -319,6 +426,7 @@ def summarize(cases, labels, syncs):
         "enumerators": dict(sorted(enum.items(), key=lambda kv: -kv[1]["interviews"])),
         "issues": issues,
         "stats": stats_block(interviewed, grp, today.year),
+        "answers": categorical_block(labels["_dcf"], interviewed, grp),
         "tablet_syncs": sorted(syncs_latest(syncs), key=lambda s: s["last_sync"], reverse=True),
     }
 
