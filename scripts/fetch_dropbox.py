@@ -235,6 +235,64 @@ def describe(pairs):
     out["hist"] = {"edges": [_r(e) for e in edges], "counts": counts, "normal": exp}
     return out
 
+def cat_rows(dcf, cases, day_of):
+    """The option codes each interview picked, one row per interview (same order as micro rows),
+    so Response Breakdown can be filtered by date in the browser."""
+    items = []
+    for rec in dcf["levels"][0]["records"]:
+        if rec["name"] in CAT_SKIP_RECORDS:
+            continue
+        for it in rec["items"]:
+            vals = (it.get("valueSets") or [{}])[0].get("values", [])
+            name = it["name"]
+            if not vals or name in CAT_SKIP_ITEMS or name.endswith("_OTHER"):
+                continue
+            codes = {str(v["pairs"][0]["value"]).strip() for v in vals}
+            items.append((rec["name"], name, it.get("contentType") == "alpha", codes))
+    rows = []
+    for c in cases:
+        if not day_of(c):
+            continue
+        row = []
+        for rec, name, multi, codes in items:
+            raw = get(c, rec, name)
+            txt = None
+            if raw is not None:
+                txt = str(int(raw)) if isinstance(raw, float) and raw.is_integer() else str(raw).strip()
+                if multi:
+                    txt = txt.upper()
+                    if not txt or not all(ch in codes for ch in txt):
+                        txt = None
+                elif not txt:
+                    txt = None
+            row.append(txt)
+        rows.append(row)
+    return [i[1] for i in items], rows
+
+def micro_block(cases, grp_of, day_of, year):
+    """One row per interview with only the numeric answers, so the dashboard can filter the
+    statistics by date. Saved as data/micro.json for the website only (not kept in the repo history)."""
+    days = sorted({day_of(c).isoformat() for c in cases if day_of(c)})
+    idx = {d: i for i, d in enumerate(days)}
+    rows = []
+    for c in cases:
+        dd = day_of(c)
+        if not dd:
+            continue
+        g = grp_of(c)
+        row = [str(c.get("key", "")).strip(), idx[dd.isoformat()], 1 if g == "Beneficiary" else 2 if g == "Non Beneficiary" else 0]
+        for key, label, unit, group, rec, item, tf in STAT_VARS:
+            v = get(c, rec, item)
+            if v is None or isinstance(v, str):
+                v = None
+            elif tf == "age":
+                v = year - v if 1900 < v <= year else None
+            elif tf == "year" and not (1900 < v <= year + 1):
+                v = None
+            row.append(v)
+        rows.append(row)
+    return {"days": days, "vars": [k[0] for k in STAT_VARS], "rows": rows}
+
 def stats_block(cases, grp_of, year):
     res = {}
     for key, label, unit, group, rec, item, tf in STAT_VARS:
@@ -315,7 +373,7 @@ def categorical_block(dcf, cases, grp_of):
                 q = q[len(name) + 1:].strip()
             res[name] = {"question": name, "label": q, "group": module, "multi": multi, "n": n,
                          "n_ben": by_n.get("Beneficiary", 0), "n_non": by_n.get("Non Beneficiary", 0),
-                         "options": [{"label": lab[k], "count": sum(cnt[k].values()),
+                         "options": [{"code": k, "label": lab[k], "count": sum(cnt[k].values()),
                                       "ben": cnt[k].get("Beneficiary", 0), "non": cnt[k].get("Non Beneficiary", 0)} for k in order]}
     return res
 
@@ -427,6 +485,8 @@ def summarize(cases, labels, syncs):
         "issues": issues,
         "stats": stats_block(interviewed, grp, today.year),
         "answers": categorical_block(labels["_dcf"], interviewed, grp),
+        "_micro": dict(micro_block(interviewed, grp, day, today.year),
+                       **dict(zip(("cvars", "crows"), cat_rows(labels["_dcf"], interviewed, day)))),
         "tablet_syncs": sorted(syncs_latest(syncs), key=lambda s: s["last_sync"], reverse=True),
     }
 
@@ -479,7 +539,10 @@ def main():
             print("Skipped a file that is not a CSPro sync file")
     cases = newest(good)
     summary = summarize(cases, load_labels(dcf), syncs)
+    micro = summary.pop("_micro")
     os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    with open(os.path.join(os.path.dirname(OUT), "micro.json"), "w", encoding="utf-8") as f:
+        json.dump(micro, f, separators=(",", ":"))
     try:
         old = json.load(open(OUT, encoding="utf-8"))
         old.pop("updated", None)
