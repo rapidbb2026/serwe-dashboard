@@ -138,6 +138,7 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .trend-head{display:flex;flex-wrap:wrap;gap:8px 16px;align-items:center;justify-content:space-between;margin-bottom:6px}
 .trend-head h2{margin:0}
 .qtext{margin:12px 0 0;font:500 1rem var(--sans);color:var(--ink);max-width:90ch;text-wrap:balance}
+.sel select.narrow{min-width:190px}
 .filters{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:flex-end}
 .dates{display:flex;flex-wrap:wrap;gap:6px;align-items:center;color:var(--muted);font-size:.85rem}
 .dates input{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 8px;color-scheme:dark}
@@ -228,6 +229,7 @@ footer{color:var(--faint);font-size:.8rem}
       <div class="filters">
         <div class="sel" id="datefilter" hidden><label for="dfrom">Interview date</label>
           <div class="dates"><input type="date" id="dfrom" aria-label="From date"><span>to</span><input type="date" id="dto" aria-label="To date"><button type="button" class="out" id="dall">All dates</button></div></div>
+        <div class="sel" id="enumfilter" hidden><label for="esel">Enumerator</label><select id="esel" class="narrow"></select></div>
         <div class="sel"><label for="svar">Question</label><select id="svar"></select></div>
       </div>
     </div>
@@ -261,6 +263,7 @@ footer{color:var(--faint);font-size:.8rem}
       <div class="filters">
         <div class="sel" id="datefilter2" hidden><label for="dfrom2">Interview date</label>
           <div class="dates"><input type="date" id="dfrom2" aria-label="From date"><span>to</span><input type="date" id="dto2" aria-label="To date"><button type="button" class="out" id="dall2">All dates</button></div></div>
+        <div class="sel" id="enumfilter2" hidden><label for="esel2">Enumerator</label><select id="esel2" class="narrow"></select></div>
         <div class="sel"><label for="qvar">Question</label><select id="qvar"></select></div>
       </div>
     </div>
@@ -685,13 +688,16 @@ window.startDashboard=function(){
     o.hist={edges:edges.map(r2),counts:counts,normal:counts.map(function(c,j){ return sd>0?r2(n*(cdf(edges[j+1])-cdf(edges[j]))):c; })};
     return o;
   }
-  function filterOn(){ return MICRO && dFrom && dTo && !(dFrom===MICRO.days[0] && dTo===MICRO.days[MICRO.days.length-1]); }
+  var eSel='';
+  function datesOn(){ return MICRO && dFrom && dTo && !(dFrom===MICRO.days[0] && dTo===MICRO.days[MICRO.days.length-1]); }
+  function filterOn(){ return !!(MICRO && (datesOn() || (eSel && MICRO.enum))); }
+  function rowOK(r,i){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; return true; }
   function statFor(d,key){
     var base=(d.stats||{})[key]; if(!base) return null;
     if(!filterOn()) return base;
     var col=MICRO.vars.indexOf(key); if(col<0) return base;
     var pairs=[], bg={1:[],2:[]};
-    MICRO.rows.forEach(function(r){ var day=MICRO.days[r[1]], v=r[3+col]; if(v===null||v===undefined||day<dFrom||day>dTo) return; pairs.push([r[0],v]); if(bg[r[2]]) bg[r[2]].push(v); });
+    MICRO.rows.forEach(function(r,i){ var v=r[3+col]; if(v===null||v===undefined||!rowOK(r,i)) return; pairs.push([r[0],v]); if(bg[r[2]]) bg[r[2]].push(v); });
     var s=describeJS(pairs); s.label=base.label; s.unit=base.unit; s.group=base.group; s.question=base.question; s.by_group={};
     [[1,'Beneficiary'],[2,'Non Beneficiary']].forEach(function(g){ var v=bg[g[0]].slice().sort(function(a,b){return a-b;}); if(v.length) s.by_group[g[1]]={n:v.length,mean:r2(v.reduce(function(a,b){return a+b;},0)/v.length),median:r2(qtl(v,.5))}; });
     return s;
@@ -703,11 +709,23 @@ window.startDashboard=function(){
     var opts=base.options.map(function(o){ return {code:String(o.code),label:o.label,count:0,ben:0,non:0}; }), byCode={}, n=0, nb=0, nn=0;
     if(opts.some(function(o){return o.code==='undefined';})) return base;      /* data file from before this update */
     opts.forEach(function(o){ byCode[o.code]=o; });
-    MICRO.rows.forEach(function(r,i){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return; var v=(MICRO.crows[i]||[])[col]; if(v===null||v===undefined||v==='') return;
+    MICRO.rows.forEach(function(r,i){ if(!rowOK(r,i)) return; var v=(MICRO.crows[i]||[])[col]; if(v===null||v===undefined||v==='') return;
       v=String(v); var picked=base.multi?v.split(''):[v], seen={}; n++; if(r[2]===1) nb++; else if(r[2]===2) nn++;
       picked.forEach(function(k){ if(seen[k]) return; seen[k]=1; var o=byCode[k]; if(!o){ o={code:k,label:'Unknown code '+k,count:0,ben:0,non:0}; byCode[k]=o; opts.push(o); } o.count++; if(r[2]===1) o.ben++; else if(r[2]===2) o.non++; }); });
     return {question:base.question,label:base.label,group:base.group,multi:base.multi,n:n,n_ben:nb,n_non:nn,options:opts};
   }
+  var ENUM_SETS=[['enumfilter','esel'],['enumfilter2','esel2']];
+  function setupEnums(){
+    var ok=MICRO&&MICRO.enum&&MICRO.enum.length, html='';
+    if(ok){
+      var lab=MICRO.enum_labels||{}, cnt={}; MICRO.enum.forEach(function(c){ c=String(c); if(c) cnt[c]=(cnt[c]||0)+1; });
+      var codes=Object.keys(cnt).sort(function(a,b){ return (+a)-(+b); });
+      if(eSel && !cnt[eSel]) eSel='';
+      html='<option value="">All enumerators</option>'+codes.map(function(c){ var name=(lab[c]||'').replace(/\s*-\s*\d+\s*$/,''); return '<option value="'+esc(c)+'">'+esc((c.length<2?'0'+c:c)+(name?' · '+name:''))+' ('+cnt[c]+')</option>'; }).join('');
+    }
+    ENUM_SETS.forEach(function(s,i){ var show=ok&&(i===0||!!MICRO.cvars); $(s[0]).hidden=!show; if(!show) return; $(s[1]).innerHTML=html; $(s[1]).value=eSel; });
+  }
+  ENUM_SETS.forEach(function(s){ $(s[1]).addEventListener('change',function(){ eSel=this.value; ENUM_SETS.forEach(function(x){ $(x[1]).value=eSel; }); redrawFiltered(); }); });
   var DATE_SETS=[['datefilter','dfrom','dto','dall'],['datefilter2','dfrom2','dto2','dall2']];
   function redrawFiltered(){ if(DATA){ drawStat(DATA); drawAnswer(DATA); } }
   function setupDates(){
@@ -717,7 +735,8 @@ window.startDashboard=function(){
     DATE_SETS.forEach(function(s,i){
       var show=ok&&(i===0||!!MICRO.cvars); $(s[0]).hidden=!show; if(!show) return;
       var f=$(s[1]), t=$(s[2]); f.min=t.min=MICRO.days[0]; f.max=t.max=MICRO.days[MICRO.days.length-1];
-      f.value=dFrom; t.value=dTo; $(s[3]).setAttribute('aria-pressed',!filterOn()); });
+      f.value=dFrom; t.value=dTo; $(s[3]).setAttribute('aria-pressed',!datesOn()); });
+    setupEnums();
   }
   function datesChanged(s){
     var a=MICRO.days[0], b=MICRO.days[MICRO.days.length-1];
@@ -744,8 +763,14 @@ window.startDashboard=function(){
   $('b3d').setAttribute('aria-pressed',mode3D); $('b2d').setAttribute('aria-pressed',!mode3D);
 
   var lastUpdated=null;
+  var REPO='rapidbb2026/serwe-dashboard';
+  function showChecked(dtStr){ var today=new Date(Date.now()+6*36e5).toISOString().slice(0,10); $('checked').textContent=dtStr.slice(11,16)+(dtStr.slice(0,10)!==today?' ('+dtStr.slice(5,10)+')':''); }
   function loadStatus(){
-    fetch('data/status.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(s){ if(s&&s.checked) $('checked').textContent=s.checked.slice(11)+(s.checked.slice(0,10)!==new Date(Date.now()+6*36e5).toISOString().slice(0,10)?' ('+s.checked.slice(5,10)+')':''); }).catch(function(){});
+    fetch('data/status.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(s){
+      if(s&&s.checked){ showChecked(s.checked); return; }
+      return fetch('https://api.github.com/repos/'+REPO+'/actions/runs?status=success&per_page=1').then(function(r){return r.ok?r.json():null;}).then(function(j){
+        var run=j&&j.workflow_runs&&j.workflow_runs[0]; if(run){ showChecked(new Date(new Date(run.updated_at).getTime()+6*36e5).toISOString().replace('T',' ')); } });
+    }).catch(function(){});
   }
   function load(){
     loadStatus();
