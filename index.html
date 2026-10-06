@@ -144,6 +144,25 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .dates input{background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px 8px;color-scheme:dark}
 .dates .out{padding:7px 10px}
 .dates .out[aria-pressed="true"]{color:var(--ink);border-color:var(--accent)}
+.matrix{overflow:auto;max-height:560px;border:1px solid var(--line);border-radius:8px}
+.matrix table{border-collapse:separate;border-spacing:0;font-size:.86rem;width:max-content;min-width:100%}
+.matrix th,.matrix td{padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap}
+.matrix thead th{position:sticky;top:0;z-index:3;background:var(--card2);color:var(--ink);font-size:.72rem;text-align:right}
+.matrix thead th.today{color:var(--ben)}
+.matrix td.n{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.matrix td.z{color:#3C4A66}
+.matrix .c1{position:sticky;left:0;z-index:2;background:var(--card);text-align:left;width:210px;min-width:210px;max-width:210px;overflow:hidden;text-overflow:ellipsis}
+.matrix thead .c1{z-index:4;background:var(--card2);text-align:left}
+.matrix .code{position:sticky;left:210px;z-index:2;background:var(--card);color:var(--muted);text-align:right;font-family:var(--mono);border-right:1px solid var(--line);width:58px;min-width:58px}
+.matrix thead .code{z-index:4;background:var(--card2)}
+.matrix .tot{position:sticky;right:0;z-index:2;background:var(--card);font-weight:600;border-left:1px solid var(--line)}
+.matrix thead .tot{z-index:4;background:var(--card2)}
+.matrix tfoot .tot{z-index:4;background:#3A3220}
+.matrix tfoot td{position:sticky;bottom:0;z-index:3;background:#3A3220;color:#EBD9A6;font-weight:600;border-bottom:0}
+.matrix tfoot .c1{z-index:4;background:#3A3220;text-align:right}
+.matrix tbody tr:hover td{background:var(--bg2)}
+@media (max-width:640px){.matrix .c1{width:140px;min-width:140px;max-width:140px}.matrix .code{left:140px}}
+.matrix tbody tr.idle td.c1{color:var(--muted)}
 footer{color:var(--faint);font-size:.8rem}
 @media (max-width:820px){.maprow{grid-template-columns:1fr}#c-map{height:380px}}
 </style>
@@ -277,16 +296,19 @@ footer{color:var(--faint);font-size:.8rem}
     <div class="chart" id="c-ans"></div>
   </section>
 
+  <section class="card">
+    <h2>Interviews per enumerator per date</h2>
+    <div class="matrix"><table id="t-enum"><thead></thead><tbody></tbody><tfoot></tfoot></table></div>
+  </section>
+
   <div class="grid2">
     <section class="card">
-      <h2>Enumerators</h2>
-      <div class="tbl"><table id="t-enum"><thead><tr><th>Enumerator</th><th class="num">Total</th><th class="num">Today</th><th>Last interview</th></tr></thead><tbody></tbody></table></div>
+      <h2>Tablets</h2>
+      <div class="tbl"><table id="t-tab"><thead><tr><th>Tablet</th><th>Enumerator</th><th>Last sync</th><th>Status</th></tr></thead><tbody></tbody></table></div>
     </section>
     <section class="card">
       <h2>Urban and rural</h2>
       <div class="chart" id="c-area" style="height:260px"></div>
-      <h2 style="margin-top:14px">Tablets</h2>
-      <div class="tbl"><table id="t-tab"><thead><tr><th>Tablet</th><th>Last sync</th><th>Status</th></tr></thead><tbody></tbody></table></div>
     </section>
   </div>
 
@@ -520,16 +542,29 @@ window.startDashboard=function(){
     drawStatsList(d);
     drawAnswersList(d);
     drawTrend(d);
-    var er=d.enumerators;
-    $('t-enum').tBodies[0].innerHTML=Object.keys(er).map(function(n){var e=er[n];
-      return '<tr><td>'+esc(n)+'</td><td class="num">'+e.interviews+'</td><td class="num">'+(e.today||'')+'</td><td>'+(e.last?esc(e.last):'–')+'</td></tr>';}).join('')||'<tr><td colspan="4" class="empty">No interviews yet.</td></tr>';
+    var ed=d.enum_daily, te=$('t-enum');
+    if(ed&&ed.days&&ed.days.length){
+      var todayStr=d.updated.slice(0,10), colTot=ed.days.map(function(){return 0;}), grand=0;
+      te.tHead.innerHTML='<tr><th class="c1">Enumerator</th><th class="code">Code</th>'+ed.days.map(function(x){ return '<th'+(x===todayStr?' class="today"':'')+'>'+esc(fmtDay(x))+'</th>'; }).join('')+'<th class="tot">Total</th></tr>';
+      te.tBodies[0].innerHTML=ed.rows.map(function(r){ var tot=0;
+        var cells=r.counts.map(function(v,i){ tot+=v; colTot[i]+=v; return '<td class="n'+(v?'':' z')+'">'+v+'</td>'; }).join(''); grand+=tot;
+        return '<tr'+(tot?'':' class="idle"')+'><td class="c1">'+esc(String(r.name).replace(/\s*-\s*\d+\s*$/,''))+'</td><td class="code">'+esc(r.code)+'</td>'+cells+'<td class="n tot'+(tot?'':' z')+'">'+tot+'</td></tr>'; }).join('');
+      te.tFoot.innerHTML='<tr><td class="c1" colspan="2">Total</td>'+colTot.map(function(v){ return '<td class="n">'+v+'</td>'; }).join('')+'<td class="n tot">'+grand+'</td></tr>';
+      var box=te.parentNode; box.scrollLeft=box.scrollWidth;
+    } else {
+      var er=d.enumerators||{};
+      te.tHead.innerHTML='<tr><th class="c1">Enumerator</th><th class="tot">Total</th></tr>'; te.tFoot.innerHTML='';
+      te.tBodies[0].innerHTML=Object.keys(er).map(function(n){ return '<tr><td class="c1">'+esc(n)+'</td><td class="n tot">'+er[n].interviews+'</td></tr>'; }).join('')||'<tr><td class="c1">No interviews yet.</td><td></td></tr>';
+    }
 
     var now=new Date();
     $('t-tab').tBodies[0].innerHTML=(d.tablet_syncs||[]).map(function(s){
       var when=new Date(s.last_sync.replace(' ','T')+':00+06:00'), hrs=(now-when)/36e5;
       var pill=hrs<24?'<span class="pill ok">Synced today</span>':hrs<72?'<span class="pill warn">'+Math.floor(hrs/24)+' days ago</span>':'<span class="pill bad">'+Math.floor(hrs/24)+' days ago</span>';
-      return '<tr><td style="font-family:var(--mono)">…'+esc(s.tablet)+'</td><td>'+esc(s.last_sync)+'</td><td>'+pill+'</td></tr>';
-    }).join('')||'<tr><td colspan="3" class="empty">No syncs yet.</td></tr>';
+      var us=s.enumerators||[], who=us.length?esc(String(us[0].name).replace(/\s*-\s*(\d+)\s*$/,' ($1)'))+(us.length>1?' <span style="color:var(--muted)">+'+(us.length-1)+' more</span>':''):'<span style="color:var(--muted)">–</span>';
+      var tip=us.map(function(u){return u.name+': '+u.interviews+' interviews';}).join('\n');
+      return '<tr title="'+esc(tip)+'"><td style="font-family:var(--mono)">…'+esc(s.tablet)+'</td><td>'+who+'</td><td>'+esc(s.last_sync)+'</td><td>'+pill+'</td></tr>';
+    }).join('')||'<tr><td colspan="4" class="empty">No syncs yet.</td></tr>';
 
     $('t-iss').tBodies[0].innerHTML=(d.issues||[]).map(function(i){
       return '<tr><td><span class="pill bad">'+esc(i.issue)+'</span></td><td style="font-family:var(--mono)">'+esc(i.respondent_id)+'</td><td>'+esc(i.enumerator)+'</td></tr>';
