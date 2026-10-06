@@ -486,6 +486,9 @@ def summarize(cases, labels, syncs):
         "stats": stats_block(interviewed, grp, today.year),
         "answers": categorical_block(labels["_dcf"], interviewed, grp),
         "_micro": dict(micro_block(interviewed, grp, day, today.year),
+                       enum=[str(get(c, "FIELD_INFO", "ENUMERATOR_NAME")).strip() if get(c, "FIELD_INFO", "ENUMERATOR_NAME") is not None else ""
+                             for c in interviewed if day(c)],
+                       enum_labels=labels["ENUMERATOR_NAME"],
                        **dict(zip(("cvars", "crows"), cat_rows(labels["_dcf"], interviewed, day)))),
         "tablet_syncs": sorted(syncs_latest(syncs), key=lambda s: s["last_sync"], reverse=True),
     }
