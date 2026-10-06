@@ -1,11 +1,11 @@
 {
- "updated": "2026-10-06 10:26",
+ "updated": "2026-10-06 11:25",
  "totals": {
-  "interviews": 432,
+  "interviews": 433,
   "refused": 0,
   "partial": 5,
-  "today": 0,
-  "last7": 297,
+  "today": 1,
+  "last7": 298,
   "tablets": 17
  },
  "timeline": {
@@ -17,7 +17,7 @@
   "2026-10-03": 6,
   "2026-10-04": 79,
   "2026-10-05": 74,
-  "2026-10-06": 0
+  "2026-10-06": 1
  },
  "timeline_group": {
   "2026-09-28": {
@@ -47,14 +47,17 @@
   "2026-10-05": {
    "Beneficiary": 42,
    "Non Beneficiary": 32
+  },
+  "2026-10-06": {
+   "Beneficiary": 1
   }
  },
  "division": {
   "Dhaka": 303,
   "Chattogram": 28,
   "Rangpur": 22,
+  "Sylhet": 22,
   "Khulna": 21,
-  "Sylhet": 21,
   "Mymensingh": 20,
   "Barishal": 17
  },
@@ -80,7 +83,7 @@
    "Non Beneficiary": 9
   },
   "Sylhet": {
-   "Beneficiary": 12,
+   "Beneficiary": 13,
    "Non Beneficiary": 9
   },
   "Mymensingh": {
@@ -90,8 +93,8 @@
  },
  "district": {
   "Dhaka": 301,
+  "Sylhet": 22,
   "Khulna": 21,
-  "Sylhet": 21,
   "Bogura / Chattogram / Dinajpur": 20,
   "Panchagarh": 12,
   "Barguna": 11,
@@ -103,13 +106,13 @@
   "Gazipur": 2
  },
  "area": {
-  "Urban": 384,
+  "Urban": 385,
   "Rural": 48
  },
  "area_group": {
   "Urban": {
    "Non Beneficiary": 155,
-   "Beneficiary": 229
+   "Beneficiary": 230
   },
   "Rural": {
    "Beneficiary": 32,
@@ -118,7 +121,7 @@
  },
  "group": {
   "Non Beneficiary": 171,
-  "Beneficiary": 261
+  "Beneficiary": 262
  },
  "enumerators": {
   "Md. Mohiuddin Patowary - 13": {
@@ -132,9 +135,9 @@
    "today": 0
   },
   "Md. Shafiqur Rahman - 07": {
-   "interviews": 28,
-   "last": "2026-10-05",
-   "today": 0
+   "interviews": 29,
+   "last": "2026-10-06",
+   "today": 1
   },
   "Md. Ariful Islam - 04": {
    "interviews": 28,
@@ -316,9 +319,9 @@
  ],
  "stats": {
   "A2": {
-   "n": 432,
-   "mean": 40.19,
-   "median": 39.5,
+   "n": 433,
+   "mean": 40.21,
+   "median": 40.0,
    "sd": 8.27,
    "min": 23,
    "max": 68,
@@ -329,10 +332,10 @@
     35
    ],
    "mode_count": 38,
-   "skew": 0.39,
+   "skew": 0.38,
    "kurtosis": -0.11,
-   "jb": 10.92,
-   "jb_p": 0.0043,
+   "jb": 10.72,
+   "jb_p": 0.0047,
    "shape": "symmetric",
    "normal": "Not normal",
    "fence_low": 18.5,
@@ -376,22 +379,22 @@
      95,
      88,
      77,
-     43,
+     44,
      42,
      18,
      4,
      3
     ],
     "normal": [
-     18.83,
+     18.8,
      42.55,
-     72.0,
-     91.26,
-     86.66,
-     61.65,
-     32.85,
-     13.11,
-     3.92,
+     72.1,
+     91.5,
+     86.96,
+     61.89,
+     32.98,
+     13.16,
+     3.93,
      0.88
     ]
    },
@@ -406,15 +409,15 @@
      "median": 37.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 41.58,
+     "n": 262,
+     "mean": 41.6,
      "median": 40.0
     }
    }
   },
   "A5": {
-   "n": 432,
-   "mean": 4.53,
+   "n": 433,
+   "mean": 4.52,
    "median": 4.0,
    "sd": 1.78,
    "min": 2,
@@ -427,8 +430,8 @@
    ],
    "mode_count": 172,
    "skew": 4.97,
-   "kurtosis": 50.86,
-   "jb": 47231.93,
+   "kurtosis": 50.84,
+   "jb": 47306.5,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -668,7 +671,7 @@
      26.0
     ],
     "counts": [
-     257,
+     258,
      149,
      19,
      3,
@@ -680,10 +683,10 @@
      1
     ],
     "normal": [
-     170.14,
-     184.94,
-     41.59,
-     1.84,
+     170.78,
+     185.21,
+     41.52,
+     1.83,
      0.01,
      0.0,
      0.0,
@@ -703,15 +706,15 @@
      "median": 4.0
     },
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 4.64,
      "median": 4.0
     }
    }
   },
   "BAGE": {
-   "n": 432,
-   "mean": 11.01,
+   "n": 433,
+   "mean": 11.03,
    "median": 10.0,
    "sd": 6.94,
    "min": 1,
@@ -723,9 +726,9 @@
     8
    ],
    "mode_count": 44,
-   "skew": 1.38,
-   "kurtosis": 3.08,
-   "jb": 301.46,
+   "skew": 1.37,
+   "kurtosis": 3.07,
+   "jb": 300.19,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -783,7 +786,7 @@
      94,
      146,
      91,
-     49,
+     50,
      26,
      21,
      1,
@@ -792,13 +795,13 @@
      2
     ],
     "normal": [
-     63.69,
-     104.85,
-     111.07,
-     75.7,
-     33.19,
-     9.35,
-     1.69,
+     63.72,
+     105.07,
+     111.42,
+     76.0,
+     33.33,
+     9.39,
+     1.7,
      0.2,
      0.01,
      0.0
@@ -815,8 +818,8 @@
      "median": 7.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 12.62,
+     "n": 262,
+     "mean": 12.63,
      "median": 11.0
     }
    }
@@ -1015,10 +1018,10 @@
    }
   },
   "E3": {
-   "n": 261,
-   "mean": 1930153.26,
+   "n": 262,
+   "mean": 1925839.69,
    "median": 1500000.0,
-   "sd": 1425379.29,
+   "sd": 1424358.38,
    "min": 120000,
    "max": 5000000,
    "q1": 900000.0,
@@ -1029,8 +1032,8 @@
    ],
    "mode_count": 28,
    "skew": 1.11,
-   "kurtosis": 0.04,
-   "jb": 52.52,
+   "kurtosis": 0.05,
+   "jb": 53.24,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -1176,7 +1179,7 @@
     ],
     "counts": [
      30,
-     71,
+     72,
      47,
      36,
      21,
@@ -1187,16 +1190,16 @@
      32
     ],
     "normal": [
-     19.51,
-     26.72,
-     32.59,
-     35.38,
-     34.21,
-     29.45,
-     22.58,
-     15.41,
-     9.36,
-     5.07
+     19.65,
+     26.89,
+     32.77,
+     35.55,
+     34.34,
+     29.52,
+     22.6,
+     15.4,
+     9.34,
+     5.05
     ]
    },
    "label": "Loan received",
@@ -1205,8 +1208,8 @@
    "question": "E3",
    "by_group": {
     "Beneficiary": {
-     "n": 261,
-     "mean": 1930153.26,
+     "n": 262,
+     "mean": 1925839.69,
      "median": 1500000.0
     }
    }
@@ -1318,7 +1321,7 @@
    }
   },
   "E4A": {
-   "n": 261,
+   "n": 262,
    "mean": 2022.86,
    "median": 2023.0,
    "sd": 0.86,
@@ -1330,10 +1333,10 @@
    "mode": [
     2023
    ],
-   "mode_count": 127,
+   "mode_count": 128,
    "skew": 0.13,
-   "kurtosis": 1.44,
-   "jb": 21.61,
+   "kurtosis": 1.45,
+   "jb": 22.15,
    "jb_p": 0.0,
    "shape": "symmetric",
    "normal": "Not normal",
@@ -1419,18 +1422,18 @@
      0,
      5,
      81,
-     127,
+     128,
      36,
      11
     ],
     "normal": [
      0.01,
-     0.78,
-     14.06,
-     73.45,
-     113.34,
-     52.07,
-     7.02
+     0.76,
+     14.02,
+     73.7,
+     113.97,
+     52.25,
+     7.01
     ]
    },
    "label": "Year loan received",
@@ -1439,14 +1442,14 @@
    "question": "E4A",
    "by_group": {
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 2022.86,
      "median": 2023.0
     }
    }
   },
   "E5A": {
-   "n": 259,
+   "n": 260,
    "mean": 2024.9,
    "median": 2025.0,
    "sd": 0.67,
@@ -1458,10 +1461,10 @@
    "mode": [
     2025
    ],
-   "mode_count": 164,
-   "skew": -0.88,
-   "kurtosis": 3.99,
-   "jb": 196.27,
+   "mode_count": 165,
+   "skew": -0.89,
+   "kurtosis": 4.01,
+   "jb": 199.6,
    "jb_p": 0.0,
    "shape": "left-skewed",
    "normal": "Not normal",
@@ -1961,16 +1964,16 @@
      0,
      3,
      54,
-     164,
+     165,
      37
     ],
     "normal": [
      0.0,
      0.05,
-     4.81,
-     67.06,
-     139.44,
-     45.46
+     4.78,
+     67.22,
+     140.2,
+     45.59
     ]
    },
    "label": "Year loan fully repaid",
@@ -1979,14 +1982,14 @@
    "question": "E5A",
    "by_group": {
     "Beneficiary": {
-     "n": 259,
+     "n": 260,
      "mean": 2024.9,
      "median": 2025.0
     }
    }
   },
   "E8B": {
-   "n": 261,
+   "n": 262,
    "mean": 5.0,
    "median": 5.0,
    "sd": 0.0,
@@ -1998,7 +2001,7 @@
    "mode": [
     5
    ],
-   "mode_count": 261,
+   "mode_count": 262,
    "shape": "all the same value",
    "normal": "Too few answers to judge",
    "fence_low": 5.0,
@@ -2012,10 +2015,10 @@
      5.5
     ],
     "counts": [
-     261
+     262
     ],
     "normal": [
-     261
+     262
     ]
    },
    "label": "Annual interest rate",
@@ -2024,22 +2027,22 @@
    "question": "E8B",
    "by_group": {
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 5.0,
      "median": 5.0
     }
    }
   },
   "F2": {
-   "n": 432,
-   "mean": 2276842.59,
-   "median": 837500.0,
-   "sd": 4383557.97,
+   "n": 433,
+   "mean": 2275048.5,
+   "median": 875000.0,
+   "sd": 4378640.62,
    "min": 6000,
    "max": 45000000,
    "q1": 300000.0,
-   "q3": 2575000.0,
-   "iqr": 2275000.0,
+   "q3": 2500000.0,
+   "iqr": 2200000.0,
    "mode": [
     300000,
     2000000,
@@ -2047,13 +2050,13 @@
    ],
    "mode_count": 28,
    "skew": 5.62,
-   "kurtosis": 42.49,
-   "jb": 33983.49,
+   "kurtosis": 42.6,
+   "jb": 34229.83,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -3112500.0,
-   "fence_high": 5987500.0,
+   "fence_low": -3000000.0,
+   "fence_high": 5800000.0,
    "whisker_low": 6000,
    "whisker_high": 5800000,
    "outliers": [
@@ -2268,7 +2271,7 @@
      45000000.0
     ],
     "counts": [
-     371,
+     372,
      41,
      10,
      4,
@@ -2280,10 +2283,10 @@
      1
     ],
     "normal": [
-     169.43,
-     105.05,
-     24.71,
-     2.18,
+     169.99,
+     105.26,
+     24.68,
+     2.17,
      0.07,
      0.0,
      0.0,
@@ -2303,17 +2306,17 @@
      "median": 500000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 2661685.82,
+     "n": 262,
+     "mean": 2657251.91,
      "median": 1200000.0
     }
    }
   },
   "F3": {
-   "n": 432,
-   "mean": 3372127.31,
+   "n": 433,
+   "mean": 3368958.43,
    "median": 1200000.0,
-   "sd": 6775888.86,
+   "sd": 6768363.07,
    "min": 0,
    "max": 80000000,
    "q1": 400000.0,
@@ -2324,8 +2327,8 @@
    ],
    "mode_count": 17,
    "skew": 6.25,
-   "kurtosis": 54.16,
-   "jb": 54357.92,
+   "kurtosis": 54.3,
+   "jb": 54745.49,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -2520,7 +2523,7 @@
      80000000.0
     ],
     "counts": [
-     381,
+     382,
      40,
      3,
      4,
@@ -2532,10 +2535,10 @@
      1
     ],
     "normal": [
-     191.52,
-     93.36,
-     12.97,
-     0.5,
+     192.14,
+     93.49,
+     12.93,
+     0.49,
      0.01,
      0.0,
      0.0,
@@ -2555,34 +2558,34 @@
      "median": 750000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 3798042.15,
+     "n": 262,
+     "mean": 3791179.39,
      "median": 1800000.0
     }
    }
   },
   "F4": {
-   "n": 432,
-   "mean": 381497.69,
-   "median": 121000.0,
-   "sd": 1600301.49,
+   "n": 433,
+   "mean": 381540.42,
+   "median": 122000.0,
+   "sd": 1598448.47,
    "min": 1500,
    "max": 30000000,
-   "q1": 53000.0,
+   "q1": 54000.0,
    "q3": 250000.0,
-   "iqr": 197000.0,
+   "iqr": 196000.0,
    "mode": [
     200000
    ],
    "mode_count": 38,
-   "skew": 15.46,
-   "kurtosis": 276.52,
-   "jb": 1361699.72,
+   "skew": 15.48,
+   "kurtosis": 277.16,
+   "jb": 1371188.57,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -242500.0,
-   "fence_high": 545500.0,
+   "fence_low": -240000.0,
+   "fence_high": 544000.0,
    "whisker_low": 1500,
    "whisker_high": 525000,
    "outliers": [
@@ -2852,7 +2855,7 @@
      30000000.0
     ],
     "counts": [
-     426,
+     427,
      4,
      0,
      1,
@@ -2864,9 +2867,9 @@
      1
     ],
     "normal": [
-     234.59,
-     21.85,
-     0.1,
+     235.27,
+     21.82,
+     0.09,
      0.0,
      0.0,
      0.0,
@@ -2887,34 +2890,34 @@
      "median": 100000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 461818.01,
+     "n": 262,
+     "mean": 461582.06,
      "median": 150000.0
     }
    }
   },
   "F5": {
-   "n": 432,
-   "mean": 506096.06,
+   "n": 433,
+   "mean": 506081.99,
    "median": 200000.0,
-   "sd": 1465157.08,
+   "sd": 1463460.34,
    "min": 0,
    "max": 20000000,
    "q1": 75000.0,
-   "q3": 405000.0,
-   "iqr": 330000.0,
+   "q3": 420000.0,
+   "iqr": 345000.0,
    "mode": [
     200000
    ],
    "mode_count": 26,
-   "skew": 9.72,
-   "kurtosis": 115.12,
-   "jb": 239764.95,
+   "skew": 9.73,
+   "kurtosis": 115.39,
+   "jb": 241448.26,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -420000.0,
-   "fence_high": 900000.0,
+   "fence_low": -442500.0,
+   "fence_high": 937500.0,
    "whisker_low": 0,
    "whisker_high": 900000,
    "outliers": [
@@ -3159,7 +3162,7 @@
      20000000.0
     ],
     "counts": [
-     413,
+     414,
      10,
      6,
      1,
@@ -3171,9 +3174,9 @@
      1
     ],
     "normal": [
-     207.86,
-     62.82,
-     3.65,
+     208.53,
+     62.87,
+     3.64,
      0.04,
      0.0,
      0.0,
@@ -3194,37 +3197,42 @@
      "median": 120000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 602486.59,
-     "median": 240000.0
+     "n": 262,
+     "mean": 602095.42,
+     "median": 245000.0
     }
    }
   },
   "F6": {
-   "n": 432,
-   "mean": 2211173.61,
+   "n": 433,
+   "mean": 2207221.71,
    "median": 500000.0,
-   "sd": 5297716.06,
+   "sd": 5292219.83,
    "min": 5000,
    "max": 60000000,
    "q1": 150000.0,
-   "q3": 1625000.0,
-   "iqr": 1475000.0,
+   "q3": 1600000.0,
+   "iqr": 1450000.0,
    "mode": [
     100000
    ],
    "mode_count": 38,
-   "skew": 6.34,
-   "kurtosis": 54.26,
-   "jb": 54625.03,
+   "skew": 6.35,
+   "kurtosis": 54.38,
+   "jb": 54995.5,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -2062500.0,
-   "fence_high": 3837500.0,
+   "fence_low": -2025000.0,
+   "fence_high": 3775000.0,
    "whisker_low": 5000,
-   "whisker_high": 3800000,
+   "whisker_high": 3500000,
    "outliers": [
+    {
+     "id": "2612006",
+     "value": 3800000,
+     "extreme": false
+    },
     {
      "id": "2617002",
      "value": 4000000,
@@ -3358,32 +3366,32 @@
     {
      "id": "2615002",
      "value": 6000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2613004",
      "value": 6000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2613006",
      "value": 6000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2607014",
      "value": 6000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "1502020",
      "value": 6000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2616020",
      "value": 6000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2612001",
@@ -3601,7 +3609,7 @@
      60000000.0
     ],
     "counts": [
-     392,
+     393,
      26,
      8,
      2,
@@ -3613,9 +3621,9 @@
      1
     ],
     "normal": [
-     183.37,
-     88.44,
-     13.32,
+     183.94,
+     88.53,
+     13.27,
      0.61,
      0.01,
      0.0,
@@ -3636,17 +3644,17 @@
      "median": 400000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 2419578.54,
+     "n": 262,
+     "mean": 2412251.91,
      "median": 500000.0
     }
    }
   },
   "F7": {
-   "n": 432,
-   "mean": 3304548.61,
+   "n": 433,
+   "mean": 3298302.54,
    "median": 700000.0,
-   "sd": 7673980.88,
+   "sd": 7666195.66,
    "min": 0,
    "max": 75000000,
    "q1": 200000.0,
@@ -3656,9 +3664,9 @@
     200000
    ],
    "mode_count": 32,
-   "skew": 5.28,
-   "kurtosis": 36.81,
-   "jb": 25803.52,
+   "skew": 5.29,
+   "kurtosis": 36.89,
+   "jb": 25980.5,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -4013,7 +4021,7 @@
      75000000.0
     ],
     "counts": [
-     378,
+     379,
      31,
      13,
      2,
@@ -4025,10 +4033,10 @@
      2
     ],
     "normal": [
-     161.71,
-     98.73,
-     24.87,
-     2.56,
+     162.23,
+     98.88,
+     24.82,
+     2.55,
      0.11,
      0.0,
      0.0,
@@ -4048,17 +4056,17 @@
      "median": 600000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 3485076.63,
+     "n": 262,
+     "mean": 3474064.89,
      "median": 700000.0
     }
    }
   },
   "F8": {
-   "n": 432,
-   "mean": 4607196.76,
+   "n": 433,
+   "mean": 4597480.37,
    "median": 2000000.0,
-   "sd": 8482994.23,
+   "sd": 8475582.16,
    "min": 0,
    "max": 70000000,
    "q1": 500000.0,
@@ -4068,9 +4076,9 @@
     2000000
    ],
    "mode_count": 32,
-   "skew": 4.47,
-   "kurtosis": 25.54,
-   "jb": 12890.12,
+   "skew": 4.48,
+   "kurtosis": 25.59,
+   "jb": 12971.87,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -4315,7 +4323,7 @@
      70000000.0
     ],
     "counts": [
-     350,
+     351,
      47,
      22,
      3,
@@ -4327,11 +4335,11 @@
      2
     ],
     "normal": [
-     137.17,
-     110.1,
-     46.41,
-     10.26,
-     1.18,
+     137.62,
+     110.32,
+     46.4,
+     10.22,
+     1.17,
      0.07,
      0.0,
      0.0,
@@ -4350,17 +4358,17 @@
      "median": 1000000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 5398869.73,
+     "n": 262,
+     "mean": 5379790.08,
      "median": 2000000.0
     }
    }
   },
   "F9": {
-   "n": 432,
-   "mean": 7265016.2,
-   "median": 2850000.0,
-   "sd": 12327316.39,
+   "n": 433,
+   "mean": 7249392.61,
+   "median": 2800000.0,
+   "sd": 12317331.6,
    "min": 0,
    "max": 90000000,
    "q1": 600000.0,
@@ -4371,8 +4379,8 @@
    ],
    "mode_count": 27,
    "skew": 3.32,
-   "kurtosis": 13.14,
-   "jb": 3819.22,
+   "kurtosis": 13.17,
+   "jb": 3844.74,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -4627,7 +4635,7 @@
      90000000.0
     ],
     "counts": [
-     333,
+     334,
      50,
      22,
      10,
@@ -4639,11 +4647,11 @@
      1
     ],
     "normal": [
-     120.16,
-     108.91,
-     59.28,
-     19.36,
-     3.79,
+     120.56,
+     109.16,
+     59.31,
+     19.32,
+     3.77,
      0.44,
      0.03,
      0.0,
@@ -4662,17 +4670,17 @@
      "median": 1500000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 8797222.22,
+     "n": 262,
+     "mean": 8765553.44,
      "median": 3500000.0
     }
    }
   },
   "F10": {
-   "n": 432,
-   "mean": 68.08,
+   "n": 433,
+   "mean": 67.93,
    "median": 7.0,
-   "sd": 305.75,
+   "sd": 305.41,
    "min": 1,
    "max": 4000,
    "q1": 2.0,
@@ -4682,9 +4690,9 @@
     1
    ],
    "mode_count": 84,
-   "skew": 8.8,
-   "kurtosis": 91.72,
-   "jb": 153455.57,
+   "skew": 8.81,
+   "kurtosis": 91.94,
+   "jb": 154525.89,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -5054,7 +5062,7 @@
      4000.0
     ],
     "counts": [
-     418,
+     419,
      5,
      5,
      0,
@@ -5066,10 +5074,10 @@
      1
     ],
     "normal": [
-     193.82,
+     194.39,
      56.12,
-     3.53,
-     0.05,
+     3.51,
+     0.04,
      0.0,
      0.0,
      0.0,
@@ -5089,17 +5097,17 @@
      "median": 8.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 80.03,
+     "n": 262,
+     "mean": 79.74,
      "median": 6.0
     }
    }
   },
   "F11": {
-   "n": 432,
-   "mean": 99.31,
+   "n": 433,
+   "mean": 99.09,
    "median": 8.0,
-   "sd": 537.62,
+   "sd": 537.02,
    "min": 1,
    "max": 9000,
    "q1": 2.0,
@@ -5109,9 +5117,9 @@
     1
    ],
    "mode_count": 76,
-   "skew": 12.33,
-   "kurtosis": 184.26,
-   "jb": 607860.83,
+   "skew": 12.35,
+   "kurtosis": 184.68,
+   "jb": 612064.93,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -5496,7 +5504,7 @@
      9000.0
     ],
     "counts": [
-     423,
+     424,
      4,
      2,
      1,
@@ -5508,8 +5516,8 @@
      1
     ],
     "normal": [
-     217.97,
-     29.03,
+     218.56,
+     28.99,
      0.33,
      0.0,
      0.0,
@@ -5531,14 +5539,14 @@
      "median": 10.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 125.36,
-     "median": 8.0
+     "n": 262,
+     "mean": 124.89,
+     "median": 7.5
     }
    }
   },
   "F12": {
-   "n": 432,
+   "n": 433,
    "mean": 1.57,
    "median": 1.0,
    "sd": 1.59,
@@ -5552,8 +5560,8 @@
    ],
    "mode_count": 294,
    "skew": 8.33,
-   "kurtosis": 98.93,
-   "jb": 177026.66,
+   "kurtosis": 99.11,
+   "jb": 178074.74,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -5668,7 +5676,7 @@
      24.0
     ],
     "counts": [
-     414,
+     415,
      10,
      3,
      3,
@@ -5680,9 +5688,9 @@
      1
     ],
     "normal": [
-     216.51,
-     57.57,
-     2.46,
+     217.23,
+     57.67,
+     2.45,
      0.02,
      0.0,
      0.0,
@@ -5703,14 +5711,14 @@
      "median": 1.0
     },
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 1.65,
      "median": 1.0
     }
    }
   },
   "F13": {
-   "n": 432,
+   "n": 433,
    "mean": 1.88,
    "median": 1.0,
    "sd": 1.48,
@@ -5723,9 +5731,9 @@
     1
    ],
    "mode_count": 229,
-   "skew": 3.27,
-   "kurtosis": 15.06,
-   "jb": 4745.88,
+   "skew": 3.28,
+   "kurtosis": 15.1,
+   "jb": 4779.03,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -5973,7 +5981,7 @@
     ],
     "counts": [
      229,
-     126,
+     127,
      33,
      24,
      9,
@@ -5986,12 +5994,12 @@
      2
     ],
     "normal": [
-     96.36,
-     114.16,
-     87.0,
-     42.64,
-     13.43,
-     2.72,
+     96.64,
+     114.55,
+     87.26,
+     42.71,
+     13.42,
+     2.71,
      0.35,
      0.03,
      0.0,
@@ -6011,7 +6019,7 @@
      "median": 1.0
     },
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 2.1,
      "median": 2.0
     }
@@ -6182,10 +6190,10 @@
    }
   },
   "G1": {
-   "n": 432,
-   "mean": 7.81,
+   "n": 433,
+   "mean": 7.84,
    "median": 3.0,
-   "sd": 15.07,
+   "sd": 15.06,
    "min": 0,
    "max": 200,
    "q1": 2.0,
@@ -6197,7 +6205,7 @@
    "mode_count": 79,
    "skew": 6.49,
    "kurtosis": 65.83,
-   "jb": 79187.81,
+   "jb": 79376.75,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -6482,7 +6490,7 @@
      200.0
     ],
     "counts": [
-     387,
+     388,
      31,
      5,
      6,
@@ -6494,10 +6502,10 @@
      1
     ],
     "normal": [
-     211.06,
-     83.39,
-     6.95,
-     0.12,
+     211.72,
+     83.69,
+     6.96,
+     0.11,
      0.0,
      0.0,
      0.0,
@@ -6517,17 +6525,17 @@
      "median": 2.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 9.35,
+     "n": 262,
+     "mean": 9.38,
      "median": 4.0
     }
    }
   },
   "G2": {
-   "n": 432,
-   "mean": 11.06,
+   "n": 433,
+   "mean": 11.08,
    "median": 4.0,
-   "sd": 32.18,
+   "sd": 32.15,
    "min": 0,
    "max": 600,
    "q1": 2.0,
@@ -6537,9 +6545,9 @@
     0
    ],
    "mode_count": 57,
-   "skew": 14.61,
-   "kurtosis": 261.6,
-   "jb": 1218702.5,
+   "skew": 14.62,
+   "kurtosis": 262.07,
+   "jb": 1225976.46,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -6824,7 +6832,7 @@
      600.0
     ],
     "counts": [
-     420,
+     421,
      10,
      1,
      0,
@@ -6836,8 +6844,8 @@
      1
     ],
     "normal": [
-     246.35,
-     27.57,
+     247.13,
+     27.58,
      0.15,
      0.0,
      0.0,
@@ -6859,17 +6867,17 @@
      "median": 3.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 13.47,
+     "n": 262,
+     "mean": 13.49,
      "median": 6.0
     }
    }
   },
   "G3": {
-   "n": 432,
+   "n": 433,
    "mean": 4.16,
    "median": 0.0,
-   "sd": 21.38,
+   "sd": 21.36,
    "min": 0,
    "max": 350,
    "q1": 0.0,
@@ -6879,9 +6887,9 @@
     0
    ],
    "mode_count": 230,
-   "skew": 12.26,
-   "kurtosis": 175.41,
-   "jb": 551800.24,
+   "skew": 12.28,
+   "kurtosis": 175.81,
+   "jb": 555622.93,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -7106,7 +7114,7 @@
      350.0
     ],
     "counts": [
-     424,
+     425,
      4,
      0,
      1,
@@ -7118,9 +7126,9 @@
      1
     ],
     "normal": [
-     217.06,
-     31.77,
-     0.45,
+     217.71,
+     31.75,
+     0.44,
      0.0,
      0.0,
      0.0,
@@ -7141,17 +7149,17 @@
      "median": 0.0
     },
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 3.87,
      "median": 0.0
     }
    }
   },
   "G4": {
-   "n": 432,
-   "mean": 5.41,
+   "n": 433,
+   "mean": 5.42,
    "median": 0.0,
-   "sd": 25.2,
+   "sd": 25.18,
    "min": 0,
    "max": 350,
    "q1": 0.0,
@@ -7161,9 +7169,9 @@
     0
    ],
    "mode_count": 228,
-   "skew": 10.92,
-   "kurtosis": 131.85,
-   "jb": 314191.23,
+   "skew": 10.93,
+   "kurtosis": 132.15,
+   "jb": 316348.64,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -7373,7 +7381,7 @@
      350.0
     ],
     "counts": [
-     424,
+     425,
      3,
      2,
      0,
@@ -7385,9 +7393,9 @@
      1
     ],
     "normal": [
-     200.79,
-     49.69,
-     2.23,
+     201.43,
+     49.72,
+     2.22,
      0.02,
      0.0,
      0.0,
@@ -7408,14 +7416,14 @@
      "median": 0.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 5.62,
+     "n": 262,
+     "mean": 5.63,
      "median": 0.0
     }
    }
   },
   "G5": {
-   "n": 432,
+   "n": 433,
    "mean": 1.37,
    "median": 1.0,
    "sd": 0.84,
@@ -7427,10 +7435,10 @@
    "mode": [
     1
    ],
-   "mode_count": 219,
-   "skew": 1.01,
-   "kurtosis": 3.01,
-   "jb": 231.22,
+   "mode_count": 220,
+   "skew": 1.02,
+   "kurtosis": 3.02,
+   "jb": 233.61,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -7498,7 +7506,7 @@
     ],
     "counts": [
      47,
-     219,
+     220,
      138,
      19,
      7,
@@ -7506,11 +7514,11 @@
      1
     ],
     "normal": [
-     59.73,
-     177.35,
-     150.37,
-     36.29,
-     2.43,
+     59.89,
+     177.95,
+     150.68,
+     36.24,
+     2.41,
      0.04,
      0.0
     ]
@@ -7526,15 +7534,15 @@
      "median": 1.0
     },
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 1.47,
      "median": 1.0
     }
    }
   },
   "G6": {
-   "n": 432,
-   "mean": 1.38,
+   "n": 433,
+   "mean": 1.37,
    "median": 1.0,
    "sd": 0.84,
    "min": 0,
@@ -7545,10 +7553,10 @@
    "mode": [
     1
    ],
-   "mode_count": 223,
-   "skew": 0.97,
-   "kurtosis": 2.4,
-   "jb": 167.68,
+   "mode_count": 224,
+   "skew": 0.98,
+   "kurtosis": 2.41,
+   "jb": 169.52,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -7615,18 +7623,18 @@
     ],
     "counts": [
      44,
-     223,
+     224,
      136,
      20,
      6,
      3
     ],
     "normal": [
-     58.4,
-     177.89,
-     151.79,
-     36.16,
-     2.34,
+     58.56,
+     178.5,
+     152.1,
+     36.1,
+     2.33,
      0.04
     ]
    },
@@ -7641,17 +7649,17 @@
      "median": 1.0
     },
     "Beneficiary": {
-     "n": 261,
+     "n": 262,
      "mean": 1.45,
      "median": 1.0
     }
    }
   },
   "G7": {
-   "n": 432,
-   "mean": 2.93,
+   "n": 433,
+   "mean": 2.94,
    "median": 0.0,
-   "sd": 11.0,
+   "sd": 10.99,
    "min": 0,
    "max": 180,
    "q1": 0.0,
@@ -7661,9 +7669,9 @@
     0
    ],
    "mode_count": 241,
-   "skew": 11.44,
-   "kurtosis": 164.86,
-   "jb": 487301.28,
+   "skew": 11.45,
+   "kurtosis": 165.1,
+   "jb": 489849.13,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -7853,7 +7861,7 @@
      180.0
     ],
     "counts": [
-     422,
+     423,
      5,
      1,
      2,
@@ -7865,8 +7873,8 @@
      1
     ],
     "normal": [
-     224.48,
-     36.32,
+     225.22,
+     36.37,
      0.57,
      0.0,
      0.0,
@@ -7888,17 +7896,17 @@
      "median": 0.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 3.47,
+     "n": 262,
+     "mean": 3.48,
      "median": 0.0
     }
    }
   },
   "G8": {
-   "n": 432,
-   "mean": 4.48,
+   "n": 433,
+   "mean": 4.49,
    "median": 0.0,
-   "sd": 29.02,
+   "sd": 28.99,
    "min": 0,
    "max": 580,
    "q1": 0.0,
@@ -7908,9 +7916,9 @@
     0
    ],
    "mode_count": 236,
-   "skew": 18.37,
-   "kurtosis": 361.62,
-   "jb": 2323780.2,
+   "skew": 18.39,
+   "kurtosis": 362.41,
+   "jb": 2339399.52,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -7971,6 +7979,11 @@
     },
     {
      "id": "3909023",
+     "value": 8,
+     "extreme": false
+    },
+    {
+     "id": "9107029",
      "value": 8,
      "extreme": false
     },
@@ -8205,7 +8218,7 @@
      580.0
     ],
     "counts": [
-     429,
+     430,
      1,
      1,
      0,
@@ -8217,8 +8230,8 @@
      1
     ],
     "normal": [
-     228.43,
-     14.04,
+     229.09,
+     14.02,
      0.03,
      0.0,
      0.0,
@@ -8240,17 +8253,17 @@
      "median": 0.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 5.45,
+     "n": 262,
+     "mean": 5.46,
      "median": 0.0
     }
    }
   },
   "G9": {
-   "n": 432,
-   "mean": 436837.97,
+   "n": 433,
+   "mean": 436752.89,
    "median": 200000.0,
-   "sd": 865016.2,
+   "sd": 864016.26,
    "min": 1,
    "max": 10000000,
    "q1": 110000.0,
@@ -8261,8 +8274,8 @@
    ],
    "mode_count": 39,
    "skew": 6.65,
-   "kurtosis": 56.04,
-   "jb": 58368.58,
+   "kurtosis": 56.18,
+   "jb": 58785.92,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -8477,7 +8490,7 @@
      10000000.0
     ],
     "counts": [
-     404,
+     405,
      19,
      1,
      3,
@@ -8489,10 +8502,10 @@
      1
     ],
     "normal": [
-     188.23,
-     95.96,
-     14.62,
-     0.65,
+     188.86,
+     96.14,
+     14.59,
+     0.64,
      0.01,
      0.0,
      0.0,
@@ -8512,34 +8525,34 @@
      "median": 200000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 476475.1,
-     "median": 220000.0
+     "n": 262,
+     "mean": 476183.21,
+     "median": 225000.0
     }
    }
   },
   "G10": {
-   "n": 432,
-   "mean": 605700.23,
+   "n": 433,
+   "mean": 605456.12,
    "median": 300000.0,
-   "sd": 1181076.26,
+   "sd": 1179719.42,
    "min": 25000,
    "max": 15000000,
    "q1": 150000.0,
-   "q3": 552500.0,
-   "iqr": 402500.0,
+   "q3": 550000.0,
+   "iqr": 400000.0,
    "mode": [
     400000
    ],
    "mode_count": 26,
-   "skew": 6.98,
-   "kurtosis": 65.7,
-   "jb": 79364.09,
+   "skew": 6.99,
+   "kurtosis": 65.86,
+   "jb": 79932.77,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -453750.0,
-   "fence_high": 1156250.0,
+   "fence_low": -450000.0,
+   "fence_high": 1150000.0,
    "whisker_low": 25000,
    "whisker_high": 1100000,
    "outliers": [
@@ -8789,7 +8802,7 @@
      15000000.0
     ],
     "counts": [
-     405,
+     406,
      17,
      4,
      2,
@@ -8801,9 +8814,9 @@
      1
     ],
     "normal": [
-     202.92,
-     85.68,
-     8.64,
+     203.58,
+     85.79,
+     8.61,
      0.2,
      0.0,
      0.0,
@@ -8824,17 +8837,17 @@
      "median": 250000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 680053.64,
+     "n": 262,
+     "mean": 679366.41,
      "median": 350000.0
     }
    }
   },
   "G11": {
-   "n": 432,
-   "mean": 84087.96,
+   "n": 433,
+   "mean": 84055.43,
    "median": 60000.0,
-   "sd": 90261.91,
+   "sd": 90159.92,
    "min": 10000,
    "max": 1200000,
    "q1": 40000.0,
@@ -8844,9 +8857,9 @@
     50000
    ],
    "mode_count": 56,
-   "skew": 6.18,
-   "kurtosis": 61.05,
-   "jb": 68247.68,
+   "skew": 6.19,
+   "kurtosis": 61.2,
+   "jb": 68735.84,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -9031,7 +9044,7 @@
      1200000.0
     ],
     "counts": [
-     365,
+     366,
      49,
      13,
      2,
@@ -9043,9 +9056,9 @@
      1
     ],
     "normal": [
-     209.4,
-     118.67,
-     14.61,
+     210.1,
+     118.89,
+     14.57,
      0.37,
      0.0,
      0.0,
@@ -9066,17 +9079,17 @@
      "median": 50000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 84275.86,
+     "n": 262,
+     "mean": 84221.37,
      "median": 60000.0
     }
    }
   },
   "G12": {
-   "n": 432,
-   "mean": 120550.93,
+   "n": 433,
+   "mean": 120457.27,
    "median": 80000.0,
-   "sd": 163809.88,
+   "sd": 163631.78,
    "min": 15000,
    "max": 2500000,
    "q1": 50000.0,
@@ -9086,9 +9099,9 @@
     50000
    ],
    "mode_count": 52,
-   "skew": 8.79,
-   "kurtosis": 110.48,
-   "jb": 220124.32,
+   "skew": 8.8,
+   "kurtosis": 110.73,
+   "jb": 221624.27,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
@@ -9208,7 +9221,7 @@
      2500000.0
     ],
     "counts": [
-     406,
+     407,
      20,
      1,
      3,
@@ -9220,9 +9233,9 @@
      1
     ],
     "normal": [
-     237.12,
-     79.05,
-     3.62,
+     237.87,
+     79.09,
+     3.6,
      0.02,
      0.0,
      0.0,
@@ -9243,8 +9256,8 @@
      "median": 75000.0
     },
     "Beneficiary": {
-     "n": 261,
-     "mean": 127088.12,
+     "n": 262,
+     "mean": 126908.4,
      "median": 90000.0
     }
    }
@@ -9256,15 +9269,15 @@
    "label": "Do you agree to participate in this survey",
    "group": "Consent",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 432,
-     "ben": 261,
+     "count": 433,
+     "ben": 262,
      "non": 171
     },
     {
@@ -9281,8 +9294,8 @@
    "label": "What is your current marital status?",
    "group": "A · Respondent demographic profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -9295,8 +9308,8 @@
     {
      "code": "2",
      "label": "Married",
-     "count": 389,
-     "ben": 241,
+     "count": 390,
+     "ben": 242,
      "non": 148
     },
     {
@@ -9327,8 +9340,8 @@
    "label": "What is the highest level of education you have completed?",
    "group": "A · Respondent demographic profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -9390,8 +9403,8 @@
     {
      "code": "9",
      "label": "Grade 8",
-     "count": 25,
-     "ben": 18,
+     "count": 26,
+     "ben": 19,
      "non": 7
     },
     {
@@ -9485,8 +9498,8 @@
    "label": "What is the main activity of this business?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -9506,8 +9519,8 @@
     {
      "code": "3",
      "label": "Clothing, tailoring, boutique, or garments-related business",
-     "count": 159,
-     "ben": 94,
+     "count": 160,
+     "ben": 95,
      "non": 65
     },
     {
@@ -9573,15 +9586,15 @@
    "label": "Is this business operating now?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes, operating now",
-     "count": 420,
-     "ben": 249,
+     "count": 421,
+     "ben": 250,
      "non": 171
     },
     {
@@ -9605,15 +9618,15 @@
    "label": "Do you own this business on your own or in partnership with others?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "I own it on my own",
-     "count": 398,
-     "ben": 242,
+     "count": 399,
+     "ben": 243,
      "non": 156
     },
     {
@@ -9644,15 +9657,15 @@
    "label": "What is your main role in this business?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Owner and mainly responsible for managing the business",
-     "count": 339,
-     "ben": 197,
+     "count": 340,
+     "ben": 198,
      "non": 142
     },
     {
@@ -9690,8 +9703,8 @@
    "label": "Among the permanent employees of this business, are more than half women?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -9704,8 +9717,8 @@
     {
      "code": "2",
      "label": "No",
-     "count": 96,
-     "ben": 65,
+     "count": 97,
+     "ben": 66,
      "non": 31
     },
     {
@@ -9729,8 +9742,8 @@
    "label": "Among the permanent employees of this business, approximately what percentage are women?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 407,
-   "n_ben": 250,
+   "n": 408,
+   "n_ben": 251,
    "n_non": 157,
    "options": [
     {
@@ -9743,8 +9756,8 @@
     {
      "code": "2",
      "label": "10% or more, but less than half",
-     "count": 45,
-     "ben": 30,
+     "count": 46,
+     "ben": 31,
      "non": 15
     },
     {
@@ -9775,15 +9788,15 @@
    "label": "Does this business currently have a valid trade license?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 428,
-     "ben": 261,
+     "count": 429,
+     "ben": 262,
      "non": 167
     },
     {
@@ -9800,8 +9813,8 @@
    "label": "Where do you mainly operate this business?",
    "group": "B · Enterprise profile",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -9814,8 +9827,8 @@
     {
      "code": "2",
      "label": "Shop/showroom/office outside the home",
-     "count": 338,
-     "ben": 200,
+     "count": 339,
+     "ben": 201,
      "non": 138
     },
     {
@@ -9860,15 +9873,15 @@
    "label": "Do you currently have a bank account in your own name?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 400,
-     "ben": 241,
+     "count": 401,
+     "ben": 242,
      "non": 159
     },
     {
@@ -9885,15 +9898,15 @@
    "label": "Do you have a bank account in the name of the business?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 390,
-     "ben": 254,
+     "count": 391,
+     "ben": 255,
      "non": 136
     },
     {
@@ -9910,15 +9923,15 @@
    "label": "Which bank account or accounts do you usually use for your business transactions?",
    "group": "C · Access to finance and financial practices",
    "multi": true,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Bank account in the name of the business",
-     "count": 374,
-     "ben": 244,
+     "count": 375,
+     "ben": 245,
      "non": 130
     },
     {
@@ -9963,15 +9976,15 @@
    "label": "When you use a bank account for your business, what do you usually use it for?",
    "group": "C · Access to finance and financial practices",
    "multi": true,
-   "n": 420,
-   "n_ben": 258,
+   "n": 421,
+   "n_ben": 259,
    "n_non": 162,
    "options": [
     {
      "code": "1",
      "label": "To deposit money earned from the business",
-     "count": 399,
-     "ben": 248,
+     "count": 400,
+     "ben": 249,
      "non": 151
     },
     {
@@ -9984,8 +9997,8 @@
     {
      "code": "3",
      "label": "To pay suppliers or buy goods/raw materials",
-     "count": 292,
-     "ben": 198,
+     "count": 293,
+     "ben": 199,
      "non": 94
     },
     {
@@ -10005,15 +10018,15 @@
     {
      "code": "6",
      "label": "To receive a business loan",
-     "count": 270,
-     "ben": 188,
+     "count": 271,
+     "ben": 189,
      "non": 82
     },
     {
      "code": "7",
      "label": "To repay a business loan or pay loan installments",
-     "count": 220,
-     "ben": 164,
+     "count": 221,
+     "ben": 165,
      "non": 56
     },
     {
@@ -10037,8 +10050,8 @@
    "label": "Do you use mobile financial services, such as bKash, Nagad, or Rocket, for business transactions?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -10051,8 +10064,8 @@
     {
      "code": "2",
      "label": "No",
-     "count": 91,
-     "ben": 63,
+     "count": 92,
+     "ben": 64,
      "non": 28
     }
    ]
@@ -10101,15 +10114,15 @@
    "label": "How do you usually keep track of your business sales and expenses?",
    "group": "C · Access to finance and financial practices",
    "multi": true,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "I regularly write them in a notebook/register",
-     "count": 387,
-     "ben": 237,
+     "count": 388,
+     "ben": 238,
      "non": 150
     },
     {
@@ -10129,8 +10142,8 @@
     {
      "code": "4",
      "label": "I keep some receipts or papers, but do not maintain regular records",
-     "count": 73,
-     "ben": 50,
+     "count": 74,
+     "ben": 51,
      "non": 23
     },
     {
@@ -10147,36 +10160,36 @@
    "label": "Which of the following documents or records do you currently have?",
    "group": "C · Access to finance and financial practices",
    "multi": true,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "National Identity Card (NID)",
-     "count": 425,
-     "ben": 256,
+     "count": 426,
+     "ben": 257,
      "non": 169
     },
     {
      "code": "2",
      "label": "TIN/e-TIN certificate",
-     "count": 396,
-     "ben": 254,
+     "count": 397,
+     "ben": 255,
      "non": 142
     },
     {
      "code": "3",
      "label": "Bank statement used for the business",
-     "count": 360,
-     "ben": 231,
+     "count": 361,
+     "ben": 232,
      "non": 129
     },
     {
      "code": "4",
      "label": "Written records of business sales and expenses / ledger",
-     "count": 360,
-     "ben": 220,
+     "count": 361,
+     "ben": 221,
      "non": 140
     },
     {
@@ -10189,8 +10202,8 @@
     {
      "code": "6",
      "label": "Land or property ownership documents in my own name",
-     "count": 119,
-     "ben": 76,
+     "count": 120,
+     "ben": 77,
      "non": 43
     }
    ]
@@ -10200,15 +10213,15 @@
    "label": "During the past 12 months, which sources of money have you used to run or invest in your business?",
    "group": "C · Access to finance and financial practices",
    "multi": true,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Own savings or money earned from the business",
-     "count": 357,
-     "ben": 208,
+     "count": 358,
+     "ben": 209,
      "non": 149
     },
     {
@@ -10295,15 +10308,15 @@
    "label": "Do you currently have any loan taken for your business that you are still repaying?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 267,
-     "ben": 184,
+     "count": 268,
+     "ben": 185,
      "non": 83
     },
     {
@@ -10320,15 +10333,15 @@
    "label": "During the past 12 months, did your business need additional money for working capital, investment, or business expansion?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 341,
-     "ben": 201,
+     "count": 342,
+     "ben": 202,
      "non": 140
     },
     {
@@ -10345,15 +10358,15 @@
    "label": "Did you try to obtain this additional money from a bank, financial institution, NGO/MFI, or another source outside your own or family funds?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 341,
-   "n_ben": 201,
+   "n": 342,
+   "n_ben": 202,
    "n_non": 140,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 267,
-     "ben": 160,
+     "count": 268,
+     "ben": 161,
      "non": 107
     },
     {
@@ -10370,15 +10383,15 @@
    "label": "Were you able to obtain the amount you needed?",
    "group": "C · Access to finance and financial practices",
    "multi": false,
-   "n": 267,
-   "n_ben": 160,
+   "n": 268,
+   "n_ben": 161,
    "n_non": 107,
    "options": [
     {
      "code": "1",
      "label": "Yes, received the full amount needed",
-     "count": 91,
-     "ben": 65,
+     "count": 92,
+     "ben": 66,
      "non": 26
     },
     {
@@ -10402,15 +10415,15 @@
    "label": "What is the respondent's survey group?",
    "group": "D · SERWE Awareness",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Beneficiary",
-     "count": 261,
-     "ben": 261,
+     "count": 262,
+     "ben": 262,
      "non": 0
     },
     {
@@ -10530,15 +10543,15 @@
    "label": "How did you first hear about this loan facility?",
    "group": "D · SERWE Awareness",
    "multi": false,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
      "code": "1",
      "label": "Bank or financial institution staff",
-     "count": 271,
-     "ben": 213,
+     "count": 272,
+     "ben": 214,
      "non": 58
     },
     {
@@ -10625,36 +10638,36 @@
    "label": "Before you applied for this loan, which of the following features of this loan did you know about?",
    "group": "D · SERWE Awareness",
    "multi": true,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
      "code": "1",
      "label": "Interest rate of up to 5%",
-     "count": 345,
-     "ben": 259,
+     "count": 346,
+     "ben": 260,
      "non": 86
     },
     {
      "code": "2",
      "label": "Loan of up to Tk 50 lakh may be available without land or property as collateral",
-     "count": 206,
-     "ben": 168,
+     "count": 207,
+     "ben": 169,
      "non": 38
     },
     {
      "code": "3",
      "label": "1% cash incentive for timely repayment",
-     "count": 287,
-     "ben": 222,
+     "count": 288,
+     "ben": 223,
      "non": 65
     },
     {
      "code": "4",
      "label": "Priority for new/first-time women entrepreneurs",
-     "count": 218,
-     "ben": 159,
+     "count": 219,
+     "ben": 160,
      "non": 59
     },
     {
@@ -10671,15 +10684,15 @@
    "label": "At that time, did you know which bank or financial institution you could approach for this loan?",
    "group": "D · SERWE Awareness",
    "multi": false,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 329,
-     "ben": 250,
+     "count": 330,
+     "ben": 251,
      "non": 79
     },
     {
@@ -10696,15 +10709,15 @@
    "label": "At that time, did you know what documents or information you would need to apply for the loan?",
    "group": "D · SERWE Awareness",
    "multi": false,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
      "code": "1",
      "label": "Yes, I knew everything clearly",
-     "count": 236,
-     "ben": 197,
+     "count": 237,
+     "ben": 198,
      "non": 39
     },
     {
@@ -10831,15 +10844,15 @@
    "label": "What type of loan did you receive / apply for?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
      "code": "1",
      "label": "Working capital loan — mainly for stock, raw materials, or regular business expenses",
-     "count": 291,
-     "ben": 225,
+     "count": 292,
+     "ben": 226,
      "non": 66
     },
     {
@@ -10870,15 +10883,15 @@
    "label": "Did you fully repay this loan?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 250,
-   "n_ben": 250,
+   "n": 251,
+   "n_ben": 251,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 248,
-     "ben": 248,
+     "count": 249,
+     "ben": 249,
      "non": 0
     },
     {
@@ -10895,15 +10908,15 @@
    "label": "Was the amount you received enough for what you wanted to do in your business?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes, fully enough",
-     "count": 137,
-     "ben": 137,
+     "count": 138,
+     "ben": 138,
      "non": 0
     },
     {
@@ -10927,15 +10940,15 @@
    "label": "Do you know what annual interest rate you were charged on this loan?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 261,
-     "ben": 261,
+     "count": 262,
+     "ben": 262,
      "non": 0
     },
     {
@@ -10952,15 +10965,15 @@
    "label": "What did you use the loan for?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": true,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Buying stock, raw materials, or other working capital",
-     "count": 255,
-     "ben": 255,
+     "count": 256,
+     "ben": 256,
      "non": 0
     },
     {
@@ -11107,15 +11120,15 @@
    "label": "About how much of the loan did you use for the business?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "All or almost all",
-     "count": 258,
-     "ben": 258,
+     "count": 259,
+     "ben": 259,
      "non": 0
     },
     {
@@ -11153,15 +11166,15 @@
    "label": "Have you received more than one loan under this Bangladesh Bank-supported loan facility for women entrepreneurs?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 171,
-     "ben": 171,
+     "count": 172,
+     "ben": 172,
      "non": 0
     },
     {
@@ -11178,15 +11191,15 @@
    "label": "After you received this loan, did you also use money from another source for the business?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 156,
-     "ben": 156,
+     "count": 157,
+     "ben": 157,
      "non": 0
     },
     {
@@ -11203,15 +11216,15 @@
    "label": "What was the main other source of this money?",
    "group": "E · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 156,
-   "n_ben": 156,
+   "n": 157,
+   "n_ben": 157,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Own savings or money earned from the business",
-     "count": 98,
-     "ben": 98,
+     "count": 99,
+     "ben": 99,
      "non": 0
     },
     {
@@ -11334,8 +11347,8 @@
    "label": "Since that time, have you bought or added any machinery, equipment, vehicle, or technology for the business?",
    "group": "F · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11348,8 +11361,8 @@
     {
      "code": "2",
      "label": "No",
-     "count": 221,
-     "ben": 131,
+     "count": 222,
+     "ben": 132,
      "non": 90
     }
    ]
@@ -11359,8 +11372,8 @@
    "label": "Since that time, have you bought land or constructed/leased a new building, room, shop, workshop, or other space for the business?",
    "group": "F · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11373,8 +11386,8 @@
     {
      "code": "2",
      "label": "No",
-     "count": 303,
-     "ben": 172,
+     "count": 304,
+     "ben": 173,
      "non": 131
     }
    ]
@@ -11384,8 +11397,8 @@
    "label": "After taking the loan from Bangladesh Bank, how much can your business now produce, sell, or provide to customers?",
    "group": "F · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 263,
-   "n_ben": 261,
+   "n": 264,
+   "n_ben": 262,
    "n_non": 2,
    "options": [
     {
@@ -11398,8 +11411,8 @@
     {
      "code": "2",
      "label": "Somewhat more",
-     "count": 126,
-     "ben": 126,
+     "count": 127,
+     "ben": 127,
      "non": 0
     },
     {
@@ -11476,8 +11489,8 @@
    "label": "Since that time, have you started selling to customers in any new market or through any new way of selling?",
    "group": "F · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11490,8 +11503,8 @@
     {
      "code": "2",
      "label": "No",
-     "count": 212,
-     "ben": 119,
+     "count": 213,
+     "ben": 120,
      "non": 93
     }
    ]
@@ -11554,15 +11567,15 @@
    "label": "Overall, how much did this loan contribute to the growth of your business?",
    "group": "F · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "A lot",
-     "count": 146,
-     "ben": 146,
+     "count": 147,
+     "ben": 147,
      "non": 0
     },
     {
@@ -11593,8 +11606,8 @@
    "label": "Without this loan, do you think you would have been able to make the same business investment or expansion?",
    "group": "F · SERWE Loan/Application and Use",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
@@ -11607,8 +11620,8 @@
     {
      "code": "2",
      "label": "Yes, but only partly",
-     "count": 176,
-     "ben": 176,
+     "count": 177,
+     "ben": 177,
      "non": 0
     },
     {
@@ -11625,15 +11638,15 @@
    "label": "At that time, how well could your household meet regular necessary expenses such as food, healthcare, education, housing, and utility bills?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Could meet all necessary expenses easily",
-     "count": 305,
-     "ben": 188,
+     "count": 306,
+     "ben": 189,
      "non": 117
     },
     {
@@ -11664,15 +11677,15 @@
    "label": "How well can your household meet these regular necessary expenses now?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Can meet all necessary expenses easily",
-     "count": 371,
-     "ben": 235,
+     "count": 372,
+     "ben": 236,
      "non": 136
     },
     {
@@ -11703,15 +11716,15 @@
    "label": "At that time, did your household have any savings that could be used for an unexpected need or emergency?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 325,
-     "ben": 197,
+     "count": 326,
+     "ben": 198,
      "non": 128
     },
     {
@@ -11735,15 +11748,15 @@
    "label": "Does your household have any savings now that could be used for an unexpected need or emergency?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 387,
-     "ben": 245,
+     "count": 388,
+     "ben": 246,
      "non": 142
     },
     {
@@ -11767,8 +11780,8 @@
    "label": "At that time, who mainly decided how the money earned from your business would be used?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11781,8 +11794,8 @@
     {
      "code": "2",
      "label": "I decided jointly with my husband or other family member(s)",
-     "count": 235,
-     "ben": 154,
+     "count": 236,
+     "ben": 155,
      "non": 81
     },
     {
@@ -11799,8 +11812,8 @@
    "label": "Who mainly decides how the money earned from your business is used now?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11813,8 +11826,8 @@
     {
      "code": "2",
      "label": "I decided jointly with my husband or other family member(s)",
-     "count": 202,
-     "ben": 132,
+     "count": 203,
+     "ben": 133,
      "non": 70
     },
     {
@@ -11831,8 +11844,8 @@
    "label": "At that time, who mainly made important decisions about investing in or expanding your business?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11845,8 +11858,8 @@
     {
      "code": "2",
      "label": "I decided jointly with my husband or other family member(s)",
-     "count": 243,
-     "ben": 154,
+     "count": 244,
+     "ben": 155,
      "non": 89
     },
     {
@@ -11863,8 +11876,8 @@
    "label": "Who mainly makes important decisions about investing in or expanding your business now?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11877,8 +11890,8 @@
     {
      "code": "2",
      "label": "I decided jointly with my husband or other family member(s)",
-     "count": 216,
-     "ben": 134,
+     "count": 217,
+     "ben": 135,
      "non": 82
     },
     {
@@ -11895,8 +11908,8 @@
    "label": "At that time, could you deal with a bank or financial institution for your business by yourself?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11909,8 +11922,8 @@
     {
      "code": "2",
      "label": "Yes, but usually with help",
-     "count": 220,
-     "ben": 136,
+     "count": 221,
+     "ben": 137,
      "non": 84
     },
     {
@@ -11927,8 +11940,8 @@
    "label": "Can you deal with a bank or financial institution for your business by yourself now?",
    "group": "G · Employment",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
@@ -11941,8 +11954,8 @@
     {
      "code": "2",
      "label": "Yes, but usually with help",
-     "count": 162,
-     "ben": 99,
+     "count": 163,
+     "ben": 100,
      "non": 63
     },
     {
@@ -11959,15 +11972,15 @@
    "label": "Overall, what effect did this loan have on your household’s financial situation?",
    "group": "G · Employment",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Financial situation improved a lot",
-     "count": 127,
-     "ben": 127,
+     "count": 128,
+     "ben": 128,
      "non": 0
     },
     {
@@ -12005,15 +12018,15 @@
    "label": "Overall, how much did this loan increase your ability to make important decisions about your business?",
    "group": "G · Employment",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Increased a lot",
-     "count": 120,
-     "ben": 120,
+     "count": 121,
+     "ben": 121,
      "non": 0
     },
     {
@@ -12051,8 +12064,8 @@
    "label": "During the application process, which of the following requirements or conditions did the bank ask you to meet?",
    "group": "H · SERWE Experience",
    "multi": true,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
@@ -12065,43 +12078,43 @@
     {
      "code": "2",
      "label": "Personal guarantee",
-     "count": 320,
-     "ben": 239,
+     "count": 321,
+     "ben": 240,
      "non": 81
     },
     {
      "code": "3",
      "label": "Guarantor from another person",
-     "count": 329,
-     "ben": 247,
+     "count": 330,
+     "ben": 248,
      "non": 82
     },
     {
      "code": "4",
      "label": "Guarantee or consent from husband/another family member",
-     "count": 307,
-     "ben": 236,
+     "count": 308,
+     "ben": 237,
      "non": 71
     },
     {
      "code": "5",
      "label": "Trade license or business registration documents",
-     "count": 345,
-     "ben": 259,
+     "count": 346,
+     "ben": 260,
      "non": 86
     },
     {
      "code": "6",
      "label": "Business financial records or bank statements",
-     "count": 322,
-     "ben": 242,
+     "count": 323,
+     "ben": 243,
      "non": 80
     },
     {
      "code": "7",
      "label": "TIN/e-TIN or other tax-related documents",
-     "count": 329,
-     "ben": 247,
+     "count": 330,
+     "ben": 248,
      "non": 82
     },
     {
@@ -12125,8 +12138,8 @@
    "label": "Which one of these requirements or conditions was the most difficult for you to meet?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
@@ -12146,8 +12159,8 @@
     {
      "code": "3",
      "label": "Guarantor from another person",
-     "count": 164,
-     "ben": 116,
+     "count": 165,
+     "ben": 117,
      "non": 48
     },
     {
@@ -12199,8 +12212,8 @@
    "label": "Apart from these requirements, which of the following difficulties, did you face during the application or loan-processing process?",
    "group": "H · SERWE Experience",
    "multi": true,
-   "n": 348,
-   "n_ben": 261,
+   "n": 349,
+   "n_ben": 262,
    "n_non": 87,
    "options": [
     {
@@ -12262,8 +12275,8 @@
     {
      "code": "9",
      "label": "No particular difficulty",
-     "count": 243,
-     "ben": 203,
+     "count": 244,
+     "ben": 204,
      "non": 40
     }
    ]
@@ -12273,15 +12286,15 @@
    "label": "Before you received the loan, how clearly did the bank or financial institution explain the main loan conditions, such as the interest rate, repayment schedule, and other charges?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Clearly explained",
-     "count": 249,
-     "ben": 249,
+     "count": 250,
+     "ben": 250,
      "non": 0
     },
     {
@@ -12305,8 +12318,8 @@
    "label": "After you submitted the required documents,  how long did it take before you received the loan?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
@@ -12326,8 +12339,8 @@
     {
      "code": "3",
      "label": "More than 1 month to 2 months",
-     "count": 49,
-     "ben": 49,
+     "count": 50,
+     "ben": 50,
      "non": 0
     },
     {
@@ -12552,15 +12565,15 @@
    "label": "During the repayment period, were all your loan repayments/installments made on time?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes, all were made on time",
-     "count": 254,
-     "ben": 254,
+     "count": 255,
+     "ben": 255,
      "non": 0
     },
     {
@@ -12591,15 +12604,15 @@
    "label": "When you received the loan, did the bank or financial institution explain the 1% cash incentive for timely repayment to you?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes, it was clearly explained",
-     "count": 233,
-     "ben": 233,
+     "count": 234,
+     "ben": 234,
      "non": 0
     },
     {
@@ -12623,15 +12636,15 @@
    "label": "Did you receive the 1% repayment incentive for this loan?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Yes, I received the full incentive",
-     "count": 194,
-     "ben": 194,
+     "count": 195,
+     "ben": 195,
      "non": 0
     },
     {
@@ -12669,8 +12682,8 @@
    "label": "About how long after completing repayment of the loan did you receive the incentive?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 194,
-   "n_ben": 194,
+   "n": 195,
+   "n_ben": 195,
    "n_non": 0,
    "options": [
     {
@@ -12690,8 +12703,8 @@
     {
      "code": "3",
      "label": "More than 3 months to 6 months",
-     "count": 71,
-     "ben": 71,
+     "count": 72,
+     "ben": 72,
      "non": 0
     },
     {
@@ -12708,8 +12721,8 @@
    "label": "If there had been no 1% repayment incentive, do you think you would still have made the same effort to repay the loan on time?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 249,
-   "n_ben": 249,
+   "n": 250,
+   "n_ben": 250,
    "n_non": 0,
    "options": [
     {
@@ -12722,8 +12735,8 @@
     {
      "code": "2",
      "label": "Probably yes",
-     "count": 37,
-     "ben": 37,
+     "count": 38,
+     "ben": 38,
      "non": 0
     },
     {
@@ -12754,15 +12767,15 @@
    "label": "If you need money for your business in the future, would you consider applying for this Bangladesh Bank-supported loan facility for women entrepreneurs?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes, definitely",
-     "count": 383,
-     "ben": 229,
+     "count": 384,
+     "ben": 230,
      "non": 154
     },
     {
@@ -12800,15 +12813,15 @@
    "label": "Do you expect to apply for a business loan from a bank or financial institution within the next 12 months?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Yes",
-     "count": 336,
-     "ben": 190,
+     "count": 337,
+     "ben": 191,
      "non": 146
     },
     {
@@ -12832,15 +12845,15 @@
    "label": "Overall, how satisfied are you with your experience with this loan facility?",
    "group": "H · SERWE Experience",
    "multi": false,
-   "n": 261,
-   "n_ben": 261,
+   "n": 262,
+   "n_ben": 262,
    "n_non": 0,
    "options": [
     {
      "code": "1",
      "label": "Very satisfied",
-     "count": 149,
-     "ben": 149,
+     "count": 150,
+     "ben": 150,
      "non": 0
     },
     {
@@ -12924,15 +12937,15 @@
    "label": "What is the single most important improvement Bangladesh Bank or participating banks/financial institutions should make to help women entrepreneurs access and use this loan facility?",
    "group": "H · SERWE Experience",
    "multi": true,
-   "n": 432,
-   "n_ben": 261,
+   "n": 433,
+   "n_ben": 262,
    "n_non": 171,
    "options": [
     {
      "code": "1",
      "label": "Provide more information and awareness about the facility",
-     "count": 304,
-     "ben": 165,
+     "count": 305,
+     "ben": 166,
      "non": 139
     },
     {
@@ -12945,15 +12958,15 @@
     {
      "code": "3",
      "label": "Reduce unnecessary collateral or guarantor requirements",
-     "count": 301,
-     "ben": 173,
+     "count": 302,
+     "ben": 174,
      "non": 128
     },
     {
      "code": "4",
      "label": "Make loan approval and disbursement faster",
-     "count": 167,
-     "ben": 98,
+     "count": 168,
+     "ben": 99,
      "non": 69
     },
     {
@@ -13003,6 +13016,10 @@
  },
  "tablet_syncs": [
   {
+   "tablet": "5a5959",
+   "last_sync": "2026-10-06 11:09"
+  },
+  {
    "tablet": "4fdc4a",
    "last_sync": "2026-10-06 10:24"
   },
@@ -13041,10 +13058,6 @@
   {
    "tablet": "7b9091",
    "last_sync": "2026-10-05 21:26"
-  },
-  {
-   "tablet": "5a5959",
-   "last_sync": "2026-10-05 21:17"
   },
   {
    "tablet": "32315d",
