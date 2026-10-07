@@ -269,6 +269,27 @@ def cat_rows(dcf, cases, day_of):
         rows.append(row)
     return [i[1] for i in items], rows
 
+def question_meta(dcf):
+    """Questionnaire order for the respondent pop-up: [question, module, text, kind, key].
+    Only option questions (kind c) and number questions (kind n). Names and typed text are left out."""
+    num = {item: key for key, label, unit, group, rec, item, tf in STAT_VARS}
+    out = []
+    for rec in dcf["levels"][0]["records"]:
+        if rec["name"] in CAT_SKIP_RECORDS:
+            continue
+        module = "Consent" if rec["name"] == "CONSENT" else _en(rec.get("labels", [])).replace("Module ", "").replace(":", " ·", 1)
+        for it in rec["items"]:
+            name = it["name"]
+            vals = (it.get("valueSets") or [{}])[0].get("values", [])
+            q = _en(it.get("labels", []))
+            if q.upper().startswith(name.upper() + "."):
+                q = q[len(name) + 1:].strip()
+            if vals and name not in CAT_SKIP_ITEMS and not name.endswith("_OTHER"):
+                out.append([name, module, q, "c", name])
+            elif name in num:
+                out.append([name, module, q, "n", num[name]])
+    return out
+
 def micro_block(cases, grp_of, day_of, year):
     """One row per interview with only the numeric answers, so the dashboard can filter the
     statistics by date. Saved as data/micro.json for the website only (not kept in the repo history)."""
@@ -511,6 +532,10 @@ def summarize(cases, labels, syncs):
                        enum=[str(get(c, "FIELD_INFO", "ENUMERATOR_NAME")).strip() if get(c, "FIELD_INFO", "ENUMERATOR_NAME") is not None else ""
                              for c in interviewed if day(c)],
                        enum_labels=labels["ENUMERATOR_NAME"],
+                       division=[L("DIVISION", get(c, "FIELD_INFO", "DIVISION")) for c in interviewed if day(c)],
+                       district=[L("DISTRICT", get(c, "FIELD_INFO", "DISTRICT")) for c in interviewed if day(c)],
+                       area=[L("AREA_TYPE", get(c, "FIELD_INFO", "AREA_TYPE")) for c in interviewed if day(c)],
+                       qmeta=question_meta(labels["_dcf"]),
                        **dict(zip(("cvars", "crows"), cat_rows(labels["_dcf"], interviewed, day)))),
         "tablet_syncs": sorted(syncs_latest(syncs, dev_enum), key=lambda s: s["last_sync"], reverse=True),
         "enum_daily": enum_daily,
