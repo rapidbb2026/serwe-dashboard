@@ -163,6 +163,27 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .matrix tbody tr:hover td{background:var(--bg2)}
 @media (max-width:640px){.matrix .c1{width:140px;min-width:140px;max-width:140px}.matrix .code{left:140px}}
 .matrix tbody tr.idle td.c1{color:var(--muted)}
+.gbar{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:flex-end;background:rgba(10,17,32,.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.gbar .seg button{padding:8px 12px}
+.gbar .out{padding:8px 12px}
+.gnote{margin-left:auto;font:500 .85rem var(--mono);color:var(--ben);align-self:center}
+.outl span{cursor:pointer}
+.outl span:hover,.idlink:hover{outline:1px solid currentColor}
+.idlink{cursor:pointer;font-family:var(--mono);border-radius:4px;padding:0 3px}
+.modal{position:fixed;inset:0;z-index:60;background:rgba(4,8,16,.72);display:grid;place-items:center;padding:16px}
+.modal-card{width:min(860px,100%);max-height:min(88vh,900px);display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:14px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--line)}
+.modal-head h2{margin:0;font:600 1.1rem var(--display)}
+.m-chips{display:flex;flex-wrap:wrap;gap:6px;padding:12px 18px 0}
+.m-chips span{font-size:.8rem;padding:3px 10px;border-radius:12px;background:var(--bg2);color:var(--ink)}
+.m-chips span b{color:var(--muted);font-weight:500;margin-right:6px}
+.m-body{overflow:auto;padding:6px 18px 18px}
+.m-body h3{margin:16px 0 4px;font:600 .8rem var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ben)}
+.m-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:6px 16px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.9rem}
+.m-row .q{color:var(--muted)} .m-row .q b{color:var(--ink);font-weight:600;margin-right:6px;font-family:var(--mono);font-size:.82rem}
+.m-row .a{color:var(--ink);font-weight:500}
+.m-row .a ul{margin:0;padding-left:1.1rem}
+@media (max-width:620px){.m-row{grid-template-columns:1fr}}
 footer{color:var(--faint);font-size:.8rem}
 @media (max-width:820px){.maprow{grid-template-columns:1fr}#c-map{height:380px}}
 </style>
@@ -195,6 +216,14 @@ footer{color:var(--faint);font-size:.8rem}
       <button class="out" id="logout" type="button">Sign out</button>
     </div>
   </header>
+
+  <div class="gbar" id="gbar" hidden>
+    <div class="sel"><label for="esel">Enumerator</label><select id="esel" class="narrow"></select></div>
+    <div class="sel"><label id="glab">Survey group</label>
+      <div class="seg" role="group" aria-labelledby="glab"><button type="button" class="gbtn" data-g="0" aria-pressed="true">All</button><button type="button" class="gbtn" data-g="1" aria-pressed="false">Beneficiary</button><button type="button" class="gbtn" data-g="2" aria-pressed="false">Non Beneficiary</button></div></div>
+    <button type="button" class="out" id="gclear" hidden>Clear filters</button>
+    <span class="gnote" id="gnote"></span>
+  </div>
 
   <div id="error" class="err" hidden></div>
 
@@ -248,7 +277,6 @@ footer{color:var(--faint);font-size:.8rem}
       <div class="filters">
         <div class="sel" id="datefilter" hidden><label for="dfrom">Interview date</label>
           <div class="dates"><input type="date" id="dfrom" aria-label="From date"><span>to</span><input type="date" id="dto" aria-label="To date"><button type="button" class="out" id="dall">All dates</button></div></div>
-        <div class="sel" id="enumfilter" hidden><label for="esel">Enumerator</label><select id="esel" class="narrow"></select></div>
         <div class="sel"><label for="svar">Question</label><select id="svar"></select></div>
       </div>
     </div>
@@ -282,7 +310,6 @@ footer{color:var(--faint);font-size:.8rem}
       <div class="filters">
         <div class="sel" id="datefilter2" hidden><label for="dfrom2">Interview date</label>
           <div class="dates"><input type="date" id="dfrom2" aria-label="From date"><span>to</span><input type="date" id="dto2" aria-label="To date"><button type="button" class="out" id="dall2">All dates</button></div></div>
-        <div class="sel" id="enumfilter2" hidden><label for="esel2">Enumerator</label><select id="esel2" class="narrow"></select></div>
         <div class="sel"><label for="qvar">Question</label><select id="qvar"></select></div>
       </div>
     </div>
@@ -319,6 +346,14 @@ footer{color:var(--faint);font-size:.8rem}
 
   <footer>Map: geoBoundaries (CC BY 4.0)</footer>
 </div>
+</div>
+
+<div class="modal" id="modal" hidden>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="m-title">
+    <div class="modal-head"><h2 id="m-title">Respondent</h2><button type="button" class="out" id="m-close">Close</button></div>
+    <div class="m-chips" id="m-chips"></div>
+    <div class="m-body" id="m-body"></div>
+  </div>
 </div>
 
 <script>
@@ -567,7 +602,7 @@ window.startDashboard=function(){
     }).join('')||'<tr><td colspan="4" class="empty">No syncs yet.</td></tr>';
 
     $('t-iss').tBodies[0].innerHTML=(d.issues||[]).map(function(i){
-      return '<tr><td><span class="pill bad">'+esc(i.issue)+'</span></td><td style="font-family:var(--mono)">'+esc(i.respondent_id)+'</td><td>'+esc(i.enumerator)+'</td></tr>';
+      return '<tr><td><span class="pill bad">'+esc(i.issue)+'</span></td><td><span class="idlink" data-id="'+esc(i.respondent_id)+'" tabindex="0" role="button">'+esc(i.respondent_id)+'</span></td><td>'+esc(i.enumerator)+'</td></tr>';
     }).join('')||'<tr><td colspan="3"><span class="pill ok">No problems found</span></td></tr>';
   }
 
@@ -622,12 +657,13 @@ window.startDashboard=function(){
                 itemStyle:{color:'rgba(108,207,207,.2)',borderColor:'#6CCFCF',borderWidth:1.5},emphasis:{itemStyle:{borderColor:'#fff'}}},
               {name:'mean',type:'scatter',data:[[s.mean,0]],symbol:'diamond',symbolSize:12,itemStyle:{color:'#E6D08E'},z:6},
               {name:'outliers',type:'scatter',data:ol.map(function(o){return [o.value,0];}),symbolSize:function(v,p){return ol[p.dataIndex].extreme?11:8;},itemStyle:{color:'#E59A8C',borderColor:'#0A1120',borderWidth:1},z:7}]});
-    $('s-olist').innerHTML=ol.map(function(o){ return '<span class="'+(o.extreme?'x':'')+'" title="'+esc(tk(o.value,u))+'">'+esc(o.id)+'</span>'; }).join('');
+    $('s-olist').innerHTML=ol.map(function(o){ return '<span class="'+(o.extreme?'x':'')+'" data-id="'+esc(o.id)+'" tabindex="0" role="button" title="'+esc(tk(o.value,u))+'">'+esc(o.id)+'</span>'; }).join('');
+    cb.on('click',function(p){ if(p.seriesName==='outliers'&&ol[p.dataIndex]) openRespondent(ol[p.dataIndex].id); });
     var bg=s.by_group||{};
     $('t-grp').tBodies[0].innerHTML=['Beneficiary','Non Beneficiary'].filter(function(g){return bg[g];}).map(function(g){ var x=bg[g];
       return '<tr><td><span class="pill" style="background:'+(g==='Beneficiary'?'rgba(108,207,207,.15)':'rgba(143,196,106,.15)')+';color:'+(g==='Beneficiary'?BEN:NON)+'">'+g+'</span></td><td class="num">'+x.n+'</td><td class="num">'+tk(x.mean,u)+'</td><td class="num">'+tk(x.median,u)+'</td></tr>'; }).join('')||'<tr><td colspan="4" class="empty">No group data.</td></tr>';
   }
-  $('svar').addEventListener('change',function(){ curVar=this.value; if(DATA) drawStat(DATA); });
+  $('svar').addEventListener('change',function(){ curVar=this.value; if(DATA) drawStat(V()); });
 
   /* ---------- progress line chart ---------- */
   var period='day', trendChart=null;
@@ -654,7 +690,7 @@ window.startDashboard=function(){
   }
   [].forEach.call(document.querySelectorAll('.per'),function(b){ b.addEventListener('click',function(){
     period=b.getAttribute('data-p'); [].forEach.call(document.querySelectorAll('.per'),function(x){ x.setAttribute('aria-pressed',x===b); });
-    if(DATA) drawTrend(DATA); }); });
+    if(DATA) drawTrend(V()); }); });
 
   /* ---------- Response Breakdown (choice questions) ---------- */
   var ansChart=null, curQ=null;
@@ -688,7 +724,7 @@ window.startDashboard=function(){
               {name:'Non Beneficiary',type:'bar',stack:'g',barMaxWidth:22,itemStyle:{color:NON,borderRadius:[0,3,3,0]},data:rev.map(function(o){return o.non;}),
                label:{show:true,position:'right',color:MUTED,fontSize:12,formatter:function(p){ var o=rev[p.dataIndex]; return o.count+'  ('+Math.round(o.count/q.n*100)+'%)'; }}}]});
   }
-  $('qvar').addEventListener('change',function(){ curQ=this.value; if(DATA) drawAnswer(DATA); });
+  $('qvar').addEventListener('change',function(){ curQ=this.value; if(DATA) drawAnswer(V()); });
 
   /* ---------- date filter for the statistics (computed in the browser from data/micro.json) ---------- */
   var MICRO=null, dFrom=null, dTo=null;
@@ -723,10 +759,33 @@ window.startDashboard=function(){
     o.hist={edges:edges.map(r2),counts:counts,normal:counts.map(function(c,j){ return sd>0?r2(n*(cdf(edges[j+1])-cdf(edges[j]))):c; })};
     return o;
   }
-  var eSel='';
+  var eSel='', gSel=0;
+  function globalOn(){ return !!(MICRO && MICRO.enum && (eSel || gSel)); }
   function datesOn(){ return MICRO && dFrom && dTo && !(dFrom===MICRO.days[0] && dTo===MICRO.days[MICRO.days.length-1]); }
-  function filterOn(){ return !!(MICRO && (datesOn() || (eSel && MICRO.enum))); }
-  function rowOK(r,i){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; return true; }
+  function filterOn(){ return !!(MICRO && (datesOn() || globalOn())); }
+  function globalOK(r,i){ if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; if(gSel && r[2]!==gSel) return false; return true; }
+  function rowOK(r,i){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; return globalOK(r,i); }
+  /* the whole dashboard recalculated for the chosen enumerator and survey group */
+  function V(){
+    var base=DATA; if(!base||!globalOn()||!MICRO.division) return base;
+    var G={1:'Beneficiary',2:'Non Beneficiary'}, today=base.updated.slice(0,10), d={};
+    for(var k in base) d[k]=base[k];
+    var tl={}, tg={}, div={}, dg={}, dist={}, area={}, ag={}, grp={}, n=0, nToday=0, n7=0, per={};
+    Object.keys(base.timeline).forEach(function(x){ tl[x]=0; });
+    var t0=new Date(today+'T00:00:00Z').getTime();
+    function inc(o,k,by){ o[k]=(o[k]||0)+(by||1); } function inc2(o,a,b){ (o[a]=o[a]||{}); inc(o[a],b); }
+    MICRO.rows.forEach(function(r,i){ if(!globalOK(r,i)) return; n++;
+      var day=MICRO.days[r[1]], g=G[r[2]]||'Missing';
+      inc(tl,day); inc2(tg,day,g); inc(grp,g);
+      inc(div,MICRO.division[i]); inc2(dg,MICRO.division[i],g); inc(dist,MICRO.district[i]); inc(area,MICRO.area[i]); inc2(ag,MICRO.area[i],g);
+      if(day===today) nToday++; if((t0-new Date(day+'T00:00:00Z').getTime())/864e5<7) n7++;
+      inc2(per,String(MICRO.enum[i]),day); });
+    var sortObj=function(o){ var out={}; Object.keys(o).sort(function(a,b){return o[b]-o[a];}).forEach(function(k){ out[k]=o[k]; }); return out; };
+    d.totals={interviews:n,today:nToday,last7:n7,refused:'–',partial:'–',tablets:base.totals.tablets};
+    d.timeline=tl; d.timeline_group=tg; d.division=sortObj(div); d.division_group=dg; d.district=sortObj(dist); d.area=area; d.area_group=ag; d.group=grp;
+    if(base.enum_daily){ d.enum_daily={days:base.enum_daily.days,rows:base.enum_daily.rows.map(function(r){ var p=per[String(r.code)]||{}; return {code:r.code,name:r.name,counts:base.enum_daily.days.map(function(x){ return p[x]||0; })}; })}; }
+    return d;
+  }
   function statFor(d,key){
     var base=(d.stats||{})[key]; if(!base) return null;
     if(!filterOn()) return base;
@@ -749,20 +808,60 @@ window.startDashboard=function(){
       picked.forEach(function(k){ if(seen[k]) return; seen[k]=1; var o=byCode[k]; if(!o){ o={code:k,label:'Unknown code '+k,count:0,ben:0,non:0}; byCode[k]=o; opts.push(o); } o.count++; if(r[2]===1) o.ben++; else if(r[2]===2) o.non++; }); });
     return {question:base.question,label:base.label,group:base.group,multi:base.multi,n:n,n_ben:nb,n_non:nn,options:opts};
   }
-  var ENUM_SETS=[['enumfilter','esel'],['enumfilter2','esel2']];
   function setupEnums(){
-    var ok=MICRO&&MICRO.enum&&MICRO.enum.length, html='';
-    if(ok){
-      var lab=MICRO.enum_labels||{}, cnt={}; MICRO.enum.forEach(function(c){ c=String(c); if(c) cnt[c]=(cnt[c]||0)+1; });
-      var codes=Object.keys(cnt).sort(function(a,b){ return (+a)-(+b); });
-      if(eSel && !cnt[eSel]) eSel='';
-      html='<option value="">All enumerators</option>'+codes.map(function(c){ var name=(lab[c]||'').replace(/\s*-\s*\d+\s*$/,''); return '<option value="'+esc(c)+'">'+esc((c.length<2?'0'+c:c)+(name?' · '+name:''))+' ('+cnt[c]+')</option>'; }).join('');
-    }
-    ENUM_SETS.forEach(function(s,i){ var show=ok&&(i===0||!!MICRO.cvars); $(s[0]).hidden=!show; if(!show) return; $(s[1]).innerHTML=html; $(s[1]).value=eSel; });
+    var ok=MICRO&&MICRO.enum&&MICRO.enum.length&&MICRO.division; $('gbar').hidden=!ok; if(!ok){ eSel=''; gSel=0; return; }
+    var lab=MICRO.enum_labels||{}, cnt={}; MICRO.rows.forEach(function(r,i){ if(gSel&&r[2]!==gSel) return; var c=String(MICRO.enum[i]); if(c) cnt[c]=(cnt[c]||0)+1; });
+    var all={}; MICRO.enum.forEach(function(c){ c=String(c); if(c) all[c]=1; });
+    var codes=Object.keys(all).sort(function(a,b){ return (+a)-(+b); });
+    if(eSel && !all[eSel]) eSel='';
+    $('esel').innerHTML='<option value="">All enumerators</option>'+codes.map(function(c){ var name=(lab[c]||'').replace(/\s*-\s*\d+\s*$/,''); return '<option value="'+esc(c)+'">'+esc((c.length<2?'0'+c:c)+(name?' · '+name:''))+' ('+(cnt[c]||0)+')</option>'; }).join('');
+    $('esel').value=eSel;
+    [].forEach.call(document.querySelectorAll('.gbtn'),function(b){ b.setAttribute('aria-pressed',(+b.getAttribute('data-g'))===gSel); });
+    $('gclear').hidden=!(eSel||gSel);
+    var n=0; if(eSel||gSel){ MICRO.rows.forEach(function(r,i){ if(globalOK(r,i)) n++; }); }
+    $('gnote').textContent=(eSel||gSel)?('Showing '+n+' of '+MICRO.rows.length+' interviews'):'';
   }
-  ENUM_SETS.forEach(function(s){ $(s[1]).addEventListener('change',function(){ eSel=this.value; ENUM_SETS.forEach(function(x){ $(x[1]).value=eSel; }); redrawFiltered(); }); });
+  function globalChanged(){ setupEnums(); if(DATA) draw(V()); }
+  $('esel').addEventListener('change',function(){ eSel=this.value; globalChanged(); });
+  [].forEach.call(document.querySelectorAll('.gbtn'),function(b){ b.addEventListener('click',function(){ gSel=+b.getAttribute('data-g'); globalChanged(); }); });
+  $('gclear').addEventListener('click',function(){ eSel=''; gSel=0; globalChanged(); });
+
+  /* ---------- respondent pop-up ---------- */
+  var lastFocus=null;
+  function closeRespondent(){ $('modal').hidden=true; document.body.style.overflow=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  function openRespondent(id){
+    id=String(id); lastFocus=document.activeElement;
+    $('m-title').textContent='Respondent '+id; var chips=$('m-chips'), body=$('m-body'); chips.innerHTML=''; body.innerHTML='';
+    var i=-1; if(MICRO){ for(var k=0;k<MICRO.rows.length;k++){ if(String(MICRO.rows[k][0])===id){ i=k; break; } } }
+    if(i<0){ body.innerHTML='<p class="empty">The answers for this respondent are not in the loaded data. The interview may be refused, partly saved or deleted.</p>'; }
+    else {
+      var r=MICRO.rows[i], G={1:'Beneficiary',2:'Non Beneficiary'}, lab=MICRO.enum_labels||{}, ec=MICRO.enum?String(MICRO.enum[i]):'';
+      var chip=function(a,b){ return b?'<span><b>'+esc(a)+'</b>'+esc(b)+'</span>':''; };
+      chips.innerHTML=chip('Group',G[r[2]]||'Missing')+chip('Date',fmtDay(MICRO.days[r[1]])+' '+MICRO.days[r[1]].slice(0,4))+chip('Enumerator',lab[ec]||ec)+chip('Division',MICRO.division&&MICRO.division[i])+chip('District',MICRO.district&&MICRO.district[i])+chip('Area',MICRO.area&&MICRO.area[i]);
+      var A=(DATA&&DATA.answers)||{}, S=(DATA&&DATA.stats)||{}, html='', cur=null, shown=0;
+      (MICRO.qmeta||[]).forEach(function(q){ var ans=null;
+        if(q[3]==='n'){ var col=MICRO.vars.indexOf(q[4]), v=col<0?null:r[3+col]; if(v===null||v===undefined) return; var s=S[q[4]]||{}, u=s.unit||'';
+          var txt=(u==='Tk'?'Tk '+nf(v,u):nf(v,u)+(u&&u!=='year'?' '+u:''))+(q[4]==='BAGE'?' in business':'');
+          var isOut=s.fence_low!==undefined&&(v<s.fence_low||v>s.fence_high);
+          ans=esc(txt)+(isOut?' <span class="pill bad">outlier</span>':''); }
+        else { var cc=(MICRO.cvars||[]).indexOf(q[4]), raw=cc<0?null:(MICRO.crows[i]||[])[cc]; if(raw===null||raw===undefined||raw==='') return; raw=String(raw);
+          var meta=A[q[4]]||{options:[]}, byCode={}; meta.options.forEach(function(o){ byCode[String(o.code)]=o.label; });
+          var picked=meta.multi?raw.split(''):[raw], labs=picked.map(function(c){ return byCode[c]||('Code '+c); });
+          ans=labs.length>1?'<ul>'+labs.map(function(l){return '<li>'+esc(l)+'</li>';}).join('')+'</ul>':esc(labs[0]); }
+        if(q[1]!==cur){ cur=q[1]; html+='<h3>'+esc(cur)+'</h3>'; }
+        html+='<div class="m-row"><div class="q"><b>'+esc(q[0])+'</b>'+esc(q[2])+'</div><div class="a">'+ans+'</div></div>'; shown++; });
+      body.innerHTML=html||'<p class="empty">No answers to show.</p>';
+    }
+    $('modal').hidden=false; document.body.style.overflow='hidden'; body.scrollTop=0; $('m-close').focus();
+  }
+  $('m-close').addEventListener('click',closeRespondent);
+  $('modal').addEventListener('click',function(e){ if(e.target===this) closeRespondent(); });
+  document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!$('modal').hidden) closeRespondent(); });
+  document.addEventListener('click',function(e){ var el=e.target.closest&&e.target.closest('[data-id]'); if(el) openRespondent(el.getAttribute('data-id')); });
+  document.addEventListener('keydown',function(e){ if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute&&e.target.getAttribute('data-id')){ e.preventDefault(); openRespondent(e.target.getAttribute('data-id')); } });
+
   var DATE_SETS=[['datefilter','dfrom','dto','dall'],['datefilter2','dfrom2','dto2','dall2']];
-  function redrawFiltered(){ if(DATA){ drawStat(DATA); drawAnswer(DATA); } }
+  function redrawFiltered(){ if(DATA){ var v=V(); drawStat(v); drawAnswer(v); } }
   function setupDates(){
     var ok=MICRO&&MICRO.days.length;
     if(ok){ var a=MICRO.days[0], b=MICRO.days[MICRO.days.length-1];
@@ -789,7 +888,7 @@ window.startDashboard=function(){
   function setMode(is3d){
     mode3D=is3d&&has3D; $('b3d').setAttribute('aria-pressed',mode3D); $('b2d').setAttribute('aria-pressed',!mode3D);
     try{ localStorage.setItem('serwe-mode',mode3D?'3d':'2d'); }catch(e){}
-    if(DATA) draw(DATA);
+    if(DATA) draw(V());
   }
   $('b3d').addEventListener('click',function(){ setMode(true); });
   $('b2d').addEventListener('click',function(){ setMode(false); });
@@ -810,7 +909,7 @@ window.startDashboard=function(){
   function load(){
     loadStatus();
     fetch('data/summary.json?t='+Date.now()).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(d){ $('error').hidden=true; if(d.updated!==lastUpdated){ lastUpdated=d.updated; DATA=d; loadMicro().then(function(){ setupDates(); draw(d); }); } })
+      .then(function(d){ $('error').hidden=true; if(d.updated!==lastUpdated){ lastUpdated=d.updated; DATA=d; loadMicro().then(function(){ setupDates(); draw(V()); }); } })
       .catch(function(){ $('error').textContent='Could not load the data file. If this is a new site, run the GitHub Action once (Actions → Update dashboard data → Run workflow).'; $('error').hidden=false; });
   }
   var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ charts.forEach(function(c){c.resize();}); statCharts.forEach(function(c){c.resize();}); if(trendChart) trendChart.resize(); if(ansChart) ansChart.resize(); },150); });
