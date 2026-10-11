@@ -448,8 +448,10 @@ def summarize(cases, labels, syncs):
     count = lambda field, rec, cs: Counter(L(field, get(c, rec, field)) for c in cs)
     by_div = count("DIVISION", "FIELD_INFO", interviewed)
     div_group = defaultdict(Counter)
+    dist_group = defaultdict(Counter)
     for c in interviewed:
         div_group[L("DIVISION", get(c, "FIELD_INFO", "DIVISION"))][L("D0", get(c, "MODULE_D", "D0"))] += 1
+        dist_group[L("DISTRICT", get(c, "FIELD_INFO", "DISTRICT"))][L("D0", get(c, "MODULE_D", "D0"))] += 1
 
     enum = {}
     for c in interviewed:
@@ -521,6 +523,7 @@ def summarize(cases, labels, syncs):
         "division": dict(by_div.most_common()),
         "division_group": {k: dict(v) for k, v in div_group.items()},
         "district": dict(count("DISTRICT", "FIELD_INFO", interviewed).most_common()),
+        "district_group": {k: dict(v) for k, v in dist_group.items()},
         "area": dict(count("AREA_TYPE", "FIELD_INFO", interviewed)),
         "area_group": {k: dict(v) for k, v in area_group.items()},
         "group": dict(count("D0", "MODULE_D", interviewed)),
