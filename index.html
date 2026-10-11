@@ -179,6 +179,13 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .m-chips span b{color:var(--muted);font-weight:500;margin-right:6px}
 .m-body{overflow:auto;padding:6px 18px 18px}
 .m-body h3{margin:16px 0 4px;font:600 .8rem var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ben)}
+.mh-left{display:flex;align-items:center;gap:10px;min-width:0}
+.alist{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
+.alist th{position:sticky;top:0;background:var(--card);text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px 8px 0;border-bottom:1px solid var(--line)}
+.alist td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line)}
+.alist tr:hover td{background:var(--bg2)}
+.alist .idlink{color:var(--ben);font-weight:600}
+.rank li.click{cursor:pointer} .rank li.click:hover{outline:1px solid var(--line)}
 .m-row{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:6px 16px;padding:7px 0;border-bottom:1px solid var(--line);font-size:.9rem}
 .m-row .q{color:var(--muted)} .m-row .q b{color:var(--ink);font-weight:600;margin-right:6px;font-family:var(--mono);font-size:.82rem}
 .m-row .a{color:var(--ink);font-weight:500}
@@ -352,7 +359,7 @@ footer{color:var(--faint);font-size:.8rem}
 
 <div class="modal" id="modal" hidden>
   <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="m-title">
-    <div class="modal-head"><h2 id="m-title">Respondent</h2><button type="button" class="out" id="m-close">Close</button></div>
+    <div class="modal-head"><div class="mh-left"><button type="button" class="out" id="m-back" hidden>← Back</button><h2 id="m-title">Respondent</h2></div><button type="button" class="out" id="m-close">Close</button></div>
     <div class="m-chips" id="m-chips"></div>
     <div class="m-body" id="m-body"></div>
   </div>
@@ -504,7 +511,7 @@ window.startDashboard=function(){
   }
 
   function drawMap(d){
-    var dist=mapLevel==='dist', names=dist?DISTS:DIVS, counts=(dist?d.district:d.division)||{}, grp=dist?{}:(d.division_group||{});
+    var dist=mapLevel==='dist', names=dist?DISTS:DIVS, counts=(dist?d.district:d.division)||{}, grp=(dist?d.district_group:d.division_group)||{};
     var mapName=dist?'BD_DIST':'BD', ch=mk('c-map'), max=1;
     $('map-title').textContent=dist?'Interviews by district':'Interviews by division';
     [].forEach.call(document.querySelectorAll('.mlev'),function(b){ b.setAttribute('aria-pressed',b.getAttribute('data-l')===mapLevel); });
@@ -512,7 +519,7 @@ window.startDashboard=function(){
     var tip=function(p){ var g=grp[p.name]; return '<b>'+esc(p.name)+'</b><br>Interviews: '+(counts[p.name]||0)+(g?'<br><span style="color:'+BEN+'">Beneficiary '+(g['Beneficiary']||0)+'</span> · <span style="color:'+NON+'">Non '+(g['Non Beneficiary']||0)+'</span>':''); };
     var lblShow=function(v){ return !dist||v>0; };
     if(mode3D){
-      ch.setOption({tooltip:Object.assign({formatter:tip},TT),
+      ch.setOption({tooltip:Object.assign({formatter:tip,triggerOn:'mousemove|click'},TT),
         series:[{type:'map3D',map:mapName,boxWidth:71,boxDepth:100,boxHeight:12,regionHeight:1.2,shading:'lambert',environment:'none',
           light:{main:{intensity:.85,shadow:true,shadowQuality:'high',alpha:50,beta:25},ambient:{intensity:.55}},
           viewControl:{distance:100,alpha:62,beta:0,center:[0,0,0],autoRotate:false,autoRotateSpeed:4,autoRotateAfterStill:8,minAlpha:10,maxAlpha:85,zoomSensitivity:0.6},
@@ -523,17 +530,18 @@ window.startDashboard=function(){
           emphasis:{label:{show:true},itemStyle:{color:'#C7E7FF'}},
           data:names.map(function(n){ var v=counts[n]||0; return {name:n,value:v,height:1.2+(v/max)*9,label:{show:lblShow(v)},itemStyle:{color:shade(v,max),opacity:1}}; })}]});
     } else {
-      ch.setOption({tooltip:Object.assign({trigger:'item',formatter:tip},TT),
+      ch.setOption({tooltip:Object.assign({trigger:'item',formatter:tip,triggerOn:'mousemove|click'},TT),
         series:[{type:'map',map:mapName,roam:true,aspectScale:0.92,label:{show:true,color:'#E7EDF7',fontWeight:600,fontSize:dist?10:11,formatter:function(p){return p.name+'\n'+(counts[p.name]||0);}},
           itemStyle:{borderColor:'#4A5B80',borderWidth:dist?.6:1},emphasis:{label:{show:true,color:'#0A1120'},itemStyle:{areaColor:'#C7E7FF'}},select:{disabled:true},
           data:names.map(function(n){ var v=counts[n]||0; return {name:n,value:v,label:{show:lblShow(v)},itemStyle:{areaColor:shade(v,max)}}; })}]});
     }
+    ch.on('click',function(p){ if(p&&p.name&&(counts[p.name]||0)>0) openArea(mapLevel,p.name); });
     var list;
     if(dist){ /* districts with interviews, plus any answer that is not a single district (for example a shared code) */
       list=Object.keys(counts).filter(function(n){return counts[n]>0;}).sort(function(a,b){return counts[b]-counts[a];});
     } else { list=DIVS.slice().sort(function(a,b){return (counts[b]||0)-(counts[a]||0);}); }
     $('rank').innerHTML=list.map(function(n){ var v=counts[n]||0, onMap=names.indexOf(n)>=0;
-      return '<li class="'+(v?'':'zero')+'"'+(onMap?'':' title="Not a single district, so it is not drawn on the map"')+'><span class="sw" style="background:'+(onMap?shade(v,max):'transparent;border:1px dashed #5D6B86')+'"></span><span class="nm">'+esc(n)+'</span><span class="ct">'+v+'</span></li>'; }).join('')||'<li class="zero"><span class="sw"></span><span class="nm">No interviews</span><span class="ct">0</span></li>';
+      return '<li class="'+(v?'click':'zero')+'"'+(v?' data-area="'+esc(n)+'" data-level="'+mapLevel+'" tabindex="0" role="button"':'')+(onMap?'':' title="Not a single district, so it is not drawn on the map"')+'><span class="sw" style="background:'+(onMap?shade(v,max):'transparent;border:1px dashed #5D6B86')+'"></span><span class="nm">'+esc(n)+'</span><span class="ct">'+v+'</span>'+'</li>'; }).join('')||'<li class="zero"><span class="sw"></span><span class="nm">No interviews</span><span class="ct">0</span></li>';
   }
   [].forEach.call(document.querySelectorAll('.mlev'),function(b){ b.addEventListener('click',function(){
     mapLevel=b.getAttribute('data-l'); try{ localStorage.setItem('serwe-maplevel',mapLevel); }catch(e){}
@@ -786,19 +794,19 @@ window.startDashboard=function(){
     var base=DATA; if(!base||!globalOn()||!MICRO.division) return base;
     var G={1:'Beneficiary',2:'Non Beneficiary'}, today=base.updated.slice(0,10), d={};
     for(var k in base) d[k]=base[k];
-    var tl={}, tg={}, div={}, dg={}, dist={}, area={}, ag={}, grp={}, n=0, nToday=0, n7=0, per={};
+    var tl={}, tg={}, div={}, dg={}, dist={}, dsg={}, area={}, ag={}, grp={}, n=0, nToday=0, n7=0, per={};
     Object.keys(base.timeline).forEach(function(x){ tl[x]=0; });
     var t0=new Date(today+'T00:00:00Z').getTime();
     function inc(o,k,by){ o[k]=(o[k]||0)+(by||1); } function inc2(o,a,b){ (o[a]=o[a]||{}); inc(o[a],b); }
     MICRO.rows.forEach(function(r,i){ if(!globalOK(r,i)) return; n++;
       var day=MICRO.days[r[1]], g=G[r[2]]||'Missing';
       inc(tl,day); inc2(tg,day,g); inc(grp,g);
-      inc(div,MICRO.division[i]); inc2(dg,MICRO.division[i],g); inc(dist,MICRO.district[i]); inc(area,MICRO.area[i]); inc2(ag,MICRO.area[i],g);
+      inc(div,MICRO.division[i]); inc2(dg,MICRO.division[i],g); inc(dist,MICRO.district[i]); inc2(dsg,MICRO.district[i],g); inc(area,MICRO.area[i]); inc2(ag,MICRO.area[i],g);
       if(day===today) nToday++; if((t0-new Date(day+'T00:00:00Z').getTime())/864e5<7) n7++;
       inc2(per,String(MICRO.enum[i]),day); });
     var sortObj=function(o){ var out={}; Object.keys(o).sort(function(a,b){return o[b]-o[a];}).forEach(function(k){ out[k]=o[k]; }); return out; };
     d.totals={interviews:n,today:nToday,last7:n7,refused:'–',partial:'–',tablets:base.totals.tablets};
-    d.timeline=tl; d.timeline_group=tg; d.division=sortObj(div); d.division_group=dg; d.district=sortObj(dist); d.area=area; d.area_group=ag; d.group=grp;
+    d.timeline=tl; d.timeline_group=tg; d.division=sortObj(div); d.division_group=dg; d.district=sortObj(dist); d.district_group=dsg; d.area=area; d.area_group=ag; d.group=grp;
     if(base.enum_daily){ d.enum_daily={days:base.enum_daily.days,rows:base.enum_daily.rows.map(function(r){ var p=per[String(r.code)]||{}; return {code:r.code,name:r.name,counts:base.enum_daily.days.map(function(x){ return p[x]||0; })}; })}; }
     return d;
   }
@@ -844,9 +852,10 @@ window.startDashboard=function(){
 
   /* ---------- respondent pop-up ---------- */
   var lastFocus=null;
-  function closeRespondent(){ $('modal').hidden=true; document.body.style.overflow=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
-  function openRespondent(id){
-    id=String(id); lastFocus=document.activeElement;
+  function closeRespondent(){ backTo=null; $('modal').hidden=true; document.body.style.overflow=''; if(lastFocus&&lastFocus.focus) lastFocus.focus(); }
+  var backTo=null;
+  function openRespondent(id,fromList){
+    id=String(id); if($('modal').hidden) lastFocus=document.activeElement; backTo=fromList||null; $('m-back').hidden=!backTo; $('m-back').textContent=backTo?('← Back to '+backTo.name):'← Back';
     $('m-title').textContent='Respondent '+id; var chips=$('m-chips'), body=$('m-body'); chips.innerHTML=''; body.innerHTML='';
     var i=-1; if(MICRO){ for(var k=0;k<MICRO.rows.length;k++){ if(String(MICRO.rows[k][0])===id){ i=k; break; } } }
     if(i<0){ body.innerHTML='<p class="empty">The answers for this respondent are not in the loaded data. The interview may be refused, partly saved or deleted.</p>'; }
@@ -870,11 +879,29 @@ window.startDashboard=function(){
     }
     $('modal').hidden=false; document.body.style.overflow='hidden'; body.scrollTop=0; $('m-close').focus();
   }
+  function openArea(level,name){
+    if(!MICRO||!MICRO.division){ return; }
+    var col=level==='dist'?MICRO.district:MICRO.division, G={1:'Beneficiary',2:'Non Beneficiary'}, lab=MICRO.enum_labels||{}, list=[], nb=0, nn=0;
+    MICRO.rows.forEach(function(r,i){ if(col[i]!==name||!globalOK(r,i)) return; list.push({id:String(r[0]),day:MICRO.days[r[1]],g:G[r[2]]||'Missing',e:lab[String(MICRO.enum[i])]||String(MICRO.enum[i]||''),dist:MICRO.district[i]}); if(r[2]===1) nb++; else if(r[2]===2) nn++; });
+    list.sort(function(a,b){ return a.id.length-b.id.length||(a.id<b.id?-1:a.id>b.id?1:0); });
+    if($('modal').hidden) lastFocus=document.activeElement;
+    backTo=null; $('m-back').hidden=true;
+    $('m-title').textContent=name+' · '+list.length+' interview'+(list.length===1?'':'s');
+    var chip=function(a,b){ return '<span><b>'+esc(a)+'</b>'+esc(b)+'</span>'; };
+    $('m-chips').innerHTML=chip('Beneficiary',nb)+chip('Non Beneficiary',nn)+(eSel?chip('Enumerator',lab[eSel]||eSel):'')+(gSel?chip('Showing',G[gSel]+' only'):'');
+    var body=$('m-body');
+    body.innerHTML=list.length?'<table class="alist"><thead><tr><th>Case ID</th><th>Date</th><th>Enumerator</th><th>Group</th>'+(level==='div'?'<th>District</th>':'')+'</tr></thead><tbody>'+list.map(function(x){
+        return '<tr><td><span class="idlink" data-id="'+esc(x.id)+'" data-area-level="'+level+'" data-area-name="'+esc(name)+'" tabindex="0" role="button">'+esc(x.id)+'</span></td><td>'+esc(fmtDay(x.day))+'</td><td>'+esc(x.e)+'</td><td><span class="pill" style="background:'+(x.g==='Beneficiary'?'rgba(108,207,207,.15)':'rgba(143,196,106,.15)')+';color:'+(x.g==='Beneficiary'?BEN:NON)+'">'+esc(x.g)+'</span></td>'+(level==='div'?'<td>'+esc(x.dist)+'</td>':'')+'</tr>'; }).join('')+'</tbody></table>'
+      :'<p class="empty">No interviews here for the current filters.</p>';
+    $('modal').hidden=false; document.body.style.overflow='hidden'; body.scrollTop=0; $('m-close').focus();
+  }
+  $('m-back').addEventListener('click',function(){ if(backTo) openArea(backTo.level,backTo.name); });
   $('m-close').addEventListener('click',closeRespondent);
   $('modal').addEventListener('click',function(e){ if(e.target===this) closeRespondent(); });
   document.addEventListener('keydown',function(e){ if(e.key==='Escape'&&!$('modal').hidden) closeRespondent(); });
-  document.addEventListener('click',function(e){ var el=e.target.closest&&e.target.closest('[data-id]'); if(el) openRespondent(el.getAttribute('data-id')); });
-  document.addEventListener('keydown',function(e){ if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute&&e.target.getAttribute('data-id')){ e.preventDefault(); openRespondent(e.target.getAttribute('data-id')); } });
+  function idFrom(el){ var lv=el.getAttribute('data-area-level'); return lv?{level:lv,name:el.getAttribute('data-area-name')}:null; }
+  document.addEventListener('click',function(e){ var el=e.target.closest&&e.target.closest('[data-id]'); if(el){ openRespondent(el.getAttribute('data-id'),idFrom(el)); return; } var a=e.target.closest&&e.target.closest('[data-area]'); if(a) openArea(a.getAttribute('data-level'),a.getAttribute('data-area')); });
+  document.addEventListener('keydown',function(e){ if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute&&e.target.getAttribute('data-id')){ e.preventDefault(); openRespondent(e.target.getAttribute('data-id'),idFrom(e.target)); } });
 
   var DATE_SETS=[['datefilter','dfrom','dto','dall'],['datefilter2','dfrom2','dto2','dall2']];
   function redrawFiltered(){ if(DATA){ var v=V(); drawStat(v); drawAnswer(v); } }
