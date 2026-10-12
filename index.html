@@ -225,6 +225,8 @@ footer{color:var(--faint);font-size:.8rem}
   </header>
 
   <div class="gbar" id="gbar" hidden>
+    <div class="sel" id="datefilter"><label for="dfrom">Interview date</label>
+      <div class="dates"><input type="date" id="dfrom" aria-label="From date"><span>to</span><input type="date" id="dto" aria-label="To date"><button type="button" class="out" id="dall">All dates</button></div></div>
     <div class="sel"><label for="esel">Enumerator</label><select id="esel" class="narrow"></select></div>
     <div class="sel"><label id="glab">Survey group</label>
       <div class="seg" role="group" aria-labelledby="glab"><button type="button" class="gbtn" data-g="0" aria-pressed="true">All</button><button type="button" class="gbtn" data-g="1" aria-pressed="false">Beneficiary</button><button type="button" class="gbtn" data-g="2" aria-pressed="false">Non Beneficiary</button></div></div>
@@ -284,8 +286,6 @@ footer{color:var(--faint);font-size:.8rem}
     <div class="stat-head">
       <div><h2>Descriptive statistics</h2></div>
       <div class="filters">
-        <div class="sel" id="datefilter" hidden><label for="dfrom">Interview date</label>
-          <div class="dates"><input type="date" id="dfrom" aria-label="From date"><span>to</span><input type="date" id="dto" aria-label="To date"><button type="button" class="out" id="dall">All dates</button></div></div>
         <div class="sel"><label for="svar">Question</label><select id="svar"></select></div>
       </div>
     </div>
@@ -317,8 +317,6 @@ footer{color:var(--faint);font-size:.8rem}
     <div class="stat-head">
       <h2>Response Breakdown</h2>
       <div class="filters">
-        <div class="sel" id="datefilter2" hidden><label for="dfrom2">Interview date</label>
-          <div class="dates"><input type="date" id="dfrom2" aria-label="From date"><span>to</span><input type="date" id="dto2" aria-label="To date"><button type="button" class="out" id="dall2">All dates</button></div></div>
         <div class="sel"><label for="qvar">Question</label><select id="qvar"></select></div>
       </div>
     </div>
@@ -751,7 +749,7 @@ window.startDashboard=function(){
   $('qvar').addEventListener('change',function(){ curQ=this.value; if(DATA) drawAnswer(V()); });
 
   /* ---------- date filter for the statistics (computed in the browser from data/micro.json) ---------- */
-  var MICRO=null, dFrom=null, dTo=null;
+  var MICRO=null, dFrom=null, dTo=null; window.__dToWasMax=true;
   function erf(x){ var s=x<0?-1:1; x=Math.abs(x); var t=1/(1+0.3275911*x); var y=1-(((((1.061405429*t-1.453152027)*t)+1.421413741)*t-0.284496736)*t+0.254829592)*t*Math.exp(-x*x); return s*y; }
   function qtl(xs,p){ var h=(xs.length-1)*p, lo=Math.floor(h), hi=Math.min(lo+1,xs.length-1); return xs[lo]+(xs[hi]-xs[lo])*(h-lo); }
   function r2(v){ return Math.round(v*100)/100; }
@@ -784,18 +782,19 @@ window.startDashboard=function(){
     return o;
   }
   var eSel='', gSel=0;
-  function globalOn(){ return !!(MICRO && MICRO.enum && (eSel || gSel)); }
+  function globalOn(){ return !!(MICRO && ((MICRO.enum && (eSel || gSel)) || datesOn())); }
   function datesOn(){ return MICRO && dFrom && dTo && !(dFrom===MICRO.days[0] && dTo===MICRO.days[MICRO.days.length-1]); }
   function filterOn(){ return !!(MICRO && (datesOn() || globalOn())); }
-  function globalOK(r,i){ if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; if(gSel && r[2]!==gSel) return false; return true; }
-  function rowOK(r,i){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; return globalOK(r,i); }
+  function globalOK(r,i){ if(datesOn()){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; } if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; if(gSel && r[2]!==gSel) return false; return true; }
+  function rowOK(r,i){ return globalOK(r,i); }
   /* the whole dashboard recalculated for the chosen enumerator and survey group */
   function V(){
     var base=DATA; if(!base||!globalOn()||!MICRO.division) return base;
     var G={1:'Beneficiary',2:'Non Beneficiary'}, today=base.updated.slice(0,10), d={};
     for(var k in base) d[k]=base[k];
     var tl={}, tg={}, div={}, dg={}, dist={}, dsg={}, area={}, ag={}, grp={}, n=0, nToday=0, n7=0, per={};
-    Object.keys(base.timeline).forEach(function(x){ tl[x]=0; });
+    var inR=function(x){ return !datesOn()||(x>=dFrom&&x<=dTo); };
+    Object.keys(base.timeline).forEach(function(x){ if(inR(x)) tl[x]=0; });
     var t0=new Date(today+'T00:00:00Z').getTime();
     function inc(o,k,by){ o[k]=(o[k]||0)+(by||1); } function inc2(o,a,b){ (o[a]=o[a]||{}); inc(o[a],b); }
     MICRO.rows.forEach(function(r,i){ if(!globalOK(r,i)) return; n++;
@@ -807,7 +806,7 @@ window.startDashboard=function(){
     var sortObj=function(o){ var out={}; Object.keys(o).sort(function(a,b){return o[b]-o[a];}).forEach(function(k){ out[k]=o[k]; }); return out; };
     d.totals={interviews:n,today:nToday,last7:n7,refused:'–',partial:'–',tablets:base.totals.tablets};
     d.timeline=tl; d.timeline_group=tg; d.division=sortObj(div); d.division_group=dg; d.district=sortObj(dist); d.district_group=dsg; d.area=area; d.area_group=ag; d.group=grp;
-    if(base.enum_daily){ d.enum_daily={days:base.enum_daily.days,rows:base.enum_daily.rows.map(function(r){ var p=per[String(r.code)]||{}; return {code:r.code,name:r.name,counts:base.enum_daily.days.map(function(x){ return p[x]||0; })}; })}; }
+    if(base.enum_daily){ var ed=base.enum_daily.days.filter(inR); d.enum_daily={days:ed,rows:base.enum_daily.rows.map(function(r){ var p=per[String(r.code)]||{}; return {code:r.code,name:r.name,counts:ed.map(function(x){ return p[x]||0; })}; })}; }
     return d;
   }
   function statFor(d,key){
@@ -833,22 +832,22 @@ window.startDashboard=function(){
     return {question:base.question,label:base.label,group:base.group,multi:base.multi,n:n,n_ben:nb,n_non:nn,options:opts};
   }
   function setupEnums(){
-    var ok=MICRO&&MICRO.enum&&MICRO.enum.length&&MICRO.division; $('gbar').hidden=!ok; if(!ok){ eSel=''; gSel=0; return; }
-    var lab=MICRO.enum_labels||{}, cnt={}; MICRO.rows.forEach(function(r,i){ if(gSel&&r[2]!==gSel) return; var c=String(MICRO.enum[i]); if(c) cnt[c]=(cnt[c]||0)+1; });
+    var ok=MICRO&&MICRO.enum&&MICRO.enum.length&&MICRO.division; $('gbar').hidden=!ok; if(!ok){ eSel=''; gSel=0; dFrom=dTo=null; return; }
+    var lab=MICRO.enum_labels||{}, cnt={}; MICRO.rows.forEach(function(r,i){ if(gSel&&r[2]!==gSel) return; if(datesOn()){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return; } var c=String(MICRO.enum[i]); if(c) cnt[c]=(cnt[c]||0)+1; });
     var all={}; MICRO.enum.forEach(function(c){ c=String(c); if(c) all[c]=1; });
     var codes=Object.keys(all).sort(function(a,b){ return (+a)-(+b); });
     if(eSel && !all[eSel]) eSel='';
     $('esel').innerHTML='<option value="">All enumerators</option>'+codes.map(function(c){ var name=(lab[c]||'').replace(/\s*-\s*\d+\s*$/,''); return '<option value="'+esc(c)+'">'+esc((c.length<2?'0'+c:c)+(name?' · '+name:''))+' ('+(cnt[c]||0)+')</option>'; }).join('');
     $('esel').value=eSel;
     [].forEach.call(document.querySelectorAll('.gbtn'),function(b){ b.setAttribute('aria-pressed',(+b.getAttribute('data-g'))===gSel); });
-    $('gclear').hidden=!(eSel||gSel);
-    var n=0; if(eSel||gSel){ MICRO.rows.forEach(function(r,i){ if(globalOK(r,i)) n++; }); }
-    $('gnote').textContent=(eSel||gSel)?('Showing '+n+' of '+MICRO.rows.length+' interviews'):'';
+    var on=globalOn(); $('gclear').hidden=!on;
+    var n=0; if(on){ MICRO.rows.forEach(function(r,i){ if(globalOK(r,i)) n++; }); }
+    $('gnote').textContent=on?('Showing '+n+' of '+MICRO.rows.length+' interviews'):'';
   }
   function globalChanged(){ setupEnums(); if(DATA) draw(V()); }
   $('esel').addEventListener('change',function(){ eSel=this.value; globalChanged(); });
   [].forEach.call(document.querySelectorAll('.gbtn'),function(b){ b.addEventListener('click',function(){ gSel=+b.getAttribute('data-g'); globalChanged(); }); });
-  $('gclear').addEventListener('click',function(){ eSel=''; gSel=0; globalChanged(); });
+  $('gclear').addEventListener('click',function(){ eSel=''; gSel=0; if(MICRO){ dFrom=MICRO.days[0]; dTo=MICRO.days[MICRO.days.length-1]; window.__dToWasMax=true; } setupDates(); globalChanged(); });
 
   /* ---------- respondent pop-up ---------- */
   var lastFocus=null;
@@ -903,28 +902,21 @@ window.startDashboard=function(){
   document.addEventListener('click',function(e){ var el=e.target.closest&&e.target.closest('[data-id]'); if(el){ openRespondent(el.getAttribute('data-id'),idFrom(el)); return; } var a=e.target.closest&&e.target.closest('[data-area]'); if(a) openArea(a.getAttribute('data-level'),a.getAttribute('data-area')); });
   document.addEventListener('keydown',function(e){ if((e.key==='Enter'||e.key===' ')&&e.target.getAttribute&&e.target.getAttribute('data-id')){ e.preventDefault(); openRespondent(e.target.getAttribute('data-id'),idFrom(e.target)); } });
 
-  var DATE_SETS=[['datefilter','dfrom','dto','dall'],['datefilter2','dfrom2','dto2','dall2']];
-  function redrawFiltered(){ if(DATA){ var v=V(); drawStat(v); drawAnswer(v); } }
   function setupDates(){
-    var ok=MICRO&&MICRO.days.length;
+    var ok=MICRO&&MICRO.days.length; $('datefilter').hidden=!ok;
     if(ok){ var a=MICRO.days[0], b=MICRO.days[MICRO.days.length-1];
-      if(!dFrom||dFrom<a||dFrom>b) dFrom=a; if(!dTo||dTo>b||dTo<a||window.__dToWasMax) dTo=b; }
-    DATE_SETS.forEach(function(s,i){
-      var show=ok&&(i===0||!!MICRO.cvars); $(s[0]).hidden=!show; if(!show) return;
-      var f=$(s[1]), t=$(s[2]); f.min=t.min=MICRO.days[0]; f.max=t.max=MICRO.days[MICRO.days.length-1];
-      f.value=dFrom; t.value=dTo; $(s[3]).setAttribute('aria-pressed',!datesOn()); });
+      if(!dFrom||dFrom<a||dFrom>b) dFrom=a; if(!dTo||dTo>b||dTo<a||window.__dToWasMax) dTo=b;
+      var f=$('dfrom'), t=$('dto'); f.min=t.min=a; f.max=t.max=b; f.value=dFrom; t.value=dTo; $('dall').setAttribute('aria-pressed',!datesOn()); }
     setupEnums();
   }
-  function datesChanged(s){
+  function datesChanged(){
     var a=MICRO.days[0], b=MICRO.days[MICRO.days.length-1];
-    dFrom=$(s[1]).value||a; dTo=$(s[2]).value||b;
+    dFrom=$('dfrom').value||a; dTo=$('dto').value||b;
     if(dFrom>dTo){ var x=dFrom; dFrom=dTo; dTo=x; }
-    window.__dToWasMax=(dTo===b); setupDates(); redrawFiltered();
+    window.__dToWasMax=(dTo===b); setupDates(); if(DATA) draw(V());
   }
-  DATE_SETS.forEach(function(s){
-    $(s[1]).addEventListener('change',function(){ datesChanged(s); }); $(s[2]).addEventListener('change',function(){ datesChanged(s); });
-    $(s[3]).addEventListener('click',function(){ if(!MICRO) return; dFrom=MICRO.days[0]; dTo=MICRO.days[MICRO.days.length-1]; window.__dToWasMax=true; setupDates(); redrawFiltered(); });
-  });
+  $('dfrom').addEventListener('change',datesChanged); $('dto').addEventListener('change',datesChanged);
+  $('dall').addEventListener('click',function(){ if(!MICRO) return; dFrom=MICRO.days[0]; dTo=MICRO.days[MICRO.days.length-1]; window.__dToWasMax=true; setupDates(); if(DATA) draw(V()); });
   function loadMicro(){
     return fetch('data/micro.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(m){ MICRO=(m&&m.rows&&m.days)?m:null; }).catch(function(){ MICRO=null; });
   }
