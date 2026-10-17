@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-17 00:41",
+ "updated": "2026-10-17 11:33",
  "totals": {
   "interviews": 973,
   "refused": 0,
@@ -4896,29 +4896,59 @@
   },
   "F5": {
    "n": 973,
-   "mean": 259510.98,
+   "mean": 254097.11,
    "median": 125000.0,
-   "sd": 446416.15,
+   "sd": 425488.51,
    "min": 0,
    "max": 5250000,
    "q1": 60000.0,
-   "q3": 300000.0,
-   "iqr": 240000.0,
+   "q3": 290000.0,
+   "iqr": 230000.0,
    "mode": [
     200000
    ],
    "mode_count": 45,
-   "skew": 6.42,
-   "kurtosis": 57.01,
-   "jb": 137046.05,
+   "skew": 6.57,
+   "kurtosis": 61.92,
+   "jb": 160775.61,
    "jb_p": 0.0,
    "shape": "right-skewed",
    "normal": "Not normal",
-   "fence_low": -300000.0,
-   "fence_high": 660000.0,
+   "fence_low": -285000.0,
+   "fence_high": 635000.0,
    "whisker_low": 0,
-   "whisker_high": 650000,
+   "whisker_high": 625000,
    "outliers": [
+    {
+     "id": "2610006",
+     "value": 650000,
+     "extreme": false
+    },
+    {
+     "id": "2612005",
+     "value": 650000,
+     "extreme": false
+    },
+    {
+     "id": "2617015",
+     "value": 650000,
+     "extreme": false
+    },
+    {
+     "id": "2612015",
+     "value": 650000,
+     "extreme": false
+    },
+    {
+     "id": "1508023",
+     "value": 650000,
+     "extreme": false
+    },
+    {
+     "id": "1910067",
+     "value": 650000,
+     "extreme": false
+    },
     {
      "id": "2617007",
      "value": 662500,
@@ -5162,32 +5192,32 @@
     {
      "id": "2609007",
      "value": 1000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2614015",
      "value": 1000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "7714022",
      "value": 1000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2615022",
      "value": 1000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "2615025",
      "value": 1000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "290605",
      "value": 1000000,
-     "extreme": false
+     "extreme": true
     },
     {
      "id": "9110031",
@@ -5290,11 +5320,6 @@
      "extreme": true
     },
     {
-     "id": "1508025",
-     "value": 1600000,
-     "extreme": true
-    },
-    {
      "id": "2616019",
      "value": 2000000,
      "extreme": true
@@ -5322,11 +5347,6 @@
     {
      "id": "2609008",
      "value": 4000000,
-     "extreme": true
-    },
-    {
-     "id": "2617060",
-     "value": 4253000,
      "extreme": true
     },
     {
@@ -5361,24 +5381,24 @@
      5250000.0
     ],
     "counts": [
-     829,
+     831,
      107,
      20,
-     7,
+     6,
      3,
      1,
      0,
      1,
-     2,
+     1,
      0,
      3
     ],
     "normal": [
-     395.66,
-     246.27,
-     53.93,
-     4.1,
-     0.11,
+     413.38,
+     243.35,
+     45.77,
+     2.7,
+     0.05,
      0.0,
      0.0,
      0.0,
@@ -5399,7 +5419,7 @@
     },
     "Beneficiary": {
      "n": 601,
-     "mean": 306075.46,
+     "mean": 297310.57,
      "median": 160000.0
     }
    }
@@ -19365,8 +19385,18 @@
  },
  "tablet_syncs": [
   {
+   "tablet": "0b1439",
+   "last_sync": "2026-10-17 11:19",
+   "enumerators": [
+    {
+     "name": "Kazi Mushfika Hossain - 17",
+     "interviews": 60
+    }
+   ]
+  },
+  {
    "tablet": "32315d",
-   "last_sync": "2026-10-17 00:27",
+   "last_sync": "2026-10-17 11:18",
    "enumerators": [
     {
      "name": "Md. Al Amin - 08",
@@ -19381,16 +19411,6 @@
     {
      "name": "Md. Munsur Ali - 09",
      "interviews": 62
-    }
-   ]
-  },
-  {
-   "tablet": "0b1439",
-   "last_sync": "2026-10-15 23:54",
-   "enumerators": [
-    {
-     "name": "Kazi Mushfika Hossain - 17",
-     "interviews": 60
     }
    ]
   },
