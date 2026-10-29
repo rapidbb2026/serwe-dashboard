@@ -180,6 +180,17 @@ td.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
 .m-body{overflow:auto;padding:6px 18px 18px}
 .m-body h3{margin:16px 0 4px;font:600 .8rem var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--ben)}
 .mh-left{display:flex;align-items:center;gap:10px;min-width:0}
+.hid-card{width:min(760px,100%)}
+.hid-body{padding:16px 18px;overflow:auto}
+.hid-row{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-start}
+.hid-row textarea{flex:1 1 280px;min-height:42px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:8px 10px;font:inherit;resize:vertical}
+.hid-row input[type=password]{flex:1 1 200px;background:var(--bg2);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit}
+.hid-btn{background:var(--accent);color:#06121f;border:0;border-radius:8px;padding:9px 14px;font-weight:600;cursor:pointer}
+.hid-msg{min-height:1.2em;margin:8px 0 0;font-size:.85rem;color:var(--muted)}
+.hid-msg.bad{color:#F28B82}
+.hid-foot{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;padding:12px 18px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.hid-foot .acts{display:flex;flex-wrap:wrap;gap:8px}
+.m-admin{margin-left:auto}
 .alist{width:100%;border-collapse:collapse;font-size:.9rem;margin-top:8px}
 .alist th{position:sticky;top:0;background:var(--card);text-align:left;font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px 8px 0;border-bottom:1px solid var(--line)}
 .alist td{padding:7px 10px 7px 0;border-bottom:1px solid var(--line)}
@@ -353,6 +364,29 @@ footer{color:var(--faint);font-size:.8rem}
 
   <footer>Map: geoBoundaries (CC BY 4.0)</footer>
 </div>
+</div>
+
+<div class="modal" id="hpass" hidden>
+  <div class="modal-card hid-card" role="dialog" aria-modal="true" aria-labelledby="hp-title" style="width:min(420px,100%)">
+    <div class="modal-head"><h2 id="hp-title">Admin</h2><button type="button" class="out" id="hp-close">Close</button></div>
+    <form class="hid-body" id="hp-form" autocomplete="off">
+      <div class="hid-row"><input type="password" id="hp-pass" aria-label="Password" placeholder="Password"><button type="submit" class="hid-btn">Unlock</button></div>
+      <p class="hid-msg bad" id="hp-msg"></p>
+    </form>
+  </div>
+</div>
+
+<div class="modal" id="hmodal" hidden>
+  <div class="modal-card hid-card" role="dialog" aria-modal="true" aria-labelledby="h-title">
+    <div class="modal-head"><h2 id="h-title">Hidden respondents</h2><button type="button" class="out" id="h-close">Close</button></div>
+    <div class="hid-body">
+      <div class="hid-row"><textarea id="h-ids" aria-label="Case IDs to hide" placeholder="Case ID(s) to hide, e.g. 2614001, 2614002"></textarea><button type="button" class="hid-btn" id="h-add">Hide</button></div>
+      <p class="hid-msg" id="h-msg"></p>
+      <div id="h-list"></div>
+    </div>
+    <div class="hid-foot"><span id="h-src"></span>
+      <div class="acts"><button type="button" class="out" id="h-discard" hidden>Discard browser changes</button><button type="button" class="out" id="h-all">Unhide all</button><button type="button" class="out" id="h-dl">Download hidden.json</button><button type="button" class="out" id="h-lock">Lock</button></div></div>
+  </div>
 </div>
 
 <div class="modal" id="modal" hidden>
@@ -782,10 +816,16 @@ window.startDashboard=function(){
     return o;
   }
   var eSel='', gSel=0;
-  function globalOn(){ return !!(MICRO && ((MICRO.enum && (eSel || gSel)) || datesOn())); }
+  var HID={}, PUB_HID=[], HID_N=0;
+  function hidKey(id){ return String(id==null?'':id).trim().replace(/^0+/,''); }
+  function isHid(r){ return HID_N>0 && HID[hidKey(r[0])]===1; }
+  function hidOn(){ return !!(MICRO && HID_N>0); }
+  function userOn(){ return !!(MICRO && ((MICRO.enum && (eSel || gSel)) || datesOn())); }
+  function globalOn(){ return userOn() || hidOn(); }
   function datesOn(){ return MICRO && dFrom && dTo && !(dFrom===MICRO.days[0] && dTo===MICRO.days[MICRO.days.length-1]); }
   function filterOn(){ return !!(MICRO && (datesOn() || globalOn())); }
-  function globalOK(r,i){ if(datesOn()){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; } if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; if(gSel && r[2]!==gSel) return false; return true; }
+  function globalOK(r,i){ if(isHid(r)) return false; return userOK(r,i); }
+  function userOK(r,i){ if(datesOn()){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return false; } if(eSel && MICRO.enum && String(MICRO.enum[i])!==eSel) return false; if(gSel && r[2]!==gSel) return false; return true; }
   function rowOK(r,i){ return globalOK(r,i); }
   /* the whole dashboard recalculated for the chosen enumerator and survey group */
   function V(){
@@ -797,14 +837,23 @@ window.startDashboard=function(){
     Object.keys(base.timeline).forEach(function(x){ if(inR(x)) tl[x]=0; });
     var t0=new Date(today+'T00:00:00Z').getTime();
     function inc(o,k,by){ o[k]=(o[k]||0)+(by||1); } function inc2(o,a,b){ (o[a]=o[a]||{}); inc(o[a],b); }
-    MICRO.rows.forEach(function(r,i){ if(!globalOK(r,i)) return; n++;
+    var nAll=0;
+    MICRO.rows.forEach(function(r,i){ if(!userOK(r,i)) return; nAll++; if(isHid(r)) return; n++;
       var day=MICRO.days[r[1]], g=G[r[2]]||'Missing';
       inc(tl,day); inc2(tg,day,g); inc(grp,g);
       inc(div,MICRO.division[i]); inc2(dg,MICRO.division[i],g); inc(dist,MICRO.district[i]); inc2(dsg,MICRO.district[i],g); inc(area,MICRO.area[i]); inc2(ag,MICRO.area[i],g);
       if(day===today) nToday++; if((t0-new Date(day+'T00:00:00Z').getTime())/864e5<7) n7++;
       inc2(per,String(MICRO.enum[i]),day); });
     var sortObj=function(o){ var out={}; Object.keys(o).sort(function(a,b){return o[b]-o[a];}).forEach(function(k){ out[k]=o[k]; }); return out; };
-    d.totals={interviews:n,today:nToday,last7:n7,refused:'–',partial:'–',tablets:base.totals.tablets};
+    var uo=userOn();
+    d.totals={interviews:uo?nAll:base.totals.interviews,today:nToday,last7:n7,refused:uo?'–':base.totals.refused,partial:uo?'–':base.totals.partial,tablets:base.totals.tablets};
+    if(hidOn()){
+      d.issues=(base.issues||[]).filter(function(x){ return HID[hidKey(x.respondent_id)]!==1; });
+      var hByEnum={}; MICRO.rows.forEach(function(r,i){ if(isHid(r)){ var nm=(MICRO.enum_labels||{})[String(MICRO.enum[i])]; if(nm) hByEnum[nm]=(hByEnum[nm]||0)+1; } });
+      var seen={}; (base.tablet_syncs||[]).forEach(function(s){ (s.enumerators||[]).forEach(function(u){ seen[u.name]=(seen[u.name]||0)+1; }); });
+      d.tablet_syncs=(base.tablet_syncs||[]).map(function(s){ var c={}; for(var k in s) c[k]=s[k];
+        c.enumerators=(s.enumerators||[]).map(function(u){ return {name:u.name,interviews:(seen[u.name]===1&&hByEnum[u.name])?Math.max(0,u.interviews-hByEnum[u.name]):u.interviews}; }); return c; });
+    }
     d.timeline=tl; d.timeline_group=tg; d.division=sortObj(div); d.division_group=dg; d.district=sortObj(dist); d.district_group=dsg; d.area=area; d.area_group=ag; d.group=grp;
     if(base.enum_daily){ var ed=base.enum_daily.days.filter(inR); d.enum_daily={days:ed,rows:base.enum_daily.rows.map(function(r){ var p=per[String(r.code)]||{}; return {code:r.code,name:r.name,counts:ed.map(function(x){ return p[x]||0; })}; })}; }
     return d;
@@ -833,15 +882,15 @@ window.startDashboard=function(){
   }
   function setupEnums(){
     var ok=MICRO&&MICRO.enum&&MICRO.enum.length&&MICRO.division; $('gbar').hidden=!ok; if(!ok){ eSel=''; gSel=0; dFrom=dTo=null; return; }
-    var lab=MICRO.enum_labels||{}, cnt={}; MICRO.rows.forEach(function(r,i){ if(gSel&&r[2]!==gSel) return; if(datesOn()){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return; } var c=String(MICRO.enum[i]); if(c) cnt[c]=(cnt[c]||0)+1; });
+    var lab=MICRO.enum_labels||{}, cnt={}; MICRO.rows.forEach(function(r,i){ if(isHid(r)) return; if(gSel&&r[2]!==gSel) return; if(datesOn()){ var day=MICRO.days[r[1]]; if(day<dFrom||day>dTo) return; } var c=String(MICRO.enum[i]); if(c) cnt[c]=(cnt[c]||0)+1; });
     var all={}; MICRO.enum.forEach(function(c){ c=String(c); if(c) all[c]=1; });
     var codes=Object.keys(all).sort(function(a,b){ return (+a)-(+b); });
     if(eSel && !all[eSel]) eSel='';
     $('esel').innerHTML='<option value="">All enumerators</option>'+codes.map(function(c){ var name=(lab[c]||'').replace(/\s*-\s*\d+\s*$/,''); return '<option value="'+esc(c)+'">'+esc((c.length<2?'0'+c:c)+(name?' · '+name:''))+' ('+(cnt[c]||0)+')</option>'; }).join('');
     $('esel').value=eSel;
     [].forEach.call(document.querySelectorAll('.gbtn'),function(b){ b.setAttribute('aria-pressed',(+b.getAttribute('data-g'))===gSel); });
-    var on=globalOn(); $('gclear').hidden=!on;
-    var n=0; if(on){ MICRO.rows.forEach(function(r,i){ if(globalOK(r,i)) n++; }); }
+    var on=userOn(); $('gclear').hidden=!on;
+    var n=0; if(on){ MICRO.rows.forEach(function(r,i){ if(userOK(r,i)) n++; }); }
     $('gnote').textContent=on?('Showing '+n+' of '+MICRO.rows.length+' interviews'):'';
   }
   function globalChanged(){ setupEnums(); if(DATA) draw(V()); }
@@ -857,6 +906,7 @@ window.startDashboard=function(){
     id=String(id); if($('modal').hidden) lastFocus=document.activeElement; backTo=fromList||null; $('m-back').hidden=!backTo; $('m-back').textContent=backTo?('← Back to '+backTo.name):'← Back';
     $('m-title').textContent='Respondent '+id; var chips=$('m-chips'), body=$('m-body'); chips.innerHTML=''; body.innerHTML='';
     var i=-1; if(MICRO){ for(var k=0;k<MICRO.rows.length;k++){ if(String(MICRO.rows[k][0])===id){ i=k; break; } } }
+    if(i>=0 && isHid(MICRO.rows[i]) && !adminOn()) i=-1;
     if(i<0){ body.innerHTML='<p class="empty">The answers for this respondent are not in the loaded data. The interview may be refused, partly saved or deleted.</p>'; }
     else {
       var r=MICRO.rows[i], G={1:'Beneficiary',2:'Non Beneficiary'}, lab=MICRO.enum_labels||{}, ec=MICRO.enum?String(MICRO.enum[i]):'';
@@ -876,6 +926,9 @@ window.startDashboard=function(){
         html+='<div class="m-row"><div class="q"><b>'+esc(q[0])+'</b>'+esc(q[2])+'</div><div class="a">'+ans+'</div></div>'; shown++; });
       body.innerHTML=html||'<p class="empty">No answers to show.</p>';
     }
+    if(i>=0 && adminOn()){ var hb=document.createElement('button'); hb.type='button'; hb.className='out m-admin'; var hidNow=isHid(MICRO.rows[i]);
+      hb.textContent=hidNow?'Unhide this respondent':'Hide this respondent'; if(hidNow) chips.insertAdjacentHTML('afterbegin','<span class="pill bad">Hidden</span>');
+      hb.addEventListener('click',function(){ setHidden([id],!hidNow); openRespondent(id,backTo); }); chips.appendChild(hb); }
     $('modal').hidden=false; document.body.style.overflow='hidden'; body.scrollTop=0; $('m-close').focus();
   }
   function openArea(level,name){
@@ -917,6 +970,77 @@ window.startDashboard=function(){
   }
   $('dfrom').addEventListener('change',datesChanged); $('dto').addEventListener('change',datesChanged);
   $('dall').addEventListener('click',function(){ if(!MICRO) return; dFrom=MICRO.days[0]; dTo=MICRO.days[MICRO.days.length-1]; window.__dToWasMax=true; setupDates(); if(DATA) draw(V()); });
+  /* ---------- hidden admin panel (Ctrl+Shift+1) ---------- */
+  var ADM_HASH='8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', ADM_KEY='serwe-admin', LOC_KEY='serwe-hidden-local';
+  function adminOn(){ try{ return sessionStorage.getItem(ADM_KEY)===ADM_HASH; }catch(e){ return false; } }
+  function localList(){ try{ var s=localStorage.getItem(LOC_KEY); if(s===null) return null; var a=JSON.parse(s); return Array.isArray(a)?a:null; }catch(e){ return null; } }
+  function currentList(){ var l=localList(); return l!==null?l:PUB_HID; }
+  function applyHidden(){
+    var before=Object.keys(HID).sort().join(','); HID={};
+    currentList().forEach(function(x){ var k=hidKey(x); if(k) HID[k]=1; });
+    HID_N=0; if(MICRO){ MICRO.rows.forEach(function(r){ if(HID[hidKey(r[0])]===1) HID_N++; }); }
+    return Object.keys(HID).sort().join(',')!==before;
+  }
+  function setHidden(ids,hide){
+    var cur={}; currentList().forEach(function(x){ var k=hidKey(x); if(k) cur[k]=1; });
+    ids.forEach(function(x){ var k=hidKey(x); if(!k) return; if(hide) cur[k]=1; else delete cur[k]; });
+    var arr=Object.keys(cur).sort(function(a,b){ return a.length-b.length||(a<b?-1:a>b?1:0); });
+    try{ localStorage.setItem(LOC_KEY,JSON.stringify(arr)); }catch(e){}
+    applyHidden(); globalChanged(); if(!$('hmodal').hidden) renderHidPanel();
+  }
+  function loadHidden(){
+    return fetch('data/hidden.json?t='+Date.now()).then(function(r){ return r.ok?r.json():null; }).then(function(j){
+      var a=Array.isArray(j)?j:(j&&Array.isArray(j.hidden)?j.hidden:[]); PUB_HID=a.map(hidKey).filter(Boolean);
+    }).catch(function(){ PUB_HID=[]; });
+  }
+  function rowById(k){ if(!MICRO) return -1; for(var i=0;i<MICRO.rows.length;i++){ if(hidKey(MICRO.rows[i][0])===k) return i; } return -1; }
+  function renderHidPanel(){
+    var list=currentList().map(hidKey).filter(Boolean), G={1:'Beneficiary',2:'Non Beneficiary'}, lab=(MICRO&&MICRO.enum_labels)||{};
+    $('h-list').innerHTML=list.length?'<table class="alist"><thead><tr><th>Case ID</th><th>Date</th><th>Enumerator</th><th>District</th><th>Group</th><th></th></tr></thead><tbody>'+list.map(function(k){
+        var i=rowById(k), r=i>=0?MICRO.rows[i]:null;
+        return '<tr><td>'+(r?'<span class="idlink" data-id="'+esc(String(r[0]))+'" tabindex="0" role="button">'+esc(k)+'</span>':esc(k))+'</td>'+
+          (r?'<td>'+esc(fmtDay(MICRO.days[r[1]]))+'</td><td>'+esc(lab[String(MICRO.enum[i])]||String(MICRO.enum[i]||''))+'</td><td>'+esc((MICRO.district||[])[i]||'')+'</td><td>'+esc(G[r[2]]||'Missing')+'</td>'
+             :'<td colspan="4" style="color:var(--muted)">Not in the current data</td>')+
+          '<td><button type="button" class="out" data-unhide="'+esc(k)+'">Unhide</button></td></tr>'; }).join('')+'</tbody></table>'
+      :'<p class="empty">No respondents are hidden.</p>';
+    var loc=localList(), pub=PUB_HID.slice().sort().join(','), differs=loc!==null&&loc.map(hidKey).sort().join(',')!==pub;
+    $('h-src').textContent=list.length+' hidden'+(differs?' · changes saved on this browser only, download hidden.json to apply for everyone':' · same as the published list');
+    $('h-discard').hidden=!differs;
+  }
+  function openHidPanel(){ $('hpass').hidden=true; $('hmodal').hidden=false; document.body.style.overflow='hidden'; $('h-msg').textContent=''; $('h-msg').className='hid-msg'; renderHidPanel(); $('h-ids').focus(); }
+  function closeHid(){ $('hmodal').hidden=true; $('hpass').hidden=true; if($('modal').hidden) document.body.style.overflow=''; }
+  document.addEventListener('keydown',function(e){
+    if(e.ctrlKey&&e.shiftKey&&!e.altKey&&(e.code==='Digit1'||e.code==='Numpad1'||e.key==='1'||e.key==='!')){
+      e.preventDefault(); if(!$('app')||$('app').hidden) return;
+      if(adminOn()) openHidPanel(); else { $('hpass').hidden=false; document.body.style.overflow='hidden'; $('hp-pass').value=''; $('hp-msg').textContent=''; $('hp-pass').focus(); }
+      return; }
+    if(e.key==='Escape'&&(!$('hmodal').hidden||!$('hpass').hidden)&&$('modal').hidden) closeHid();
+  });
+  $('hp-form').addEventListener('submit',function(e){ e.preventDefault();
+    crypto.subtle.digest('SHA-256',new TextEncoder().encode($('hp-pass').value)).then(function(buf){
+      var h=Array.prototype.map.call(new Uint8Array(buf),function(b){return ('0'+b.toString(16)).slice(-2);}).join('');
+      if(h===ADM_HASH){ try{ sessionStorage.setItem(ADM_KEY,ADM_HASH); }catch(err){} openHidPanel(); }
+      else { $('hp-msg').textContent='Wrong password.'; $('hp-pass').select(); } }); });
+  $('hp-close').addEventListener('click',closeHid); $('h-close').addEventListener('click',closeHid);
+  $('hpass').addEventListener('click',function(e){ if(e.target===this) closeHid(); }); $('hmodal').addEventListener('click',function(e){ if(e.target===this) closeHid(); });
+  $('h-add').addEventListener('click',function(){
+    var ids=$('h-ids').value.split(/[\s,;]+/).map(hidKey).filter(Boolean); if(!ids.length) return;
+    var found=ids.filter(function(k){ return rowById(k)>=0; }), miss=ids.filter(function(k){ return rowById(k)<0; });
+    if(found.length) setHidden(found,true);
+    $('h-msg').className='hid-msg'+(miss.length?' bad':''); $('h-msg').textContent=(found.length?'Hidden: '+found.join(', ')+'. ':'')+(miss.length?'Not found: '+miss.join(', '):'');
+    if(!miss.length) $('h-ids').value='';
+  });
+  $('h-ids').addEventListener('keydown',function(e){ if(e.key==='Enter'&&!e.shiftKey){ e.preventDefault(); $('h-add').click(); } });
+  $('h-list').addEventListener('click',function(e){ var b=e.target.closest&&e.target.closest('[data-unhide]'); if(b) setHidden([b.getAttribute('data-unhide')],false); });
+  $('h-all').addEventListener('click',function(){ if(currentList().length) setHidden(currentList(),false); });
+  $('h-discard').addEventListener('click',function(){ try{ localStorage.removeItem(LOC_KEY); }catch(e){} applyHidden(); globalChanged(); renderHidPanel(); });
+  $('h-lock').addEventListener('click',function(){ try{ sessionStorage.removeItem(ADM_KEY); }catch(e){} closeHid(); });
+  $('h-dl').addEventListener('click',function(){
+    var blob=new Blob([JSON.stringify({hidden:currentList().map(hidKey).filter(Boolean),saved:new Date().toISOString()},null,1)],{type:'application/json'});
+    var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='hidden.json'; document.body.appendChild(a); a.click(); setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); },500);
+    $('h-msg').className='hid-msg'; $('h-msg').textContent='Upload this hidden.json to the data folder on GitHub. It applies for everyone after the next update.'; });
+  $('logout').addEventListener('click',function(){ try{ sessionStorage.removeItem(ADM_KEY); }catch(e){} });
+
   function loadMicro(){
     return fetch('data/micro.json?t='+Date.now()).then(function(r){return r.ok?r.json():null;}).then(function(m){ MICRO=(m&&m.rows&&m.days)?m:null; }).catch(function(){ MICRO=null; });
   }
@@ -944,7 +1068,9 @@ window.startDashboard=function(){
   function load(){
     loadStatus();
     fetch('data/summary.json?t='+Date.now()).then(function(r){if(!r.ok)throw new Error(r.status);return r.json();})
-      .then(function(d){ $('error').hidden=true; if(d.updated!==lastUpdated){ lastUpdated=d.updated; DATA=d; loadMicro().then(function(){ setupDates(); draw(V()); }); } })
+      .then(function(d){ $('error').hidden=true;
+        if(d.updated!==lastUpdated){ lastUpdated=d.updated; DATA=d; Promise.all([loadMicro(),loadHidden()]).then(function(){ applyHidden(); setupDates(); draw(V()); }); }
+        else loadHidden().then(function(){ if(applyHidden()) globalChanged(); }); })
       .catch(function(){ $('error').textContent='Could not load the data file. If this is a new site, run the GitHub Action once (Actions → Update dashboard data → Run workflow).'; $('error').hidden=false; });
   }
   var rt; window.addEventListener('resize',function(){ clearTimeout(rt); rt=setTimeout(function(){ charts.forEach(function(c){c.resize();}); statCharts.forEach(function(c){c.resize();}); if(trendChart) trendChart.resize(); if(ansChart) ansChart.resize(); },150); });
