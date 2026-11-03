@@ -201,9 +201,9 @@ def describe(pairs):
         out.update({"shape": shape, "normal": verdict})
     else:
         out.update({"shape": "all the same value" if n > 1 else "one answer", "normal": "Too few answers to judge"})
-    # outliers: Tukey fences (1.5 x IQR), extreme at 3 x IQR
-    lf, uf = q1 - 1.5 * iqr, q3 + 1.5 * iqr
-    elf, euf = q1 - 3 * iqr, q3 + 3 * iqr
+    # outliers: fences at 3 x IQR, extreme at 4 x IQR
+    lf, uf = q1 - 3 * iqr, q3 + 3 * iqr
+    elf, euf = q1 - 4 * iqr, q3 + 4 * iqr
     outl = sorted(((rid, v) for rid, v in pairs if v < lf or v > uf), key=lambda t: t[1])
     inside = [x for x in xs if lf <= x <= uf] or xs
     out.update({"fence_low": _r(lf), "fence_high": _r(uf),
