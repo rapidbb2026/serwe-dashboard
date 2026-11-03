@@ -201,9 +201,9 @@ def describe(pairs):
         out.update({"shape": shape, "normal": verdict})
     else:
         out.update({"shape": "all the same value" if n > 1 else "one answer", "normal": "Too few answers to judge"})
-    # outliers: Tukey fences (1.5 x IQR), extreme at 3 x IQR
-    lf, uf = q1 - 1.5 * iqr, q3 + 1.5 * iqr
-    elf, euf = q1 - 3 * iqr, q3 + 3 * iqr
+    # outliers: fences at 3 x IQR, extreme at 4 x IQR
+    lf, uf = q1 - 3 * iqr, q3 + 3 * iqr
+    elf, euf = q1 - 4 * iqr, q3 + 4 * iqr
     outl = sorted(((rid, v) for rid, v in pairs if v < lf or v > uf), key=lambda t: t[1])
     inside = [x for x in xs if lf <= x <= uf] or xs
     out.update({"fence_low": _r(lf), "fence_high": _r(uf),
@@ -268,6 +268,27 @@ def cat_rows(dcf, cases, day_of):
             row.append(txt)
         rows.append(row)
     return [i[1] for i in items], rows
+
+def question_meta(dcf):
+    """Questionnaire order for the respondent pop-up: [question, module, text, kind, key].
+    Only option questions (kind c) and number questions (kind n). Names and typed text are left out."""
+    num = {item: key for key, label, unit, group, rec, item, tf in STAT_VARS}
+    out = []
+    for rec in dcf["levels"][0]["records"]:
+        if rec["name"] in CAT_SKIP_RECORDS:
+            continue
+        module = "Consent" if rec["name"] == "CONSENT" else _en(rec.get("labels", [])).replace("Module ", "").replace(":", " ·", 1)
+        for it in rec["items"]:
+            name = it["name"]
+            vals = (it.get("valueSets") or [{}])[0].get("values", [])
+            q = _en(it.get("labels", []))
+            if q.upper().startswith(name.upper() + "."):
+                q = q[len(name) + 1:].strip()
+            if vals and name not in CAT_SKIP_ITEMS and not name.endswith("_OTHER"):
+                out.append([name, module, q, "c", name])
+            elif name in num:
+                out.append([name, module, q, "n", num[name]])
+    return out
 
 def micro_block(cases, grp_of, day_of, year):
     """One row per interview with only the numeric answers, so the dashboard can filter the
@@ -427,8 +448,10 @@ def summarize(cases, labels, syncs):
     count = lambda field, rec, cs: Counter(L(field, get(c, rec, field)) for c in cs)
     by_div = count("DIVISION", "FIELD_INFO", interviewed)
     div_group = defaultdict(Counter)
+    dist_group = defaultdict(Counter)
     for c in interviewed:
         div_group[L("DIVISION", get(c, "FIELD_INFO", "DIVISION"))][L("D0", get(c, "MODULE_D", "D0"))] += 1
+        dist_group[L("DISTRICT", get(c, "FIELD_INFO", "DISTRICT"))][L("D0", get(c, "MODULE_D", "D0"))] += 1
 
     enum = {}
     for c in interviewed:
@@ -463,6 +486,28 @@ def summarize(cases, labels, syncs):
         elif dd > today:
             flag("Interview date is in the future", c)
 
+    # ---- interviews per enumerator per date ----
+    ecode = lambda c: str(get(c, "FIELD_INFO", "ENUMERATOR_NAME")).strip() if get(c, "FIELD_INFO", "ENUMERATOR_NAME") is not None else ""
+    all_days = list(timeline.keys())
+    per = defaultdict(Counter)
+    for c in interviewed:
+        dd = day(c)
+        if dd:
+            per[ecode(c)][dd.isoformat()] += 1
+    codes = list(labels["ENUMERATOR_NAME"].keys()) + sorted(k for k in per if k not in labels["ENUMERATOR_NAME"])
+    num = lambda k: (0, int(k)) if k.isdigit() else (1, 0)
+    enum_daily = {"days": all_days, "rows": [
+        {"code": k, "name": labels["ENUMERATOR_NAME"].get(k, f"Unknown code {k}" if k else "Missing"),
+         "counts": [per[k].get(d, 0) for d in all_days]} for k in sorted(set(codes), key=num)]}
+
+    # ---- which enumerator uses which tablet (from the tablet that last saved each interview) ----
+    dev_enum = defaultdict(Counter)
+    for c in interviewed:
+        ck = c.get("clock") or []
+        if ck:
+            dev = max(ck, key=lambda x: x.get("revision", 0)).get("deviceId")
+            dev_enum[dev][L("ENUMERATOR_NAME", get(c, "FIELD_INFO", "ENUMERATOR_NAME"))] += 1
+
     return {
         "updated": dt.datetime.now(BD).strftime("%Y-%m-%d %H:%M"),
         "totals": {
@@ -478,6 +523,7 @@ def summarize(cases, labels, syncs):
         "division": dict(by_div.most_common()),
         "division_group": {k: dict(v) for k, v in div_group.items()},
         "district": dict(count("DISTRICT", "FIELD_INFO", interviewed).most_common()),
+        "district_group": {k: dict(v) for k, v in dist_group.items()},
         "area": dict(count("AREA_TYPE", "FIELD_INFO", interviewed)),
         "area_group": {k: dict(v) for k, v in area_group.items()},
         "group": dict(count("D0", "MODULE_D", interviewed)),
@@ -489,16 +535,26 @@ def summarize(cases, labels, syncs):
                        enum=[str(get(c, "FIELD_INFO", "ENUMERATOR_NAME")).strip() if get(c, "FIELD_INFO", "ENUMERATOR_NAME") is not None else ""
                              for c in interviewed if day(c)],
                        enum_labels=labels["ENUMERATOR_NAME"],
+                       division=[L("DIVISION", get(c, "FIELD_INFO", "DIVISION")) for c in interviewed if day(c)],
+                       district=[L("DISTRICT", get(c, "FIELD_INFO", "DISTRICT")) for c in interviewed if day(c)],
+                       area=[L("AREA_TYPE", get(c, "FIELD_INFO", "AREA_TYPE")) for c in interviewed if day(c)],
+                       qmeta=question_meta(labels["_dcf"]),
                        **dict(zip(("cvars", "crows"), cat_rows(labels["_dcf"], interviewed, day)))),
-        "tablet_syncs": sorted(syncs_latest(syncs), key=lambda s: s["last_sync"], reverse=True),
+        "tablet_syncs": sorted(syncs_latest(syncs, dev_enum), key=lambda s: s["last_sync"], reverse=True),
+        "enum_daily": enum_daily,
     }
 
-def syncs_latest(syncs):
+def syncs_latest(syncs, dev_enum=None):
     last = {}
     for s in syncs:
         if s["device"] not in last or s["when"] > last[s["device"]]:
             last[s["device"]] = s["when"]
-    return [{"tablet": d[-6:], "last_sync": w} for d, w in last.items()]
+    out = []
+    for d, w in last.items():
+        who = (dev_enum or {}).get(d)
+        users = [{"name": n, "interviews": k} for n, k in who.most_common()] if who else []
+        out.append({"tablet": d[-6:], "last_sync": w, "enumerators": users})
+    return out
 
 # ---------------- main ----------------
 def main():

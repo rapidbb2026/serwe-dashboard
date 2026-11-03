@@ -801,7 +801,7 @@ window.startDashboard=function(){
       o.skew=r2(skew); o.kurtosis=r2((n-1)/((n-2)*(n-3))*((n+1)*g2+6)); o.jb=r2(jb); o.jb_p=Math.round(p*1e4)/1e4;
       o.shape=Math.abs(skew)<0.5?'symmetric':(skew>0?'right-skewed':'left-skewed'); o.normal=n<8?'Too few answers to judge':(p>=0.05?'Close to normal':'Not normal');
     } else { o.shape=n>1?'all the same value':'one answer'; o.normal='Too few answers to judge'; }
-    var lf=q1-1.5*iqr, uf=q3+1.5*iqr, elf=q1-3*iqr, euf=q3+3*iqr;
+    var lf=q1-3*iqr, uf=q3+3*iqr, elf=q1-4*iqr, euf=q3+4*iqr;
     var inside=xs.filter(function(x){return x>=lf&&x<=uf;}); if(!inside.length) inside=xs;
     o.fence_low=r2(lf); o.fence_high=r2(uf); o.whisker_low=inside[0]; o.whisker_high=inside[inside.length-1];
     o.outliers=pairs.filter(function(p){return p[1]<lf||p[1]>uf;}).sort(function(a,b){return a[1]-b[1];}).map(function(p){return {id:p[0],value:p[1],extreme:p[1]<elf||p[1]>euf};});
